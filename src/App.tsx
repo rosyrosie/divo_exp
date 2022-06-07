@@ -1,11 +1,8 @@
-import React from 'react';
+import { routes } from "@routes/routerconfig";
+import { useRoutes } from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      dd
-    </div>
-  );
+const App = () => {
+  return useRoutes(routes);
 }
 
 export default App;

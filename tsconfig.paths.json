@@ -2,7 +2,11 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@scss/*": [ "src/scss/*" ]
+      "@scss/*": [ "src/scss/*" ],
+      "@api": [ "src/services/api" ],
+      "@useAxios": [ "src/services/useAxios" ],
+      "@pages/*": [ "src/pages/*" ],
+      "@routes/*": [ "src/routes/*" ]
     }
   }
 }

@@ -1,0 +1,11 @@
+.login_box{
+  margin: auto;
+  width: 300px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+  input{
+    margin-bottom: 10px;
+  }
+}

@@ -1,5 +1,39 @@
 @import 'Variable.scss';
+@import 'antd/dist/antd.css';
+@import 'Login.scss';
 
 *{
   font-family: 'Pretendard';
+}
+
+html{
+  min-height: 100%;
+  display: flex;
+  --antd-wave-shadow-color: transparent;
+}
+
+body, #root{
+  flex: 1;
+  display: flex;
+}
+
+.ant-input{
+  border-radius: 4px;
+  padding: 6px 12px;
+  height: 32px;
+  box-shadow: none !important;
+  font-weight: 500;
+  line-height: 20px;
+  font-size: 13px;
+}
+
+.ant-btn{
+  height: 32px;
+  min-width: 64px;
+  padding: 0 8px;
+  line-height: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: none;
+  border-radius: 4px;
 }

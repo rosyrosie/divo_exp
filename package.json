@@ -12,6 +12,8 @@
     "@types/react": "^18.0.12",
     "@types/react-dom": "^18.0.5",
     "@types/react-router-dom": "^5.3.3",
+    "antd": "^4.21.0",
+    "antd-table-saveas-excel": "^2.2.1",
     "axios": "^0.27.2",
     "craco-alias": "^3.0.1",
     "react": "^18.1.0",

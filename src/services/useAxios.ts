@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
 
-export const useAxios = (url: string, body: any, fetchType: 'POST' | 'GET', dependency = [], condition = true) => {
+const useAxios = (url: string, body: any, fetchType: 'POST' | 'GET', dependency = [], condition = true) => {
   const [ payload, setPayload ] = useState(null);
   const [ loading, setLoading ] = useState(true);
   const [ error, setError ] = useState(false);
@@ -37,3 +37,5 @@ export const useAxios = (url: string, body: any, fetchType: 'POST' | 'GET', depe
 
   return { payload, loading, error };
 }
+
+export default useAxios;
