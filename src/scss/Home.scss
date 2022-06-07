@@ -12,10 +12,13 @@
     display: flex;
     flex-wrap: wrap;
     .brand{
-
       padding: 12px 0;
       font-weight: 500;
     }
+    scrollbar-gutter: stable both-edges;
   }
 
+  .logout{
+    padding-top: 20px;
+  }
 }

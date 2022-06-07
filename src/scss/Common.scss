@@ -2,13 +2,13 @@
 @import 'antd/dist/antd.css';
 @import 'Login.scss';
 @import 'Home.scss';
+@import 'Layout.scss';
 
 *{
   font-family: 'Pretendard';
-  color: #1d1d1f;
-  scrollbar-gutter: stable both-edges;
   ::-webkit-scrollbar{
     width: 6px;
+    height: 6px;
   }
   ::-webkit-scrollbar-thumb{
     border-radius: 3px;

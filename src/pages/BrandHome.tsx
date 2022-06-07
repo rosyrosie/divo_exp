@@ -1,10 +1,12 @@
 import useStore from "@useStore";
+import Layout from "../../src/layouts/Layout";
 
 const BrandHome = () => {
-  const { corpId } = useStore();
 
   return (
-    <>{corpId}</>
+    <>
+      <Layout />
+    </>
   );
 }
 

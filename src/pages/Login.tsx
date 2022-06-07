@@ -26,13 +26,17 @@ const Login = () => {
         localStorage.clear();
       }
     }).catch(e => console.log('POST Error'));
+  };
+
+  const onKeyPress = (e: React.KeyboardEvent<HTMLElement>) => {
+    if(e.key === 'Enter') handleLogin();
   }
 
   return (
     <>
       <div className="login_box">
         <Input value={id} onChange={e => setId(e.target.value)} />
-        <Input value={pw} onChange={e => setPw(e.target.value)} type="password" />
+        <Input value={pw} onChange={e => setPw(e.target.value)} type="password" onKeyPress={onKeyPress} />
         <Button onClick={handleLogin}>로그인</Button>
       </div>
     </>
