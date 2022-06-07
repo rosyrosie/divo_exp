@@ -14,8 +14,6 @@ const Review = ({ type }: { type: string }) => {
     [page, type]
   );
 
-  console.log(type);
-
   return (
     <div className="content">
       <div className="header">
