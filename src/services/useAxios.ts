@@ -2,9 +2,9 @@ import axios, { AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
 
 const useAxios = (url: string, body: any, fetchType: 'POST' | 'GET', dependency = [], condition = true) => {
-  const [ payload, setPayload ] = useState(null);
-  const [ loading, setLoading ] = useState(true);
-  const [ error, setError ] = useState(false);
+  const [ payload, setPayload ] = useState<any>(null);
+  const [ loading, setLoading ] = useState<boolean>(true);
+  const [ error, setError ] = useState<boolean>(false);
   const token = localStorage.getItem('token');
 
   let fetcher: (url: string, body: any) => Promise<AxiosResponse<any, any>>;
@@ -35,7 +35,7 @@ const useAxios = (url: string, body: any, fetchType: 'POST' | 'GET', dependency 
 
   }, dependency);
 
-  return { payload, loading, error };
+  return [ payload, loading, error ];
 }
 
 export default useAxios;

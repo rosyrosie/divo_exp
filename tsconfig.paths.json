@@ -5,6 +5,7 @@
       "@scss/*": [ "src/scss/*" ],
       "@api": [ "src/services/api" ],
       "@useAxios": [ "src/services/useAxios" ],
+      "@useStore": [ "src/services/useStore" ],
       "@pages/*": [ "src/pages/*" ],
       "@routes/*": [ "src/routes/*" ]
     }

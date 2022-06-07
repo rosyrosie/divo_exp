@@ -1,3 +1,4 @@
+import BrandHome from "@pages/BrandHome";
 import Home from "@pages/Home";
 import Login from "@pages/Login"
 import { RouteObject } from "react-router-dom";
@@ -10,6 +11,10 @@ export const routes: RouteObject[] = [
   {
     path: '/login',
     element: <Login />
+  },
+  {
+    path: '/bid=:corpId',
+    element: <BrandHome />
   }
 ];
 

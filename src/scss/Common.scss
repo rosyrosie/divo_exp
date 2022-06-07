@@ -1,15 +1,24 @@
 @import 'Variable.scss';
 @import 'antd/dist/antd.css';
 @import 'Login.scss';
+@import 'Home.scss';
 
 *{
   font-family: 'Pretendard';
+  color: #1d1d1f;
+  scrollbar-gutter: stable both-edges;
+  ::-webkit-scrollbar{
+    width: 6px;
+  }
+  ::-webkit-scrollbar-thumb{
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.3);
+  }
 }
 
 html{
   min-height: 100%;
   display: flex;
-  --antd-wave-shadow-color: transparent;
 }
 
 body, #root{
