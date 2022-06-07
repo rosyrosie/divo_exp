@@ -1,5 +1,7 @@
 .menu{
   width: 256px;
+  position: fixed;
+  top: 0;
 }
 
 .home{
@@ -13,7 +15,28 @@
   .brand_name{
     margin-left: 20px;
     font-weight: 700;
-    font-size: 15px;
+    font-size: 14px;
   }
   font-size: 18px;
+}
+
+.content{
+  .header{
+    height: 64px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px #f0f1f2;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  position: absolute;
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  left: 256px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding-bottom: 24px;
 }

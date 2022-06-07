@@ -1,7 +1,8 @@
-import BrandHome from "@pages/BrandHome";
 import Home from "@pages/Home";
 import Login from "@pages/Login"
+import Layout from "@layouts/Layout";
 import { RouteObject } from "react-router-dom";
+import Review from "@pages/Review";
 
 export const routes: RouteObject[] = [
   {
@@ -14,7 +15,11 @@ export const routes: RouteObject[] = [
   },
   {
     path: '/bid=:corpId',
-    element: <BrandHome />
+    element: <Layout />,
+    children: [
+      { path: '/bid=:corpId/review-blog', element: <Review type="blog" /> },
+      { path: '/bid=:corpId/review-place', element: <Review type="place" />}
+    ]
   }
 ];
 

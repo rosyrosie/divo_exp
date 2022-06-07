@@ -2,7 +2,7 @@ import create from 'zustand';
 
 interface StoreType{
   corpName: string | null;
-  corpId: string | null;
+  corpId: string;
   selectedKey: string;
   setCorpId: (corpId: string) => void;
   setCorpName: (corpName: string) => void;
@@ -11,8 +11,8 @@ interface StoreType{
 
 const useStore = create<StoreType>(set => ({
   corpName: null,
-  corpId: null,
-  selectedKey: 'sales_qty',
+  corpId: '0',
+  selectedKey: 'review-blog',
   setCorpId: corpId => set(state => ({ ...state, corpId })),
   setCorpName: corpName => set(state => ({ ...state, corpName })),
   setSelectedKey: selectedKey => set(state => ({ ...state, selectedKey }))

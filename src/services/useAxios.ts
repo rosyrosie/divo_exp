@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { useEffect, useState } from 'react';
 
-const useAxios = (url: string, body: any, fetchType: 'POST' | 'GET', dependency = [], condition = true) => {
+const useAxios = (url: string, body: any, fetchType: 'POST' | 'GET', dependency: any[] = [], condition: boolean = true) => {
   const [ payload, setPayload ] = useState<any>(null);
   const [ loading, setLoading ] = useState<boolean>(true);
   const [ error, setError ] = useState<boolean>(false);
