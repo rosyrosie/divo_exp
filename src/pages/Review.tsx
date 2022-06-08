@@ -1,5 +1,6 @@
 import { REVIEW_URL } from "@api";
 import useAxios from "@useAxios";
+import { reviewType } from "@utils/reviewUtil";
 import { Card, Pagination, Spin } from "antd";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -19,7 +20,7 @@ const Review = ({ type }: { type: string }) => {
       <div className="header">
       </div>
       <div className="reviews">
-        {loading ? <div className="spin"><Spin /></div> : blogReviews.data.map((review: any) => (
+        {loading ? <div className="spin"><Spin /></div> : blogReviews.data.map((review: reviewType) => (
           <Card
             title={<a href={review.url} target="_blank">{review.title}</a>}
             extra={review.date}

@@ -16,8 +16,8 @@ const SalesQty = () => {
   
   const picker = (range: SegmentedValue) => {
     if(typeof range === "number") return 'date';
-    if(range.slice(-1) == '일') return 'date';
-    if(range.slice(-1) == '주') return 'week';
+    if(range.slice(-1) === '일') return 'date';
+    if(range.slice(-1) === '주') return 'week';
     return 'month';
   }
 

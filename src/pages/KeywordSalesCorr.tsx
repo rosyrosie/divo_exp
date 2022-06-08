@@ -3,6 +3,10 @@ import { DatePicker, Tree } from 'antd';
 import moment, { Moment } from "moment";
 import { Key, useState } from "react";
 import { RangeValue } from "rc-picker/lib/interface";
+import { Chart, Line } from "react-chartjs-2";
+import { applyMultiAxis, lineOptions } from "@utils/chartUtil";
+import useAxios from "@useAxios";
+import { KWLIST_URL, KWSALES_CHART_URL } from "@api";
 
 const KeywordSalesCorr = () => {
   const { corpId } = useParams();
@@ -13,60 +17,32 @@ const KeywordSalesCorr = () => {
   }
   const onChange = (dates: RangeValue<Moment>) => setDateRange(dates);
 
-  const [ checkedKeys, setCheckedKeys ] = useState<Key[] | { checked: Key[], halfChecked: Key[] }>([]);
+  const [ checkedKeys, setCheckedKeys ] = useState<Key[] | { checked: Key[], halfChecked: Key[] }>({ checked: ['brand'], halfChecked: [] });
 
-  console.log(checkedKeys);
+  const [ keywordList, loading, error ] = useAxios(
+    KWLIST_URL,
+    {
+      corpId,
+      startDate: dateRange?.[0]?.format('YYYY-MM-DD'),
+      endDate: dateRange?.[1]?.format('YYYY-MM-DD'),
+      opt: 0
+    },
+    'POST',
+    [dateRange]
+  );
 
-  const treeData = [
+  const [ keywordSalesChart, _, __] = useAxios(
+    KWSALES_CHART_URL,
     {
-      title: '브랜드 키워드 합',
-      key: 'brand',
-      children: [
-        {
-          title: '관평동 샤브향',
-          key: '관평동 샤브향'
-        },
-      ],
+      corpId,
+      startDate: dateRange?.[0]?.format('YYYY-MM-DD'),
+      endDate: dateRange?.[1]?.format('YYYY-MM-DD'),
+      keywords: (checkedKeys as { checked: Key[], halfChecked: Key[] }).checked,
+      opt: 0
     },
-    {
-      title: '상권 키워드 합',
-      key: 'area',
-      children: [
-        {
-          title: '관평동 맛집',
-          key: '관평동 맛집'
-        },
-      ],
-    },
-    {
-      title: '업종 키워드 합',
-      key: 'cat',
-      children: [
-        {
-          title: '샤브샤브 맛집',
-          key: '샤브샤브 맛집'
-        },
-        {
-          title: '대전 샤브샤브',
-          key: '대전 샤브샤브',
-        },
-        {
-          title: '관평동 샤브샤브',
-          key: '관평동 샤브샤브'
-        },
-      ],
-    },
-    {
-      title: '경쟁 키워드 합',
-      key: 'rival',
-      children: [
-        {
-          title: '샤브쌈주머니',
-          key: '샤브쌈주머니',
-        }
-      ],
-    },
-  ];
+    'POST',
+    [dateRange, checkedKeys]
+  );
 
   return (
     <div className="content">
@@ -80,11 +56,15 @@ const KeywordSalesCorr = () => {
         />
       </div>
       <div className="data">
-        <div className="chart"></div>
+        <div className="chart_box">
+          <div className="chart">
+            {keywordSalesChart && <Chart type="line" options={lineOptions} data={applyMultiAxis(keywordSalesChart?.data)} />}
+          </div>
+        </div>
         <div className="check_box">
           <Tree 
             checkable
-            treeData={treeData}
+            treeData={keywordList?.data}
             checkStrictly={true}
             checkedKeys={checkedKeys}
             onCheck={(checked) => setCheckedKeys(checked)}
