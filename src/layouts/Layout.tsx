@@ -15,7 +15,8 @@ const Layout = () => {
     [corpId],
     corpId !== undefined
   );
-  const [ openKeys, setOpenKeys ] = useState(['review']);
+
+  const [ openKeys, setOpenKeys ] = useState(['sales']);
   const navigate = useNavigate();
 
   const onOpenChange = (keys: string[]) => {
@@ -36,12 +37,12 @@ const Layout = () => {
     <>
       <div className="menu">
         <div className="home">
-          <HomeOutlined />
+          <HomeOutlined onClick={() => navigate('/')} />
           <div className="brand_name">{corpInfo?.corpName}</div>
         </div>
         <Menu
           mode="inline"
-          defaultSelectedKeys={['review-blog']}
+          defaultSelectedKeys={['sales-qty']}
           openKeys={openKeys}
           onOpenChange={onOpenChange} 
           items={menus}

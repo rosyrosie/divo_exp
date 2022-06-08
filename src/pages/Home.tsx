@@ -20,7 +20,7 @@ const Home = () => {
   );
 
   const setCorp = (id: string, name: string) => {
-    navigate(`/bid=${id}/review-blog`, { state: { corpName: name }});
+    navigate(`/bid=${id}/sales-qty`);
   };
 
   const handleLogout = () => {
