@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { ConfigProvider, DatePicker, Tree } from 'antd';
+import { ConfigProvider, DatePicker, message, Spin, Tree } from 'antd';
 import moment, { Moment } from "moment";
-import { Key, useState } from "react";
+import { Key, useEffect, useState } from "react";
 import { RangeValue } from "rc-picker/lib/interface";
 import { Chart } from "react-chartjs-2";
 import { applyColors, applyMultiAxis, lineOptions } from "@utils/chartUtil";
@@ -34,7 +34,7 @@ const KeywordSalesCorr = ({ opt }: { opt: typeof kwSalesMenu[number] }) => {
     [dateRange, opt]
   );
 
-  const [ keywordSalesChart, _, __] = useAxios(
+  const [ keywordSalesChart, chartLoading, chartError ] = useAxios(
     KWSALES_CHART_URL,
     {
       corpId,
@@ -46,6 +46,10 @@ const KeywordSalesCorr = ({ opt }: { opt: typeof kwSalesMenu[number] }) => {
     'POST',
     [dateRange, checkedKeys, opt]
   );
+
+  useEffect(() => {
+    if(chartError) message.warning('데이터 부족', 1.5);
+  }, [chartError]);
 
   return (
     <div className="content">
@@ -63,7 +67,7 @@ const KeywordSalesCorr = ({ opt }: { opt: typeof kwSalesMenu[number] }) => {
       <div className="data">
         <div className="chart_box">
           <div className="chart">
-            {keywordSalesChart && <Chart type="line" options={lineOptions} data={applyColors(applyMultiAxis(keywordSalesChart?.data))} />}
+            {chartLoading ? <Spin /> : <Chart type="line" options={lineOptions} data={applyColors(applyMultiAxis(keywordSalesChart?.data))} />}
           </div>
         </div>
         <div className="check_box">
