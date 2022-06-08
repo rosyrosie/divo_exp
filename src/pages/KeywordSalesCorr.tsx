@@ -1,12 +1,14 @@
 import { useParams } from "react-router-dom";
-import { DatePicker, Tree } from 'antd';
+import { ConfigProvider, DatePicker, Tree } from 'antd';
 import moment, { Moment } from "moment";
 import { Key, useState } from "react";
 import { RangeValue } from "rc-picker/lib/interface";
-import { Chart, Line } from "react-chartjs-2";
-import { applyMultiAxis, lineOptions } from "@utils/chartUtil";
+import { Chart } from "react-chartjs-2";
+import { applyColors, applyMultiAxis, lineOptions } from "@utils/chartUtil";
 import useAxios from "@useAxios";
 import { KWLIST_URL, KWSALES_CHART_URL } from "@api";
+import 'moment/locale/ko';
+import locale from 'antd/lib/locale/ko_KR';
 
 const KeywordSalesCorr = () => {
   const { corpId } = useParams();
@@ -47,18 +49,20 @@ const KeywordSalesCorr = () => {
   return (
     <div className="content">
       <div className="header">
-        <RangePicker 
-          disabledDate={disabledDate}
-          placeholder={['시작 날짜', '끝 날짜']}
-          value={dateRange}
-          onChange={(dates) => onChange(dates)}
-          allowClear={false}
-        />
+        <ConfigProvider locale={locale}>
+          <RangePicker 
+            disabledDate={disabledDate}
+            placeholder={['시작 날짜', '끝 날짜']}
+            value={dateRange}
+            onChange={(dates) => onChange(dates)}
+            allowClear={false}
+          />
+        </ConfigProvider>
       </div>
       <div className="data">
         <div className="chart_box">
           <div className="chart">
-            {keywordSalesChart && <Chart type="line" options={lineOptions} data={applyMultiAxis(keywordSalesChart?.data)} />}
+            {keywordSalesChart && <Chart type="line" options={lineOptions} data={applyColors(applyMultiAxis(keywordSalesChart?.data))} />}
           </div>
         </div>
         <div className="check_box">
