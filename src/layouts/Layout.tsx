@@ -7,7 +7,7 @@ import { CORPINFO_URL } from "@api";
 import useAxios from "@useAxios";
 
 const Layout = () => {
-  const { corpId } = useParams();
+  const { corpId, dataId } = useParams();
   const [ corpInfo, loading , error ] = useAxios(
     CORPINFO_URL + corpId,
     null,
@@ -16,7 +16,7 @@ const Layout = () => {
     corpId !== undefined
   );
 
-  const [ openKeys, setOpenKeys ] = useState(['sales']);
+  const [ openKeys, setOpenKeys ] = useState<string[]>([]);
   const navigate = useNavigate();
 
   const onOpenChange = (keys: string[]) => {
@@ -42,7 +42,7 @@ const Layout = () => {
         </div>
         <Menu
           mode="inline"
-          defaultSelectedKeys={['sales-qty']}
+          defaultSelectedKeys={[dataId || '']}
           openKeys={openKeys}
           onOpenChange={onOpenChange} 
           items={menus}

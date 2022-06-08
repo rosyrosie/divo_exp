@@ -9,8 +9,9 @@ import useAxios from "@useAxios";
 import { KWLIST_URL, KWSALES_CHART_URL } from "@api";
 import 'moment/locale/ko';
 import locale from 'antd/lib/locale/ko_KR';
+import { kwSalesMenu } from "@routes/menuconfig";
 
-const KeywordSalesCorr = () => {
+const KeywordSalesCorr = ({ opt }: { opt: typeof kwSalesMenu[number] }) => {
   const { corpId } = useParams();
   const { RangePicker } = DatePicker;
   const [ dateRange, setDateRange ] = useState<RangeValue<Moment>>([moment().subtract(1, 'months').subtract(2, 'days'), moment().subtract(2, 'days')]);
@@ -27,10 +28,10 @@ const KeywordSalesCorr = () => {
       corpId,
       startDate: dateRange?.[0]?.format('YYYY-MM-DD'),
       endDate: dateRange?.[1]?.format('YYYY-MM-DD'),
-      opt: 0
+      opt
     },
     'POST',
-    [dateRange]
+    [dateRange, opt]
   );
 
   const [ keywordSalesChart, _, __] = useAxios(
@@ -40,10 +41,10 @@ const KeywordSalesCorr = () => {
       startDate: dateRange?.[0]?.format('YYYY-MM-DD'),
       endDate: dateRange?.[1]?.format('YYYY-MM-DD'),
       keywords: (checkedKeys as { checked: Key[], halfChecked: Key[] }).checked,
-      opt: 0
+      opt
     },
     'POST',
-    [dateRange, checkedKeys]
+    [dateRange, checkedKeys, opt]
   );
 
   return (

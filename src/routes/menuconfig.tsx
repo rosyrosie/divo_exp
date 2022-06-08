@@ -11,6 +11,7 @@ const getItem = (label: any, key: any, icon: any = null, children: any = null, t
 };
 
 export const rootSubmenuKeys = ['sales', 'keyword', 'review'];
+export const kwSalesMenu = ['kw-sales-qty', 'kw-rvst', 'kw-rvstr', 'kw-price', 'kw-wd-sales', 'kw-wd-salesr', 'kw-we-sales', 'kw-we-salesr', 'kw-lc-sales', 'kw-lc-salesr', 'kw-dn-sales', 'kw-dn-salesr'] as const;
 
 const menus = [
   getItem('매출 분석', 'sales', <ContainerOutlined />, [
@@ -28,7 +29,7 @@ const menus = [
     getItem('요일별 재방문매출 비율', 'rvstr-w'),
     getItem('시간별 재방문매출 비율', 'rvstr-t'),
   ]),
-  getItem('키워드-매출', 'keyword', <ContainerOutlined />, [
+  getItem('키워드-매출', 'keyword-sales', <ContainerOutlined />, [
     getItem('키워드-매출액', 'kw-sales-qty'),
     getItem('키워드-재방문매출', 'kw-rvst'),
     getItem('키워드-재방문매출비율', 'kw-rvstr'),
