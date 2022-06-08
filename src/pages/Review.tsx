@@ -1,14 +1,14 @@
 import { REVIEW_URL } from "@api";
 import useAxios from "@useAxios";
-import useStore from "@useStore";
 import { Card, Pagination, Spin } from "antd";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 const Review = ({ type }: { type: string }) => {
-  const { corpId } = useStore();
+  const { corpId } = useParams();
   const [ page, setPage ] = useState(1);
   const [ blogReviews, loading, error ] = useAxios(
-    REVIEW_URL(corpId, page, type),
+    REVIEW_URL(corpId || '0', page, type),
     null,
     'GET',
     [page, type]

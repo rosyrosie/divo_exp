@@ -3,12 +3,10 @@ import useAxios from "@useAxios";
 import { Button, Card, Divider, List, Spin } from "antd";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useStore from "@useStore";
 
 const Home = () => {
   const navigate = useNavigate();
   let token = localStorage.getItem('token');
-  const { setCorpId, setCorpName } = useStore();
 
   useEffect(() => {
     if(!token) navigate('/login');
@@ -22,9 +20,7 @@ const Home = () => {
   );
 
   const setCorp = (id: string, name: string) => {
-    setCorpId(id);
-    setCorpName(name);
-    navigate('/bid=' + id);
+    navigate(`/bid=${id}/review-blog`, { state: { corpName: name }});
   };
 
   const handleLogout = () => {
