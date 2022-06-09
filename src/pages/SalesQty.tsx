@@ -28,14 +28,21 @@ const SalesQty = () => {
   );
 
   useEffect(() => {
+    if(dataId?.slice(-1) === 'w') return;
     if(error) message.warning('error', 1.5);
   }, [error]);
+
+  useEffect(() => {
+    if(dataId?.slice(-1) == 'w'){
+      if(range === '30일') setRange('13주');
+    }
+  }, [dataId]);
 
   return (
     <div className="content">
       <div className="header">
         <Segmented 
-          options={rangeOptions}
+          options={rangeOptions(dataId || '')}
           value={range}
           onChange={setRange}
         />

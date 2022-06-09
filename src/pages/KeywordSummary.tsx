@@ -9,7 +9,7 @@ import useAxios from "@useAxios";
 import { useParams } from "react-router-dom";
 
 const KeywordSummary = () => {
-  const { corpId } = useParams();
+  const { corpId, dataId } = useParams();
   const [ range, setRange ] = useState<SegmentedValue>('30일');
   const [ endDate, setEndDate ] = useState(moment().subtract(2, 'days'));
 
@@ -29,7 +29,7 @@ const KeywordSummary = () => {
     <div className="content">
       <div className="header">
         <Segmented 
-          options={rangeOptions}
+          options={rangeOptions(dataId || '')}
           value={range}
           onChange={setRange}
         />
@@ -44,27 +44,25 @@ const KeywordSummary = () => {
         </ConfigProvider>
       </div>
       <div className="cards">
-        {loading ? <div className="spin"><Spin /></div> :
-        <>
-          <Card
-            title="키워드 정보"
-            style={{
-              marginBottom: '24px'
-            }}
-          >
-            {summary?.data[0].map((text: string) => <p key={text}>{text}</p>)}
-          </Card>
-          <Card
-            title="키워드 상관관계"
-          >
-            {summary?.data[1].map((texts: string[], idx: number) => 
-              <Card type="inner" title={texts[0]} style={{ marginTop: idx > 0 ? '12px' : '0' }}>
-                {texts.map((text: string, i: number) => i>0 && <p key={text}>{text}</p>)}
-              </Card>
-            )}
-          </Card>
-        </>
-        }
+        <Card
+          title="키워드 정보"
+          style={{
+            marginBottom: '24px'
+          }}
+          loading={loading}
+        >
+          {summary?.data[0].map((text: string) => <p key={text}>{text}</p>)}
+        </Card>
+        <Card
+          title="키워드 상관관계"
+          loading={loading}
+        >
+          {summary?.data[1].map((texts: string[], idx: number) => 
+            <Card type="inner" title={texts[0]} style={{ marginTop: idx > 0 ? '12px' : '0' }}>
+              {texts.map((text: string, i: number) => i>0 && <p key={text}>{text}</p>)}
+            </Card>
+          )}
+        </Card>
       </div>
     </div>
   );

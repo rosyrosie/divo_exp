@@ -1,4 +1,4 @@
-import { SegmentedValue } from 'antd/lib/segmented';
+import { SegmentedLabeledOption, SegmentedValue } from 'antd/lib/segmented';
 import { Moment } from 'moment';
 import moment from 'moment';
 import 'moment/locale/ko';
@@ -34,7 +34,17 @@ export const rangeId: Record<SegmentedValue, string> = {
   '전체': 'tot'
 };
 
-export const rangeOptions = ['30일', '13주', '26주', '52주', '24개월', '전체'];
+export const rangeOptions: (dataId: string) => (SegmentedValue | SegmentedLabeledOption)[] = (dataId: string) => {
+  const disableDay = dataId.slice(-1) === 'w';
+  return [
+    { label: '30일', value: '30일', disabled: disableDay }, 
+    '13주', 
+    '26주', 
+    '52주', 
+    '24개월', 
+    '전체'
+  ];
+}
 
 export const dateFormat = {
   'date': dayFormat,
