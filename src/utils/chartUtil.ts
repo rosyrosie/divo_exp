@@ -44,6 +44,33 @@ export const lineOptions: (multiAxis: boolean) => ChartOptions = (multiAxis: boo
   }
 });
 
+export const barOptions: ChartOptions = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: 'bottom',
+    },
+    tooltip: {
+      callbacks: {
+        label: tooltipItem => tooltipItem.dataset.label + ': ' + tooltipItem.formattedValue
+      }
+    }
+  },
+  //maxBarThickness: 80,
+  interaction: {
+    intersect: false,
+    mode: 'index'
+  },
+  scales: {
+    y: {
+      ticks: {
+        callback: tickCallback
+      },
+      beginAtZero: true
+    }
+  }
+};
+
 type datasetType = {
   label: string,
   data: number[],
@@ -51,12 +78,13 @@ type datasetType = {
   yAxisID?: 'y' | 'y1',
   borderColor?: string,
   backgroundColor?: string,
-  borderDash?: number[]
+  borderDash?: number[],
+  maxBarThickness?: number
 };
 
 type chartDataType = {
   labels: string[],
-  datasets: datasetType[]
+  datasets: datasetType[],
 };
 
 export const applyMultiAxis = (chartData: chartDataType) => {
@@ -66,6 +94,7 @@ export const applyMultiAxis = (chartData: chartDataType) => {
       data.type = 'bar';
     }
     else data.yAxisID = 'y';
+    data.maxBarThickness = 60;
   });
   return chartData;
 }
@@ -81,12 +110,21 @@ export const applyColors = (chartData: chartDataType) => {
   return chartData;
 }
 
-export const applyTrend = (chartData: chartDataType) => {
+export const applyTrendStyle = (chartData: chartDataType) => {
   chartData.datasets.forEach((data: datasetType, i: number) => {
     if(i%2) data.borderDash = [10, 5];
     const idx = Math.floor(i/2);
     data.borderColor = '#' + chartPalette.substring(idx*6, idx*6+6) + (i%2 ? '88' : 'ff');
     data.backgroundColor = '#' + chartPalette.substring(idx*6, idx*6+6)  + (i%2 ? '88' : 'ff'); 
+  });
+  return chartData;
+}
+
+export const applyBarStyle = (chartData: chartDataType) => {
+  chartData.datasets.forEach((data: datasetType, i: number) => {
+    data.maxBarThickness = 60;
+    data.borderColor = '#' + chartPalette.substring(12, 18);
+    data.backgroundColor = '#' + chartPalette.substring(12, 18) + '88';
   });
   return chartData;
 }

@@ -1,0 +1,19 @@
+.double_chart_box{
+  flex: 1;
+  display: flex;
+
+  .chart_container{
+    flex: 1;
+    margin: 24px;
+    display: flex;
+    position: relative;
+  }
+
+  .chart{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}

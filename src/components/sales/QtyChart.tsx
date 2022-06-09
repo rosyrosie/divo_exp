@@ -1,8 +1,8 @@
 import { SALES_URL } from "@api";
 import useAxios from "@useAxios";
-import { applyTrend, lineOptions } from "@utils/chartUtil";
+import { applyTrendStyle, lineOptions } from "@utils/chartUtil";
 import { dateToStringFormat, rangeId } from "@utils/dateUtil";
-import { message, Spin } from "antd";
+import { message } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
 import { useEffect } from "react";
 import { Chart } from "react-chartjs-2";
@@ -31,7 +31,7 @@ const QtyChart = ({ range, endDate }: { range: SegmentedValue; endDate: moment.M
     <div className="data">
       <div className="chart_box">
         <div className="chart">
-          {chart && <Chart type="line" options={lineOptions(false)} data={applyTrend(chart.data.salesTrend)} />}
+          {chart && <Chart type="line" options={lineOptions(false)} data={applyTrendStyle(chart.data.salesTrend)} />}
         </div>
       </div>
     </div>

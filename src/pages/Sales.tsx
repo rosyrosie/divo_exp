@@ -6,6 +6,7 @@ import locale from 'antd/lib/locale/ko_KR';
 import { dateFormat, picker, rangeOptions } from "@utils/dateUtil";
 import { useParams } from "react-router-dom";
 import QtyChart from "@components/sales/QtyChart";
+import PerTimeChart from "@components/sales/PerTimeChart";
 
 const Sales = () => {
   const { dataId } = useParams();
@@ -36,7 +37,11 @@ const Sales = () => {
           />
         </ConfigProvider>
       </div>
-      <QtyChart range={range} endDate={endDate} />
+      {
+        (dataId?.includes('-w') || dataId?.includes('-t')) ?
+        <PerTimeChart range={range} endDate={endDate} /> :
+        <QtyChart range={range} endDate={endDate} />
+      }
     </div>
   );
 }
