@@ -37,7 +37,7 @@ const Layout = () => {
         </div>
         <Menu
           mode="inline"
-          defaultSelectedKeys={[dataId || 'sales-qty']}
+          selectedKeys={[dataId || '']}
           openKeys={openKeys}
           onOpenChange={onOpenChange} 
           items={menus}
