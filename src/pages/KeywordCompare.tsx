@@ -1,5 +1,5 @@
 import { dateToStringFormat, disabledDate } from '@utils/dateUtil';
-import { ConfigProvider, DatePicker, Spin, Tree } from 'antd';
+import { ConfigProvider, DatePicker, Tree } from 'antd';
 import locale from 'antd/lib/locale/ko_KR';
 import moment, { Moment } from 'moment';
 import { Key, useState } from 'react';
@@ -9,7 +9,7 @@ import useAxios from '@useAxios';
 import { KW_SELECT_URL, KW_CHECKLIST_URL, KW_CMP_CHART_URL } from '@api';
 import { useParams } from 'react-router-dom';
 import { Chart } from 'react-chartjs-2';
-import { applyColors, applyMultiAxis, lineOptions } from '@utils/chartUtil';
+import { applyColors, lineOptions } from '@utils/chartUtil';
 
 const KeywordCompare = () => {
   const { corpId } = useParams();

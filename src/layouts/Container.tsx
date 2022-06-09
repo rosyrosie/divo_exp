@@ -3,7 +3,6 @@ import KeywordSalesCorr from "@pages/KeywordSalesCorr";
 import KeywordSummary from "@pages/KeywordSummary";
 import Review from "@pages/Review";
 import Sales from "@pages/Sales";
-import SalesQty from "@pages/SalesQty";
 import { kwSalesMenu, reviewMenu, salesMenu } from "@routes/menuconfig";
 import { useParams } from "react-router-dom";
 

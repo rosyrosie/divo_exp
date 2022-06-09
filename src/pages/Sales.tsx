@@ -8,15 +8,15 @@ import { useParams } from "react-router-dom";
 import QtyChart from "@components/sales/QtyChart";
 
 const Sales = () => {
-  const { corpId, dataId } = useParams();
+  const { dataId } = useParams();
   const [ range, setRange ] = useState<SegmentedValue>('30일');
   const [ endDate, setEndDate ] = useState(moment().subtract(2, 'days'));
 
   useEffect(() => {
-    if(dataId?.slice(-1) == 'w'){
+    if(dataId?.slice(-1) === 'w'){
       if(range === '30일') setRange('13주');
     }
-  }, [dataId]);
+  }, [dataId, range]);
 
   return (
     <div className="content">

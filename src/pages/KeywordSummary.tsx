@@ -1,5 +1,5 @@
 import { dateFormat, dateToStringFormat, picker, rangeId, rangeOptions } from "@utils/dateUtil";
-import { Card, ConfigProvider, DatePicker, message, Segmented, Spin } from "antd";
+import { Card, ConfigProvider, DatePicker, message, Segmented } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
 import moment from "moment";
 import { useEffect, useState } from "react";

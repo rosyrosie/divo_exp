@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import { ConfigProvider, DatePicker, message, Spin, Tree } from 'antd';
+import { ConfigProvider, DatePicker, message, Tree } from 'antd';
 import moment, { Moment } from "moment";
 import { Key, useEffect, useState } from "react";
-import { EventValue, RangeValue } from "rc-picker/lib/interface";
+import { RangeValue } from "rc-picker/lib/interface";
 import { Chart } from "react-chartjs-2";
 import { applyColors, applyMultiAxis, lineOptions } from "@utils/chartUtil";
 import useAxios from "@useAxios";
