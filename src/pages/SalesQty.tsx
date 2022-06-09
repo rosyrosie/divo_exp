@@ -52,7 +52,7 @@ const SalesQty = () => {
       <div className="data">
         <div className="chart_box">
           <div className="chart">
-            {loading ? <Spin /> : <Chart type="line" options={lineOptions} data={applyTrend(chart.data.salesTrend)} />}
+            {loading ? <Spin /> : <Chart type="line" options={lineOptions(false)} data={applyTrend(chart.data.salesTrend)} />}
           </div>
         </div>
       </div>
