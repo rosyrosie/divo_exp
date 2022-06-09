@@ -17,7 +17,7 @@ const KeywordSummary = () => {
     KW_ANLY_SUMM_URL(corpId || '0', rangeId[range], endDate?.format(dateToStringFormat)),
     null,
     'GET',
-    [endDate, range],
+    [corpId, endDate, range],
     corpId !== undefined
   );
 

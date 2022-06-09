@@ -27,7 +27,7 @@ const KeywordSalesCorr = () => {
       opt: dataId
     },
     'POST',
-    [dateRange, dataId]
+    [corpId, dateRange, dataId]
   );
 
   const [ keywordSalesChart, chartLoading, chartError ] = useAxios(
@@ -40,7 +40,7 @@ const KeywordSalesCorr = () => {
       opt: dataId
     },
     'POST',
-    [dateRange, checkedKeys, dataId]
+    [corpId, dateRange, checkedKeys, dataId]
   );
 
   useEffect(() => {

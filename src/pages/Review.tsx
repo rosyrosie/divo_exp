@@ -12,7 +12,7 @@ const Review = ({ type }: { type: string }) => {
     REVIEW_URL(corpId || '0', page, type),
     null,
     'GET',
-    [page, type]
+    [corpId, page, type]
   );
 
   useEffect(() => {

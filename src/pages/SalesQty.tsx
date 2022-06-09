@@ -24,10 +24,8 @@ const SalesQty = () => {
       opt: dataId
     },
     'POST',
-    [range, endDate, dataId]
+    [corpId, range, endDate, dataId]
   );
-  
-  console.log(chart);
 
   useEffect(() => {
     if(error) message.warning('error', 1.5);
