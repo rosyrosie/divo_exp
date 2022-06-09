@@ -85,7 +85,7 @@ const KeywordCompare = () => {
       <div className="data">
         <div className="chart_box">
           <div className="chart">
-            {keyword !== '' && (chartLoading ? <Spin /> : <Chart type="line" options={lineOptions(false)} data={applyColors(chartData?.data)} />)}
+            {keyword !== '' && (chartData && <Chart type="line" options={lineOptions(false)} data={applyColors(chartData?.data)} />)}
           </div>
         </div>
         <div className="check_box">

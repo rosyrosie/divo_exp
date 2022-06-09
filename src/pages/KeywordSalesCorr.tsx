@@ -2,13 +2,13 @@ import { useParams } from "react-router-dom";
 import { ConfigProvider, DatePicker, message, Spin, Tree } from 'antd';
 import moment, { Moment } from "moment";
 import { Key, useEffect, useState } from "react";
-import { RangeValue } from "rc-picker/lib/interface";
+import { EventValue, RangeValue } from "rc-picker/lib/interface";
 import { Chart } from "react-chartjs-2";
 import { applyColors, applyMultiAxis, lineOptions } from "@utils/chartUtil";
 import useAxios from "@useAxios";
 import { KWLIST_URL, KWSALES_CHART_URL } from "@api";
 import locale from 'antd/lib/locale/ko_KR';
-import { dateToStringFormat, disabledDate } from "@utils/dateUtil";
+import { dateToStringFormat, disabledDate, rangeId } from "@utils/dateUtil";
 
 const KeywordSalesCorr = () => {
   const { corpId, dataId } = useParams();
@@ -44,8 +44,20 @@ const KeywordSalesCorr = () => {
   );
 
   useEffect(() => {
+    if(dataId?.includes('kw-w')) return;
     if(chartError) message.warning('데이터 부족', 1.5);
   }, [chartError]);
+
+  useEffect(() => {
+    if(!dataId?.includes('kw-w')) return;
+    if(dateRange?.[1] && dateRange[1].diff(dateRange[0], 'months') < 2){
+      setDateRange((range: RangeValue<Moment>) => {
+        const endDate = range?.[1]?.clone();
+        const newStartDate = endDate?.clone()?.subtract(2, 'month');
+        return [newStartDate, endDate] as RangeValue<Moment>;
+      });
+    }
+  }, [dataId]);
 
   return (
     <div className="content">
@@ -63,7 +75,7 @@ const KeywordSalesCorr = () => {
       <div className="data">
         <div className="chart_box">
           <div className="chart">
-            {chartLoading ? <Spin /> : <Chart type="line" options={lineOptions(true)} data={applyColors(applyMultiAxis(keywordSalesChart?.data))} />}
+            {keywordSalesChart && <Chart type="line" options={lineOptions(true)} data={applyColors(applyMultiAxis(keywordSalesChart?.data))} />}
           </div>
         </div>
         <div className="check_box">
