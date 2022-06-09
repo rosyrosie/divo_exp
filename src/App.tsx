@@ -1,7 +1,8 @@
 import { routes } from "@routes/routerconfig";
-import { Chart as ChartJS, BarElement, CategoryScale, Legend, LinearScale, LineElement, PointElement, Tooltip } from "chart.js";
+import { Chart as ChartJS, BarElement, CategoryScale, Legend, LinearScale, LineElement, PointElement, Tooltip, registerables } from "chart.js";
 import { useRoutes } from "react-router-dom";
 
+ChartJS.register(...registerables);
 ChartJS.register(
   CategoryScale,
   LinearScale,

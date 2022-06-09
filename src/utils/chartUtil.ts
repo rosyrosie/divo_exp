@@ -56,7 +56,6 @@ export const barOptions: ChartOptions = {
       }
     }
   },
-  //maxBarThickness: 80,
   interaction: {
     intersect: false,
     mode: 'index'
