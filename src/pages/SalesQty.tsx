@@ -1,12 +1,14 @@
-import { ConfigProvider, DatePicker, Segmented } from "antd";
+import { ConfigProvider, DatePicker, message, Segmented, Spin } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
 import moment from "moment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import locale from 'antd/lib/locale/ko_KR';
 import { dateFormat, dateToStringFormat, picker, rangeId, rangeOptions } from "@utils/dateUtil";
 import useAxios from "@useAxios";
 import { useParams } from "react-router-dom";
 import { SALES_URL } from "@api";
+import { Chart } from "react-chartjs-2";
+import { applyTrend, lineOptions } from "@utils/chartUtil";
 
 const SalesQty = () => {
   const { corpId, dataId } = useParams();
@@ -24,8 +26,12 @@ const SalesQty = () => {
     'POST',
     [range, endDate, dataId]
   );
-
+  
   console.log(chart);
+
+  useEffect(() => {
+    if(error) message.warning('error', 1.5);
+  }, [error]);
 
   return (
     <div className="content">
@@ -44,6 +50,13 @@ const SalesQty = () => {
             format={dateFormat[picker(range)]}
           />
         </ConfigProvider>
+      </div>
+      <div className="data">
+        <div className="chart_box">
+          <div className="chart">
+            {loading ? <Spin /> : <Chart type="line" options={lineOptions} data={applyTrend(chart.data.salesTrend)} />}
+          </div>
+        </div>
       </div>
     </div>
   );

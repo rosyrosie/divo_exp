@@ -1,8 +1,8 @@
-import { dateFormat, dateToStringFormat, picker, rangeOptions } from "@utils/dateUtil";
-import { ConfigProvider, DatePicker, Segmented } from "antd";
+import { dateFormat, dateToStringFormat, picker, rangeId, rangeOptions } from "@utils/dateUtil";
+import { Card, ConfigProvider, DatePicker, message, Segmented, Spin } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
 import moment from "moment";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import locale from 'antd/lib/locale/ko_KR';
 import { KW_ANLY_SUMM_URL } from "@api";
 import useAxios from "@useAxios";
@@ -14,14 +14,16 @@ const KeywordSummary = () => {
   const [ endDate, setEndDate ] = useState(moment().subtract(2, 'days'));
 
   const [ summary, loading, error ] = useAxios(
-    KW_ANLY_SUMM_URL(corpId || '0', '0', endDate?.format(dateToStringFormat)),
+    KW_ANLY_SUMM_URL(corpId || '0', rangeId[range], endDate?.format(dateToStringFormat)),
     null,
     'GET',
-    [endDate],
+    [endDate, range],
     corpId !== undefined
   );
 
-  console.log(summary);
+  useEffect(() => {
+    if(error) message.warning('error', 1.5);
+  }, [error]);
 
   return (
     <div className="content">
@@ -40,6 +42,29 @@ const KeywordSummary = () => {
             format={dateFormat[picker(range)]}
           />
         </ConfigProvider>
+      </div>
+      <div className="cards">
+        {loading ? <div className="spin"><Spin /></div> :
+        <>
+          <Card
+            title="키워드 정보"
+            style={{
+              marginBottom: '24px'
+            }}
+          >
+            {summary?.data[0].map((text: string) => <p key={text}>{text}</p>)}
+          </Card>
+          <Card
+            title="키워드 상관관계"
+          >
+            {summary?.data[1].map((texts: string[], idx: number) => 
+              <Card type="inner" title={texts[0]} style={{ marginTop: idx > 0 ? '12px' : '0' }}>
+                {texts.map((text: string, i: number) => i>0 && <p key={text}>{text}</p>)}
+              </Card>
+            )}
+          </Card>
+        </>
+        }
       </div>
     </div>
   );

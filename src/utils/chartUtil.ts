@@ -50,7 +50,8 @@ type datasetType = {
   type?: 'line' | 'bar',
   yAxisID?: 'y' | 'y1',
   borderColor?: string,
-  backgroundColor?: string
+  backgroundColor?: string,
+  borderDash?: number[]
 };
 
 type chartDataType = {
@@ -77,5 +78,15 @@ export const applyColors = (chartData: chartDataType) => {
     data.backgroundColor = '#' + chartPalette.substring(i*6, i*6+6) + (!i ? '55' : 'ff');
   });
   chartData.datasets = chartData.datasets.reverse();
+  return chartData;
+}
+
+export const applyTrend = (chartData: chartDataType) => {
+  chartData.datasets.forEach((data: datasetType, i: number) => {
+    if(i%2) data.borderDash = [10, 5];
+    const idx = Math.floor(i/2);
+    data.borderColor = '#' + chartPalette.substring(idx*6, idx*6+6) + (i%2 ? '88' : 'ff');
+    data.backgroundColor = '#' + chartPalette.substring(idx*6, idx*6+6)  + (i%2 ? '88' : 'ff'); 
+  });
   return chartData;
 }
