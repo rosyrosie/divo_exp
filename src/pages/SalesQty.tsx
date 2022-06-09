@@ -1,27 +1,13 @@
-import { DatePicker, Segmented } from "antd";
+import { ConfigProvider, DatePicker, Segmented } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
+import moment from "moment";
 import { useState } from "react";
+import locale from 'antd/lib/locale/ko_KR';
+import { dateFormat, picker, rangeOptions } from "@utils/dateUtil";
 
 const SalesQty = () => {
-  const idMap = {
-    "30일": '30d',
-    '13주': '13w',
-    '26주': '26w',
-    '52주': '52w',
-    '24개월': '24m',
-    '전체': 'all'
-  };
-
-  const rangeOptions = ['30일', '13주', '26주', '52주', '24개월', '전체'];
-  
-  const picker = (range: SegmentedValue) => {
-    if(typeof range === "number") return 'date';
-    if(range.slice(-1) === '일') return 'date';
-    if(range.slice(-1) === '주') return 'week';
-    return 'month';
-  }
-
   const [ range, setRange ] = useState<SegmentedValue>('30일');
+  const [ endDate, setEndDate ] = useState(moment().subtract(2, 'days'));
 
   return (
     <div className="content">
@@ -31,7 +17,15 @@ const SalesQty = () => {
           value={range}
           onChange={setRange}
         />
-        <DatePicker picker={picker(range)}/>
+        <ConfigProvider locale={locale}>
+          <DatePicker
+            picker={picker(range)}
+            value={endDate}
+            onChange={(date) => date && setEndDate(date)}
+            allowClear={false}
+            format={dateFormat[picker(range)]}
+          />
+        </ConfigProvider>
       </div>
     </div>
   );

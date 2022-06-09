@@ -7,12 +7,11 @@ import { Chart } from "react-chartjs-2";
 import { applyColors, applyMultiAxis, lineOptions } from "@utils/chartUtil";
 import useAxios from "@useAxios";
 import { KWLIST_URL, KWSALES_CHART_URL } from "@api";
-import 'moment/locale/ko';
 import locale from 'antd/lib/locale/ko_KR';
-import { kwSalesMenu } from "@routes/menuconfig";
+import { dateToStringFormat } from "@utils/dateUtil";
 
-const KeywordSalesCorr = ({ opt }: { opt: typeof kwSalesMenu[number] }) => {
-  const { corpId } = useParams();
+const KeywordSalesCorr = () => {
+  const { corpId, dataId } = useParams();
   const { RangePicker } = DatePicker;
   const [ dateRange, setDateRange ] = useState<RangeValue<Moment>>([moment().subtract(1, 'months').subtract(2, 'days'), moment().subtract(2, 'days')]);
   const disabledDate = (current: moment.Moment) => {
@@ -28,23 +27,23 @@ const KeywordSalesCorr = ({ opt }: { opt: typeof kwSalesMenu[number] }) => {
       corpId,
       startDate: dateRange?.[0]?.format('YYYY-MM-DD'),
       endDate: dateRange?.[1]?.format('YYYY-MM-DD'),
-      opt
+      opt: dataId
     },
     'POST',
-    [dateRange, opt]
+    [dateRange, dataId]
   );
 
   const [ keywordSalesChart, chartLoading, chartError ] = useAxios(
     KWSALES_CHART_URL,
     {
       corpId,
-      startDate: dateRange?.[0]?.format('YYYY-MM-DD'),
-      endDate: dateRange?.[1]?.format('YYYY-MM-DD'),
+      startDate: dateRange?.[0]?.format(dateToStringFormat),
+      endDate: dateRange?.[1]?.format(dateToStringFormat),
       keywords: (checkedKeys as { checked: Key[], halfChecked: Key[] }).checked,
-      opt
+      opt: dataId
     },
     'POST',
-    [dateRange, checkedKeys, opt]
+    [dateRange, checkedKeys, dataId]
   );
 
   useEffect(() => {
@@ -82,7 +81,6 @@ const KeywordSalesCorr = ({ opt }: { opt: typeof kwSalesMenu[number] }) => {
       </div>
     </div>
   );
-
 }
 
 export default KeywordSalesCorr;

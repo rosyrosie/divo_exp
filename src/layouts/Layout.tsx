@@ -21,12 +21,7 @@ const Layout = () => {
 
   const onOpenChange = (keys: string[]) => {
     const latestOpenKey = keys.find((key) => openKeys.indexOf(key) === -1);
-    if(latestOpenKey && rootSubmenuKeys.indexOf(latestOpenKey) === -1){
-      setOpenKeys(keys);
-    }
-    else{
-      setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
-    }
+    setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
   };
 
   const onSelect = ({ key }: { key: string }) => {
@@ -42,7 +37,7 @@ const Layout = () => {
         </div>
         <Menu
           mode="inline"
-          defaultSelectedKeys={[dataId || '']}
+          defaultSelectedKeys={[dataId || 'sales-qty']}
           openKeys={openKeys}
           onOpenChange={onOpenChange} 
           items={menus}
