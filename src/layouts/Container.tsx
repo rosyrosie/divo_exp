@@ -1,4 +1,6 @@
+import KeywordCompare from "@pages/KeywordCompare";
 import KeywordSalesCorr from "@pages/KeywordSalesCorr";
+import KeywordSummary from "@pages/KeywordSummary";
 import Review from "@pages/Review";
 import SalesQty from "@pages/SalesQty";
 import { kwSalesMenu, reviewMenu, salesMenu } from "@routes/menuconfig";
@@ -13,6 +15,8 @@ const Container = () => {
     {
       'review-blog': <Review type="blog" />,
       'review-place': <Review type="place" />,
+      'kw-summary': <KeywordSummary />,
+      'kw-compare': <KeywordCompare />
     },
   );
 

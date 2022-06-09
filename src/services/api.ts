@@ -9,3 +9,7 @@ export const REVIEW_URL = (corpId: string, page: number, type: string) => BASE_U
 
 export const KWLIST_URL = BASE_URL + 'corpsales/salesKeywordList';
 export const KWSALES_CHART_URL = BASE_URL + 'corpsales/salesKeywordGraph';
+
+export const KW_ANLY_SUMM_URL = (corpId: string, opt: string, date: string) => BASE_URL + `corpkeywordcomp/keySummary?corpId=${corpId}&opt=${opt}&date=${date}`;
+
+export const SALES_URL = BASE_URL + 'corpsales/salesTrend';

@@ -1,5 +1,5 @@
 import { Menu } from "antd";
-import menus, { rootSubmenuKeys } from "@routes/menuconfig";
+import menus from "@routes/menuconfig";
 import { useState } from "react";
 import { HomeOutlined } from "@ant-design/icons";
 import { Outlet, useNavigate, useParams } from 'react-router-dom';

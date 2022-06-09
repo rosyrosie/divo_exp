@@ -8,16 +8,13 @@ import { applyColors, applyMultiAxis, lineOptions } from "@utils/chartUtil";
 import useAxios from "@useAxios";
 import { KWLIST_URL, KWSALES_CHART_URL } from "@api";
 import locale from 'antd/lib/locale/ko_KR';
-import { dateToStringFormat } from "@utils/dateUtil";
+import { dateToStringFormat, disabledDate } from "@utils/dateUtil";
 
 const KeywordSalesCorr = () => {
   const { corpId, dataId } = useParams();
   const { RangePicker } = DatePicker;
   const [ dateRange, setDateRange ] = useState<RangeValue<Moment>>([moment().subtract(1, 'months').subtract(2, 'days'), moment().subtract(2, 'days')]);
-  const disabledDate = (current: moment.Moment) => {
-    return current && current > moment().endOf('day');
-  }
-  const onChange = (dates: RangeValue<Moment>) => setDateRange(dates);
+  const onDateChange = (dates: RangeValue<Moment>) => setDateRange(dates);
 
   const [ checkedKeys, setCheckedKeys ] = useState<Key[] | { checked: Key[], halfChecked: Key[] }>({ checked: ['brand'], halfChecked: [] });
 
@@ -25,8 +22,8 @@ const KeywordSalesCorr = () => {
     KWLIST_URL,
     {
       corpId,
-      startDate: dateRange?.[0]?.format('YYYY-MM-DD'),
-      endDate: dateRange?.[1]?.format('YYYY-MM-DD'),
+      startDate: dateRange?.[0]?.format(dateToStringFormat),
+      endDate: dateRange?.[1]?.format(dateToStringFormat),
       opt: dataId
     },
     'POST',
@@ -58,7 +55,7 @@ const KeywordSalesCorr = () => {
             disabledDate={disabledDate}
             placeholder={['시작 날짜', '끝 날짜']}
             value={dateRange}
-            onChange={(dates) => onChange(dates)}
+            onChange={onDateChange}
             allowClear={false}
           />
         </ConfigProvider>

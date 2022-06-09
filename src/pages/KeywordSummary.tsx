@@ -1,31 +1,27 @@
+import { dateFormat, dateToStringFormat, picker, rangeOptions } from "@utils/dateUtil";
 import { ConfigProvider, DatePicker, Segmented } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
 import moment from "moment";
 import { useState } from "react";
 import locale from 'antd/lib/locale/ko_KR';
-import { dateFormat, dateToStringFormat, picker, rangeId, rangeOptions } from "@utils/dateUtil";
+import { KW_ANLY_SUMM_URL } from "@api";
 import useAxios from "@useAxios";
 import { useParams } from "react-router-dom";
-import { SALES_URL } from "@api";
 
-const SalesQty = () => {
-  const { corpId, dataId } = useParams();
+const KeywordSummary = () => {
+  const { corpId } = useParams();
   const [ range, setRange ] = useState<SegmentedValue>('30일');
   const [ endDate, setEndDate ] = useState(moment().subtract(2, 'days'));
 
-  const [ chart, loading, error ] = useAxios(
-    SALES_URL,
-    {
-      corpId: parseInt(corpId || '0'),
-      scale: rangeId[range],
-      endDate: endDate?.format(dateToStringFormat),
-      opt: dataId
-    },
-    'POST',
-    [range, endDate, dataId]
+  const [ summary, loading, error ] = useAxios(
+    KW_ANLY_SUMM_URL(corpId || '0', '0', endDate?.format(dateToStringFormat)),
+    null,
+    'GET',
+    [endDate],
+    corpId !== undefined
   );
 
-  console.log(chart);
+  console.log(summary);
 
   return (
     <div className="content">
@@ -49,4 +45,4 @@ const SalesQty = () => {
   );
 }
 
-export default SalesQty;
+export default KeywordSummary;

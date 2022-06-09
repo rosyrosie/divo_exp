@@ -9,6 +9,10 @@ moment.locale("ko", {
   }
 });
 
+export const disabledDate = (current: moment.Moment) => {
+  return current && current > moment().endOf('day');
+}
+
 export const dateToStringFormat = 'YYYY-MM-DD';
 
 export const dayFormat = (value: Moment) => moment(value).format(dateToStringFormat);
@@ -21,7 +25,7 @@ export const weekFormat = (value: Moment) => {
 }
 export const monthFormat = (value: Moment) => moment(value).format('YYYY-MM');
 
-export const rangeId = {
+export const rangeId: Record<SegmentedValue, string> = {
   "30일": '30d',
   '13주': '13w',
   '26주': '26w',

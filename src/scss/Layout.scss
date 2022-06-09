@@ -11,6 +11,7 @@
   display: flex;
   align-items: center;
   box-shadow: 0 2px 8px #f0f1f2;
+  clip-path: inset(-5px 0px -5px -5px);
 
   .brand_name{
     margin-left: 20px;
@@ -30,6 +31,8 @@
     justify-content: space-between;
     width: 100%;
     padding: 0 24px;
+    clip-path: inset(-5px -5px -5px 0px);
+
   }
   position: absolute;
   flex: 1;

@@ -13,6 +13,7 @@ const getItem = (label: any, key: any, icon: any = null, children: any = null, t
 export const rootSubmenuKeys = ['sales', 'keyword', 'review'];
 export const salesMenu = ['sales-qty', 'sales-qty-w', 'sales-qty-t', 'price', 'price-w', 'price-t', 'cnt', 'cnt-w', 'cnt-t', 'rvst', 'rvstr', 'rvstr-w', 'rvstr-t'] as const;
 export const kwSalesMenu = ['kw-sales-qty', 'kw-rvst', 'kw-rvstr', 'kw-price', 'kw-wd-sales', 'kw-wd-salesr', 'kw-we-sales', 'kw-we-salesr', 'kw-lc-sales', 'kw-lc-salesr', 'kw-dn-sales', 'kw-dn-salesr'] as const;
+export const kwAnalysisMenu = ['kw-summary', 'kw-compare'] as const;
 export const reviewMenu = ['review-blog', 'review-place'] as const;
 
 const menus = [
@@ -44,6 +45,10 @@ const menus = [
     getItem('키워드-점심 매출비율', 'kw-lc-salesr'),
     getItem('키워드-저녁 매출액', 'kw-dn-sales'),
     getItem('키워드-저녁 매출 비율', 'kw-dn-salesr'),
+  ]),
+  getItem('키워드 분석', 'keyword-analysis', <ContainerOutlined />, [
+    getItem('키워드 요약', 'kw-summary'),
+    getItem('키워드 비교 분석', 'kw-compare')
   ]),
   getItem('리뷰', 'review', <ContainerOutlined />, [
     getItem('네이버 블로그', 'review-blog'),
