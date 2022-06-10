@@ -1,4 +1,4 @@
-import { ContainerOutlined } from "@ant-design/icons";
+import { BarChartOutlined, ContainerOutlined, DeploymentUnitOutlined, MonitorOutlined, StarOutlined } from "@ant-design/icons";
 
 const getItem = (label: any, key: any, icon: any = null, children: any = null, type: any = null) => {
   return {
@@ -33,14 +33,14 @@ const menus = [
     getItem('요일별 재방문매출 비율', 'rvstr-w'),
     getItem('시간별 재방문매출 비율', 'rvstr-t'),
   ]),
-  getItem('키워드 분석', 'keyword', <ContainerOutlined />, [
+  getItem('키워드 분석', 'keyword', <MonitorOutlined />, [
     getItem('검색량', 'kw-qty'),
     getItem('요일별 검색량', 'kw-qty-w'),
     getItem('연령별 검색량', 'kw-qty-a'),
     getItem('성별 검색량', 'kw-qty-s'),
     getItem('기기별 검색량', 'kw-qty-d')
   ]),
-  getItem('키워드-매출', 'keyword-sales', <ContainerOutlined />, [
+  getItem('키워드-매출', 'keyword-sales', <BarChartOutlined />, [
     getItem('키워드-매출액', 'kw-sales-qty'),
     getItem('키워드-재방문매출', 'kw-rvst'),
     getItem('키워드-재방문매출비율', 'kw-rvstr'),
@@ -54,11 +54,11 @@ const menus = [
     getItem('키워드-저녁 매출액', 'kw-dn-sales'),
     getItem('키워드-저녁 매출 비율', 'kw-dn-salesr'),
   ]),
-  getItem('키워드 상관관계', 'keyword-analysis', <ContainerOutlined />, [
+  getItem('키워드 상관관계', 'keyword-analysis', <DeploymentUnitOutlined />, [
     getItem('키워드 요약', 'kw-summary'),
     getItem('키워드 비교 분석', 'kw-compare')
   ]),
-  getItem('리뷰', 'review', <ContainerOutlined />, [
+  getItem('리뷰', 'review', <StarOutlined />, [
     getItem('네이버 블로그', 'review-blog'),
     getItem('네이버 플레이스', 'review-place')
   ])
