@@ -17,3 +17,6 @@ export const KW_CMP_CHART_URL = BASE_URL + 'corpkeywordcomp/keyCompGraph';
 
 export const SALES_URL = BASE_URL + 'corpsales/salesTrend';
 export const SALES_BAR_URL = BASE_URL + 'corpsales/salesTrendBar';
+
+export const KW_TREND_URL = BASE_URL + 'corpkeywordtrend/trend';
+export const KW_TREND_BAR_URL = BASE_URL + 'corpkeywordtrend/trendBar';

@@ -34,6 +34,9 @@ const Sales = () => {
             onChange={(date) => date && setEndDate(date)}
             allowClear={false}
             format={dateFormat[picker(range)]}
+            style={{
+              width: '170px'
+            }}
           />
         </ConfigProvider>
       </div>

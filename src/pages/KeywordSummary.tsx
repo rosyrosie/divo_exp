@@ -40,12 +40,15 @@ const KeywordSummary = () => {
             onChange={(date) => date && setEndDate(date)}
             allowClear={false}
             format={dateFormat[picker(range)]}
+            style={{
+              width: '170px'
+            }}
           />
         </ConfigProvider>
       </div>
       <div className="cards">
         <Card
-          title="키워드 정보"
+          title="브랜드 키워드 정보"
           style={{
             marginBottom: '24px'
           }}
