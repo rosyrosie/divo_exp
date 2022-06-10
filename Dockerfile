@@ -9,6 +9,9 @@ EXPOSE 3000
 ## Install packages
 COPY package.json ./
 COPY package-lock.json ./
+COPY craco.config.js ./
+COPY tsconfig.json ./
+COPY tsconfig.paths.json ./
 RUN npm install
 
 COPY . .
