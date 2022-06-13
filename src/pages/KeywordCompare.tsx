@@ -1,7 +1,7 @@
 import { dateToStringFormat, disabledDate } from '@utils/dateUtil';
-import { DatePicker, Tree } from 'antd';
+import { DatePicker, message, Tree } from 'antd';
 import moment, { Moment } from 'moment';
-import { Key, useState } from 'react';
+import { Key, useEffect, useState } from 'react';
 import { RangeValue } from "rc-picker/lib/interface";
 import { Select } from 'antd';
 import useAxios from '@useAxios';
@@ -55,6 +55,10 @@ const KeywordCompare = () => {
   );
 
   const options = keywordList ? [...keywordList?.data[0], ...keywordList?.data[1], ...keywordList.data[2], ...keywordList.data[3]] : [];
+
+  useEffect(() => {
+    if(keyword === '') message.info('키워드를 선택해주세요', 2);
+  }, [keyword]);
 
   return (
     <div className="content">

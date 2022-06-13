@@ -60,11 +60,11 @@ const menus = [
     getItem('키워드 요약', 'kw-summary'),
     getItem('키워드 비교 분석', 'kw-compare')
   ]),
+  getItem('검색 노출도', 'vp-rank', <SearchOutlined />),
   getItem('리뷰', 'review', <StarOutlined />, [
     getItem('네이버 블로그', 'review-blog'),
     getItem('네이버 플레이스', 'review-place')
   ]),
-  getItem('검색 노출도', 'vp-rank', <SearchOutlined />)
 ];
 
 export default menus;

@@ -2,7 +2,7 @@ import { SegmentedValue } from "antd/lib/segmented";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { DatePicker, Select, Segmented } from 'antd';
+import { DatePicker, Select, Segmented, message } from 'antd';
 import useAxios from "@useAxios";
 import { KW_SELECT_URL } from "@api";
 import { dateFormat, picker, rangeOptions } from "@utils/dateUtil";
@@ -32,6 +32,10 @@ const Keyword = () => {
   }, [dataId, range]);
 
   const options = keywordList ? [...keywordList?.data[0], ...keywordList?.data[1], ...keywordList.data[2], ...keywordList.data[3]] : [];
+
+  useEffect(() => {
+    if(keyword === '') message.info('키워드를 선택해주세요', 2);
+  }, [keyword]);
 
   return (
     <div className="content">
