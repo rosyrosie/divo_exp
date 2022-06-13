@@ -2,10 +2,19 @@
   width: 256px;
   position: fixed;
   top: 0;
+  bottom: 0;
+  display: flex;
+  flex-flow: column;
+  overflow: hidden;
+}
+
+.menu_box{
+  overflow-y: auto;
 }
 
 .home{
   height: 64px;
+  min-height: 64px;
   margin-bottom: 24px;
   padding: 0 34px 0 24px;
   display: flex;

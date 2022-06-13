@@ -35,14 +35,16 @@ const Layout = () => {
           <HomeOutlined onClick={() => navigate('/')} />
           <div className="brand_name">{corpInfo?.corpName}</div>
         </div>
-        <Menu
-          mode="inline"
-          selectedKeys={[dataId || '']}
-          openKeys={openKeys}
-          onOpenChange={onOpenChange} 
-          items={menus}
-          onSelect={onSelect}
-        />
+        <div className="menu_box">
+          <Menu
+            mode="inline"
+            selectedKeys={[dataId || '']}
+            openKeys={openKeys}
+            onOpenChange={onOpenChange} 
+            items={menus}
+            onSelect={onSelect}
+          />
+        </div>
       </div>
       <Outlet />
     </>
