@@ -1,0 +1,12 @@
+.chart_box{
+  table{
+    display: flex;
+    tr{
+      display: block;
+      float: left;
+    }
+    th, td{
+      display: block;
+    }
+  }
+}

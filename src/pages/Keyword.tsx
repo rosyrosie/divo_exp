@@ -9,6 +9,7 @@ import locale from 'antd/lib/locale/ko_KR';
 import { dateFormat, picker, rangeOptions } from "@utils/dateUtil";
 import KwQtyChart from "@components/keyword/KwQtyChart";
 import KwRatioChart from "@components/keyword/KwRatioChart";
+import KeywordQtySales from "@components/keyword/KeywordQtySales";
 
 const Keyword = () => {
   const { Option } = Select;
@@ -71,7 +72,11 @@ const Keyword = () => {
           </ConfigProvider>
         </span>
       </div>
-      {dataId === 'kw-qty' ? <KwQtyChart keyword={keyword} range={range} endDate={endDate} /> : <KwRatioChart keyword={keyword} range={range} endDate={endDate} />}
+      {
+        dataId === 'kw-qty' ? <KwQtyChart keyword={keyword} range={range} endDate={endDate} /> : 
+        dataId !== 'kw-qty-sales' ? <KwRatioChart keyword={keyword} range={range} endDate={endDate} /> :
+        <KeywordQtySales keyword={keyword} range={range} endDate={endDate} />
+      }
     </div>
   );
 }

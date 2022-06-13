@@ -20,3 +20,5 @@ export const SALES_BAR_URL = BASE_URL + 'corpsales/salesTrendBar';
 
 export const KW_TREND_URL = BASE_URL + 'corpkeywordtrend/trend';
 export const KW_TREND_BAR_URL = BASE_URL + 'corpkeywordtrend/trendBar';
+
+export const KW_QTY_SALES_URL = BASE_URL + 'corpkeywordtrend/keySalesCorr';

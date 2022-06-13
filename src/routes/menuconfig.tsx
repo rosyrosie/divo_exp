@@ -12,7 +12,7 @@ const getItem = (label: any, key: any, icon: any = null, children: any = null, t
 
 export const rootSubmenuKeys = ['sales', 'keyword', 'review'];
 export const salesMenu = ['sales-qty', 'sales-qty-w', 'sales-qty-t', 'price', 'price-w', 'price-t', 'cnt', 'cnt-w', 'cnt-t', 'rvst', 'rvstr', 'rvstr-w', 'rvstr-t'] as const;
-export const kwMenu = ['kw-qty', 'kw-qty-w', 'kw-qty-a', 'kw-qty-s', 'kw-qty-d'] as const;
+export const kwMenu = ['kw-qty', 'kw-qty-w', 'kw-qty-a', 'kw-qty-s', 'kw-qty-d', 'kw-qty-sales'] as const;
 export const kwSalesMenu = ['kw-sales-qty', 'kw-rvst', 'kw-rvstr', 'kw-price', 'kw-wd-sales', 'kw-wd-salesr', 'kw-we-sales', 'kw-we-salesr', 'kw-lc-sales', 'kw-lc-salesr', 'kw-dn-sales', 'kw-dn-salesr'] as const;
 export const kwAnalysisMenu = ['kw-summary', 'kw-compare'] as const;
 export const reviewMenu = ['review-blog', 'review-place'] as const;
@@ -38,7 +38,8 @@ const menus = [
     getItem('요일별 검색량', 'kw-qty-w'),
     getItem('연령별 검색량', 'kw-qty-a'),
     getItem('성별 검색량', 'kw-qty-s'),
-    getItem('기기별 검색량', 'kw-qty-d')
+    getItem('기기별 검색량', 'kw-qty-d'),
+    getItem('매출 연관성 분석', 'kw-qty-sales')
   ]),
   getItem('키워드-매출', 'keyword-sales', <BarChartOutlined />, [
     getItem('키워드-매출액', 'kw-sales-qty'),
