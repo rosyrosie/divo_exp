@@ -31,7 +31,7 @@ const RankHistory = ({ keywords, visible, setVisible }: { keywords: Key[], visib
       }}
       width={1000}
     >
-      <Chart type="line" options={lineOptions(false)} data={applyColors(chart?.rankGraph)} />
+      {chart && <Chart type="line" options={lineOptions(false)} data={applyColors(chart?.rankGraph)} />}
     </Modal>
   );
 }
