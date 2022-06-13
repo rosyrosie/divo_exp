@@ -26,3 +26,5 @@ export const KW_QTY_SALES_URL = BASE_URL + 'corpkeywordtrend/keySalesCorr';
 
 export const VP_RANK_URL = BASE_URL + 'rank/rank?id=';
 export const VP_CHART_URL = (id: string, keyword: string) => BASE_URL + `rank/graph?id=${id}&keyword=${keyword}&cat=view`;
+
+export const KW_SCORE_URL = (corpId: string) => BASE_URL + 'placekeyword/list?id=' + corpId + '&amount=true';

@@ -1,4 +1,4 @@
-import { BarChartOutlined, ContainerOutlined, DeploymentUnitOutlined, MonitorOutlined, SearchOutlined, StarOutlined } from "@ant-design/icons";
+import { BarChartOutlined, ContainerOutlined, DeploymentUnitOutlined, MonitorOutlined, RadarChartOutlined, SearchOutlined, StarOutlined } from "@ant-design/icons";
 
 const getItem = (label: any, key: any, icon: any = null, children: any = null, type: any = null) => {
   return {
@@ -17,6 +17,7 @@ export const kwSalesMenu = ['kw-sales-qty', 'kw-rvst', 'kw-rvstr', 'kw-price', '
 export const kwAnalysisMenu = ['kw-summary', 'kw-compare'] as const;
 export const reviewMenu = ['review-blog', 'review-place'] as const;
 export const vpRankMenu = 'vp-rank' as const;
+export const kwScoreMenu = 'kw-score' as const;
 
 const menus = [
   getItem('매출 분석', 'sales', <ContainerOutlined />, [
@@ -56,6 +57,7 @@ const menus = [
     getItem('키워드-저녁 매출액', 'kw-dn-sales'),
     getItem('키워드-저녁 매출 비율', 'kw-dn-salesr'),
   ]),
+  getItem('키워드 평가', 'kw-score', <RadarChartOutlined />),
   getItem('키워드 상관관계', 'keyword-analysis', <DeploymentUnitOutlined />, [
     getItem('키워드 요약', 'kw-summary'),
     getItem('키워드 비교 분석', 'kw-compare')
