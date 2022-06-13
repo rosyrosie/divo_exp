@@ -66,8 +66,8 @@ const Home = () => {
                       alignItems: 'center'
                     }}
                   >
+                    {corp[1]}
                     <span>
-                      {corp[1]}
                       <Tag
                         color={corp[2] === 'linked' ? 'blue' : 'red'}
                         style={{
@@ -76,8 +76,8 @@ const Home = () => {
                       >
                         {corp[2] === 'linked' ? '연동' : '미연동'}
                       </Tag>
+                      <Rate count={1} />
                     </span>
-                    <Rate count={1} />
                   </Card>
                 </List.Item>
               )}
