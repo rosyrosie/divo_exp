@@ -75,7 +75,7 @@ const Keyword = () => {
       {
         dataId === 'kw-qty' ? <KwQtyChart keyword={keyword} range={range} endDate={endDate} /> : 
         dataId !== 'kw-qty-sales' ? <KwRatioChart keyword={keyword} range={range} endDate={endDate} /> :
-        <KeywordQtySales keyword={keyword} range={range} endDate={endDate} />
+        <KeywordQtySales keyword={keyword} range={range} setRange={setRange} endDate={endDate} />
       }
     </div>
   );
