@@ -4,12 +4,13 @@ import KeywordSalesCorr from "@pages/KeywordSalesCorr";
 import KeywordSummary from "@pages/KeywordSummary";
 import Review from "@pages/Review";
 import Sales from "@pages/Sales";
-import { kwMenu, kwSalesMenu, reviewMenu, salesMenu } from "@routes/menuconfig";
+import ViewPlaceRank from "@pages/ViewPlaceRank";
+import { kwMenu, kwSalesMenu, reviewMenu, salesMenu, vpRankMenu } from "@routes/menuconfig";
 import { useParams } from "react-router-dom";
 
 const Container = () => {
   const { dataId } = useParams();
-  type menuType = typeof salesMenu[number] | typeof kwSalesMenu[number] | typeof reviewMenu[number] | typeof kwMenu[number];
+  type menuType = typeof salesMenu[number] | typeof kwSalesMenu[number] | typeof reviewMenu[number] | typeof kwMenu[number] | typeof vpRankMenu;
   const getComponent: Record<string, JSX.Element> = Object.assign(
     salesMenu.map((key: menuType) => ({ [key]: <Sales /> })).reduce((p, n) => ({...p, ...n}), {}),
     kwMenu.map((key: menuType) => ({ [key]: <Keyword /> })).reduce((p, n) => ({...p, ...n}), {}),
@@ -18,7 +19,8 @@ const Container = () => {
       'review-blog': <Review type="blog" />,
       'review-place': <Review type="place" />,
       'kw-summary': <KeywordSummary />,
-      'kw-compare': <KeywordCompare />
+      'kw-compare': <KeywordCompare />,
+      'vp-rank': <ViewPlaceRank />
     },
   );
 

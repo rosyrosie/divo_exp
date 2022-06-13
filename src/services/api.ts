@@ -1,3 +1,5 @@
+import { Key } from "react";
+
 const BASE_URL = "https://test.divo.kr/";
 
 export const LOGIN_URL = BASE_URL + 'auth/login/';
@@ -20,5 +22,7 @@ export const SALES_BAR_URL = BASE_URL + 'corpsales/salesTrendBar';
 
 export const KW_TREND_URL = BASE_URL + 'corpkeywordtrend/trend';
 export const KW_TREND_BAR_URL = BASE_URL + 'corpkeywordtrend/trendBar';
-
 export const KW_QTY_SALES_URL = BASE_URL + 'corpkeywordtrend/keySalesCorr';
+
+export const VP_RANK_URL = BASE_URL + 'rank/rank?id=';
+export const VP_CHART_URL = (id: string, keyword: string) => BASE_URL + `rank/graph?id=${id}&keyword=${keyword}&cat=view`;

@@ -2,10 +2,9 @@ import { SegmentedValue } from "antd/lib/segmented";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ConfigProvider, DatePicker, Select, Segmented } from 'antd';
+import { DatePicker, Select, Segmented } from 'antd';
 import useAxios from "@useAxios";
 import { KW_SELECT_URL } from "@api";
-import locale from 'antd/lib/locale/ko_KR';
 import { dateFormat, picker, rangeOptions } from "@utils/dateUtil";
 import KwQtyChart from "@components/keyword/KwQtyChart";
 import KwRatioChart from "@components/keyword/KwRatioChart";
@@ -58,18 +57,16 @@ const Keyword = () => {
               marginRight: '12px'
             }}
           />
-          <ConfigProvider locale={locale}>
-            <DatePicker
-              picker={picker(range)}
-              value={endDate}
-              onChange={(date) => date && setEndDate(date)}
-              allowClear={false}
-              format={dateFormat[picker(range)]}
-              style={{
-                width: '170px'
-              }}
-            />
-          </ConfigProvider>
+          <DatePicker
+            picker={picker(range)}
+            value={endDate}
+            onChange={(date) => date && setEndDate(date)}
+            allowClear={false}
+            format={dateFormat[picker(range)]}
+            style={{
+              width: '170px'
+            }}
+          />
         </span>
       </div>
       {

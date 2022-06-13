@@ -1,4 +1,4 @@
-import { ConfigProvider, DatePicker, Segmented } from "antd";
+import { DatePicker, Segmented } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -27,18 +27,16 @@ const Sales = () => {
           value={range}
           onChange={setRange}
         />
-        <ConfigProvider locale={locale}>
-          <DatePicker
-            picker={picker(range)}
-            value={endDate}
-            onChange={(date) => date && setEndDate(date)}
-            allowClear={false}
-            format={dateFormat[picker(range)]}
-            style={{
-              width: '170px'
-            }}
-          />
-        </ConfigProvider>
+        <DatePicker
+          picker={picker(range)}
+          value={endDate}
+          onChange={(date) => date && setEndDate(date)}
+          allowClear={false}
+          format={dateFormat[picker(range)]}
+          style={{
+            width: '170px'
+          }}
+        />
       </div>
       {
         (dataId?.includes('-w') || dataId?.includes('-t')) ?

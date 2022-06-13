@@ -1,6 +1,5 @@
 import { dateToStringFormat, disabledDate } from '@utils/dateUtil';
-import { ConfigProvider, DatePicker, Tree } from 'antd';
-import locale from 'antd/lib/locale/ko_KR';
+import { DatePicker, Tree } from 'antd';
 import moment, { Moment } from 'moment';
 import { Key, useState } from 'react';
 import { RangeValue } from "rc-picker/lib/interface";
@@ -72,15 +71,13 @@ const KeywordCompare = () => {
             <Option value={option} key={option}>{option}</Option>
           ))}
         </Select>
-        <ConfigProvider locale={locale}>
-          <RangePicker 
-            disabledDate={disabledDate}
-            placeholder={['시작 날짜', '끝 날짜']}
-            value={dateRange}
-            onChange={onDateChange}
-            allowClear={false}
-          />
-        </ConfigProvider>
+        <RangePicker 
+          disabledDate={disabledDate}
+          placeholder={['시작 날짜', '끝 날짜']}
+          value={dateRange}
+          onChange={onDateChange}
+          allowClear={false}
+        />
       </div>
       <div className="data">
         <div className="chart_box">

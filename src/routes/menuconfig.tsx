@@ -1,4 +1,4 @@
-import { BarChartOutlined, ContainerOutlined, DeploymentUnitOutlined, MonitorOutlined, StarOutlined } from "@ant-design/icons";
+import { BarChartOutlined, ContainerOutlined, DeploymentUnitOutlined, MonitorOutlined, SearchOutlined, StarOutlined } from "@ant-design/icons";
 
 const getItem = (label: any, key: any, icon: any = null, children: any = null, type: any = null) => {
   return {
@@ -16,6 +16,7 @@ export const kwMenu = ['kw-qty', 'kw-qty-w', 'kw-qty-a', 'kw-qty-s', 'kw-qty-d',
 export const kwSalesMenu = ['kw-sales-qty', 'kw-rvst', 'kw-rvstr', 'kw-price', 'kw-wd-sales', 'kw-wd-salesr', 'kw-we-sales', 'kw-we-salesr', 'kw-lc-sales', 'kw-lc-salesr', 'kw-dn-sales', 'kw-dn-salesr'] as const;
 export const kwAnalysisMenu = ['kw-summary', 'kw-compare'] as const;
 export const reviewMenu = ['review-blog', 'review-place'] as const;
+export const vpRankMenu = 'vp-rank' as const;
 
 const menus = [
   getItem('매출 분석', 'sales', <ContainerOutlined />, [
@@ -62,7 +63,8 @@ const menus = [
   getItem('리뷰', 'review', <StarOutlined />, [
     getItem('네이버 블로그', 'review-blog'),
     getItem('네이버 플레이스', 'review-place')
-  ])
+  ]),
+  getItem('검색 노출도', 'vp-rank', <SearchOutlined />)
 ];
 
 export default menus;

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { ConfigProvider, DatePicker, message, Tree } from 'antd';
+import { DatePicker, message, Tree } from 'antd';
 import moment, { Moment } from "moment";
 import { Key, useEffect, useState } from "react";
 import { RangeValue } from "rc-picker/lib/interface";
@@ -7,8 +7,7 @@ import { Chart } from "react-chartjs-2";
 import { applyColors, applyMultiAxis, lineOptions } from "@utils/chartUtil";
 import useAxios from "@useAxios";
 import { KWLIST_URL, KWSALES_CHART_URL } from "@api";
-import locale from 'antd/lib/locale/ko_KR';
-import { dateToStringFormat, disabledDate, rangeId } from "@utils/dateUtil";
+import { dateToStringFormat, disabledDate } from "@utils/dateUtil";
 
 const KeywordSalesCorr = () => {
   const { corpId, dataId } = useParams();
@@ -62,15 +61,13 @@ const KeywordSalesCorr = () => {
   return (
     <div className="content">
       <div className="header">
-        <ConfigProvider locale={locale}>
-          <RangePicker 
-            disabledDate={disabledDate}
-            placeholder={['시작 날짜', '끝 날짜']}
-            value={dateRange}
-            onChange={onDateChange}
-            allowClear={false}
-          />
-        </ConfigProvider>
+        <RangePicker 
+          disabledDate={disabledDate}
+          placeholder={['시작 날짜', '끝 날짜']}
+          value={dateRange}
+          onChange={onDateChange}
+          allowClear={false}
+        />
       </div>
       <div className="data">
         <div className="chart_box">

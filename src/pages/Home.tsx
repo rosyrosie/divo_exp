@@ -1,6 +1,6 @@
 import { CORPLIST_URL } from "@api";
 import useAxios from "@useAxios";
-import { Button, Card, Divider, List, Segmented, Spin } from "antd";
+import { Button, Card, Divider, List, Rate, Segmented } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -53,7 +53,17 @@ const Home = () => {
             dataSource={corpList.corpList}
             renderItem={(corp: any[]) => (
               <List.Item onClick={() => setCorp(corp[0], corp[1])}>
-                <Card hoverable>{corp[1]}</Card>
+                <Card 
+                  hoverable
+                  bodyStyle={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                  }}
+                >
+                  {corp[1]}
+                  <Rate count={1} />
+                </Card>
               </List.Item>
             )}
           />}

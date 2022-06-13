@@ -25,4 +25,12 @@
   .logout{
     padding-top: 20px;
   }
+
+  .ant-card-body:before{
+    display: none;
+  }
+
+  .ant-card-body:after{
+    display: none;
+  }
 }
