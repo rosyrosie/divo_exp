@@ -47,6 +47,7 @@ const ViewPlaceRank = () => {
       title: '키워드',
       dataIndex: 'keyword',
       key: 'keyword',
+      width: '25%',
       filters: [
         {
           text: '상권 키워드',
@@ -63,6 +64,7 @@ const ViewPlaceRank = () => {
       title: '최근 1개월 검색량',
       dataIndex: 'searchAmount',
       key: 'searchAmount',
+      width: '25%',
       defaultSortOrder: 'descend' as SortOrder,
       sorter: (a: kwRankType, b: kwRankType) => a.searchAmount - b.searchAmount,
       sortDirections: ['descend'] as SortOrder[],
@@ -72,6 +74,7 @@ const ViewPlaceRank = () => {
       title: 'View 순위',
       dataIndex: 'view',
       key: 'view',
+      width: '25%',
       sorter: (a: kwRankType, b: kwRankType) => a.view - b.view,
       render: (text: string, record: kwRankType) => {
         const sign = record.viewDelta >= 0 ? '+' : '';
@@ -88,6 +91,7 @@ const ViewPlaceRank = () => {
       title: 'Place 순위',
       dataIndex: 'place',
       key: 'place',
+      width: '25%',
       sorter: (a: kwRankType, b: kwRankType) => a.place - b.place,
       render: (text: string, record: kwRankType) => {
         const sign = record.placeDelta >= 0 ? '+' : '';
