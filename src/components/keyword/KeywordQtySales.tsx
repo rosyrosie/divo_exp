@@ -10,7 +10,7 @@ import { Chart } from "react-chartjs-2";
 import { applyColors, applyMultiAxis, lineOptions } from "@utils/chartUtil";
 
 const KeywordQtySales = ({ keyword, range, endDate }: { keyword: string, range: SegmentedValue; endDate: moment.Moment }) => {
-  const { corpId, dataId } = useParams();
+  const { corpId } = useParams();
   const [ radioKey, setRadioKey ] = useState('qty');
 
   const [ data, loading, error ] = useAxios(
