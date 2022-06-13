@@ -22,7 +22,7 @@ const KwRatioChart = ({ keyword, range, endDate }: { keyword: string, range: Seg
     },
     'POST',
     [corpId, keyword, range, endDate, dataId],
-    keyword !== ''
+    keyword !== '' && (dataId !== 'kw-qty-w' || range !== '30일')
   );
 
   const [ barChart, barLoading, barError ] = useAxios(
@@ -35,7 +35,8 @@ const KwRatioChart = ({ keyword, range, endDate }: { keyword: string, range: Seg
       opt: dataId
     },
     'POST',
-    [corpId, keyword, range, endDate, dataId]
+    [corpId, keyword, range, endDate, dataId],
+    keyword !== '' && (dataId !== 'kw-qty-w' || range !== '30일')
   );
 
   useEffect(() => {
