@@ -33,11 +33,11 @@ const Sales = () => {
           allowClear={false}
         />
       </div>
-      {/* {
+      {
         (dataId?.includes('-w') || dataId?.includes('-t')) ?
-        <PerTimeChart range={range} endDate={endDate} /> :
-        <QtyChart range={range} endDate={endDate} />
-      } */}
+        <PerTimeChart dateRange={dateRange} /> :
+        <QtyChart dateRange={dateRange} />
+      }
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { VP_CHART_URL } from "@api";
 import useAxios from "@useAxios";
 import { applyColors, lineOptions } from "@utils/chartUtil";
-import { Modal } from "antd";
+import { Modal, Tabs } from "antd";
 import { Key, SetStateAction } from "react";
 import { Chart } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
@@ -10,16 +10,19 @@ const RankHistory = ({ keywords, visible, setVisible }: { keywords: Key[], visib
   const hideModal = () => setVisible(false);
   const { corpId } = useParams();
   const [ chart, loading, error ] = useAxios(
-    VP_CHART_URL(corpId || '0', keywords[0] as string),
-    null,
-    'GET',
+    VP_CHART_URL,
+    {
+      corpId,
+      keywords
+    },
+    'POST',
     [corpId, keywords],
     keywords.length > 0
   );
+  const { TabPane } = Tabs;
 
   return (
-    <Modal 
-      title="최근 순위 보기" 
+    <Modal  
       visible={visible} 
       onOk={hideModal} 
       onCancel={hideModal} 
@@ -31,7 +34,14 @@ const RankHistory = ({ keywords, visible, setVisible }: { keywords: Key[], visib
       }}
       width={1000}
     >
-      {chart && <Chart type="line" options={lineOptions(false)} data={applyColors(chart?.rankGraph)} />}
+      <Tabs defaultActiveKey="view">
+        <TabPane tab="VIEW 순위" key="view">
+          {chart && <Chart type="line" options={lineOptions(false, true)} data={applyColors(chart?.viewRankGraph)} />}
+        </TabPane>
+        <TabPane tab="Place 순위" key="place">
+          {chart && <Chart type="line" options={lineOptions(false, true)} data={applyColors(chart?.placeRankGraph)} />}
+        </TabPane>
+      </Tabs>
     </Modal>
   );
 }

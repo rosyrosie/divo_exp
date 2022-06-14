@@ -1,14 +1,15 @@
 import { KW_TREND_URL } from "@api";
 import useAxios from "@useAxios";
 import { applyTrendStyle, lineOptions } from "@utils/chartUtil";
-import { dateToStringFormat, rangeId } from "@utils/dateUtil";
+import { dateToStringFormat } from "@utils/dateUtil";
+import { Moment } from "moment";
 import { message } from "antd";
-import { SegmentedValue } from "antd/lib/segmented";
+import { RangeValue } from "rc-picker/lib/interface";
 import { useEffect } from "react";
 import { Chart } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
 
-const KwQtyChart = ({ keyword, range, endDate }: { keyword: string, range: SegmentedValue; endDate: moment.Moment }) => {
+const KwQtyChart = ({ keyword, dateRange }: { keyword: string, dateRange: RangeValue<Moment> }) => {
   const { corpId, dataId } = useParams();
 
   const [ chart, loading, error ] = useAxios(
@@ -16,12 +17,12 @@ const KwQtyChart = ({ keyword, range, endDate }: { keyword: string, range: Segme
     {
       corpId: parseInt(corpId || '0'),
       pivot: keyword,
-      scale: rangeId[range],
-      date: endDate?.format(dateToStringFormat),
+      startDate: dateRange?.[0]?.format(dateToStringFormat),
+      endDate: dateRange?.[1]?.format(dateToStringFormat),
       opt: dataId
     },
     'POST',
-    [corpId, keyword, range, endDate, dataId],
+    [corpId, keyword, dateRange, dataId],
     keyword !== ''
   );
 
@@ -34,7 +35,7 @@ const KwQtyChart = ({ keyword, range, endDate }: { keyword: string, range: Segme
     <div className="data">
       <div className="chart_box">
         <div className="chart">
-          {chart && <Chart type="line" options={lineOptions(false)} data={applyTrendStyle(chart.data)} />}
+          {chart && <Chart type="line" options={lineOptions(false, false)} data={applyTrendStyle(chart.data)} />}
         </div>
       </div>
     </div>

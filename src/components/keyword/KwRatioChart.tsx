@@ -3,12 +3,13 @@ import useAxios from "@useAxios";
 import { applyBarStyle, applyColors, applyTrendStyle, barOptions, lineOptions } from "@utils/chartUtil";
 import { dateToStringFormat, rangeId } from "@utils/dateUtil";
 import { message } from "antd";
-import { SegmentedValue } from "antd/lib/segmented";
+import { Moment } from "moment";
+import { RangeValue } from "rc-picker/lib/interface";
 import { useEffect } from "react";
 import { Chart } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
 
-const KwRatioChart = ({ keyword, range, endDate }: { keyword: string, range: SegmentedValue; endDate: moment.Moment }) => {
+const KwRatioChart = ({ keyword, dateRange }: { keyword: string, dateRange: RangeValue<Moment> }) => {
   const { corpId, dataId } = useParams();
 
   const [ lineChart, lineLoading, lineError ] = useAxios(
@@ -16,13 +17,13 @@ const KwRatioChart = ({ keyword, range, endDate }: { keyword: string, range: Seg
     {
       corpId: parseInt(corpId || '0'),
       pivot: keyword,
-      scale: rangeId[range],
-      date: endDate?.format(dateToStringFormat),
+      startDate: dateRange?.[0]?.format(dateToStringFormat),
+      endDate: dateRange?.[1]?.format(dateToStringFormat),
       opt: dataId
     },
     'POST',
-    [corpId, keyword, range, endDate, dataId],
-    keyword !== '' && (dataId !== 'kw-qty-w' || range !== '30일')
+    [corpId, keyword, dateRange, dataId],
+    keyword !== ''
   );
 
   const [ barChart, barLoading, barError ] = useAxios(
@@ -30,13 +31,13 @@ const KwRatioChart = ({ keyword, range, endDate }: { keyword: string, range: Seg
     {
       corpId: parseInt(corpId || '0'),
       pivot: keyword,
-      scale: rangeId[range],
-      date: endDate?.format(dateToStringFormat),
+      startDate: dateRange?.[0]?.format(dateToStringFormat),
+      endDate: dateRange?.[1]?.format(dateToStringFormat),
       opt: dataId
     },
     'POST',
-    [corpId, keyword, range, endDate, dataId],
-    keyword !== '' && (dataId !== 'kw-qty-w' || range !== '30일')
+    [corpId, keyword, dateRange, dataId],
+    keyword !== ''
   );
 
   useEffect(() => {
@@ -54,7 +55,7 @@ const KwRatioChart = ({ keyword, range, endDate }: { keyword: string, range: Seg
         </div>
         <div className="chart_container">
           <div className="chart">
-            {lineChart && <Chart type="line" options={lineOptions(false)} data={dataId === 'kw-qty-a' ? applyColors(lineChart.data) : applyTrendStyle(lineChart.data)} />}
+            {lineChart && <Chart type="line" options={lineOptions(false, false)} data={dataId === 'kw-qty-a' ? applyColors(lineChart.data) : applyTrendStyle(lineChart.data)} />}
           </div>
         </div>
       </div>

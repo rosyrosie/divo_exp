@@ -65,7 +65,7 @@ const KeywordSalesCorr = () => {
       <div className="data">
         <div className="chart_box">
           <div className="chart">
-            {keywordSalesChart && <Chart type="line" options={lineOptions(true)} data={applyColors(applyMultiAxis(keywordSalesChart?.data))} />}
+            {keywordSalesChart && <Chart type="line" options={lineOptions(true, false)} data={applyColors(applyMultiAxis(keywordSalesChart?.data))} />}
           </div>
         </div>
         <div className="check_box">

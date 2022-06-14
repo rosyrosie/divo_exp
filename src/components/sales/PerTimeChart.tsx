@@ -1,37 +1,38 @@
 import { SALES_BAR_URL, SALES_URL } from "@api";
 import useAxios from "@useAxios";
 import { applyBarStyle, applyTrendStyle, barOptions, lineOptions } from "@utils/chartUtil";
-import { dateToStringFormat, rangeId } from "@utils/dateUtil";
+import { dateToStringFormat } from "@utils/dateUtil";
 import { message } from "antd";
-import { SegmentedValue } from "antd/lib/segmented";
 import { useEffect } from "react";
 import { Chart } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
+import { Moment } from "moment";
+import { RangeValue } from "rc-picker/lib/interface";
 
-const PerTimeChart = ({ range, endDate }: { range: SegmentedValue; endDate: moment.Moment }) => {
+const PerTimeChart = ({ dateRange }: { dateRange: RangeValue<Moment> }) => {
   const { corpId, dataId } = useParams();
   const [ lineChart, lineLoading, lineError ] = useAxios(
     SALES_URL,
     {
       corpId: parseInt(corpId || '0'),
-      scale: rangeId[range],
-      endDate: endDate?.format(dateToStringFormat),
+      startDate: dateRange?.[0]?.format(dateToStringFormat),
+      endDate: dateRange?.[1]?.format(dateToStringFormat),
       opt: dataId
     },
     'POST',
-    [corpId, range, endDate, dataId]
+    [corpId, dateRange, dataId]
   );
 
   const [ barChart, barLoading, barError ] = useAxios(
     SALES_BAR_URL,
     {
       corpId: parseInt(corpId || '0'),
-      scale: rangeId[range],
-      endDate: endDate?.format(dateToStringFormat),
+      startDate: dateRange?.[0]?.format(dateToStringFormat),
+      endDate: dateRange?.[1]?.format(dateToStringFormat),
       opt: dataId
     },
     'POST',
-    [corpId, range, endDate, dataId]
+    [corpId, dateRange, dataId]
   );
 
   useEffect(() => {
@@ -49,7 +50,7 @@ const PerTimeChart = ({ range, endDate }: { range: SegmentedValue; endDate: mome
         </div>
         <div className="chart_container">
           <div className="chart">
-            {lineChart && <Chart type="line" options={lineOptions(false)} data={applyTrendStyle(lineChart.data.salesTrend)} />}
+            {lineChart && <Chart type="line" options={lineOptions(false, false)} data={applyTrendStyle(lineChart.data.salesTrend)} />}
           </div>
         </div>
       </div>

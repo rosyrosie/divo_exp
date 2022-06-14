@@ -1,15 +1,15 @@
-import { dateToStringFormat, rangeId } from "@utils/dateUtil";
+import { dateToStringFormat, expandDate } from "@utils/dateUtil";
 import { message, Radio, Space, Table } from "antd";
 import { SetStateAction, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { SegmentedValue } from "antd/lib/segmented";
-import moment from "moment";
+import { Moment } from "moment";
 import useAxios from "@useAxios";
 import { KW_QTY_SALES_URL } from "@api";
 import { Chart } from "react-chartjs-2";
 import { applyColors, applyMultiAxis, lineOptions } from "@utils/chartUtil";
+import { RangeValue } from "rc-picker/lib/interface";
 
-const KeywordQtySales = ({ keyword, range, setRange, endDate }: { keyword: string, range: SegmentedValue, setRange: React.Dispatch<SetStateAction<SegmentedValue>>, endDate: moment.Moment }) => {
+const KeywordQtySales = ({ keyword, dateRange, setDateRange }: { keyword: string, dateRange: RangeValue<Moment>, setDateRange: React.Dispatch<SetStateAction<RangeValue<Moment>>> }) => {
   const { corpId } = useParams();
   const [ radioKey, setRadioKey ] = useState('qty');
 
@@ -18,13 +18,13 @@ const KeywordQtySales = ({ keyword, range, setRange, endDate }: { keyword: strin
     {
       corpId: parseInt(corpId || '0'),
       pivot: keyword,
-      scale: rangeId[range],
-      date: endDate?.format(dateToStringFormat),
+      startDate: dateRange?.[0]?.format(dateToStringFormat),
+      endDate: dateRange?.[1]?.format(dateToStringFormat),
       opt: radioKey
     },
     'POST',
-    [corpId, keyword, range, endDate, radioKey],
-    keyword !== '' && (range !== '30일' || !radioKey.includes('qty-w'))
+    [corpId, keyword, dateRange, radioKey],
+    keyword !== '' && (true)
   );
 
   const radioData = [
@@ -60,7 +60,7 @@ const KeywordQtySales = ({ keyword, range, setRange, endDate }: { keyword: strin
 
   useEffect(() => {
     if(!radioKey.includes('qty-w')) return;
-    if(range === '30일') setRange('13주');
+    expandDate(dateRange, setDateRange);
   }, [radioKey]);
 
   return (
@@ -68,7 +68,7 @@ const KeywordQtySales = ({ keyword, range, setRange, endDate }: { keyword: strin
       <div className="chart_box">
         <Table columns={columns(data?.data?.trendUnit)} dataSource={data?.data?.tableData} pagination={false} />
         <div className="chart">
-          {data && <Chart type="line" options={lineOptions(true)} data={applyColors(applyMultiAxis(data?.data?.chartData))} />}
+          {data && <Chart type="line" options={lineOptions(true, false)} data={applyColors(applyMultiAxis(data?.data?.chartData))} />}
         </div>
       </div>
       <div className="check_box">

@@ -5,7 +5,7 @@ const tickCallback = (tickValue: string | number) => {
   return tickValue>=10000 ? ((tickValue)/10000+'만') : tickValue>=1000 ? (tickValue/1000+'천') : tickValue;
 }
 
-export const lineOptions: (multiAxis: boolean) => ChartOptions = (multiAxis: boolean = true) => ({
+export const lineOptions: (multiAxis: boolean, forRank: boolean) => ChartOptions = (multiAxis: boolean = true, forRank: boolean = false) => ({
   responsive: true,
   plugins: {
     legend: {
@@ -29,7 +29,8 @@ export const lineOptions: (multiAxis: boolean) => ChartOptions = (multiAxis: boo
       ticks: {
         callback: tickCallback
       },
-      beginAtZero: true
+      beginAtZero: true,
+      reverse: forRank
     },
     y1: {
       display: multiAxis,

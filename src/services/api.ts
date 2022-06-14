@@ -1,5 +1,3 @@
-import { Key } from "react";
-
 const BASE_URL = "https://test.divo.kr/";
 
 export const LOGIN_URL = BASE_URL + 'auth/login/';
@@ -14,7 +12,7 @@ export const REVIEW_URL = (corpId: string, page: number, type: string) => BASE_U
 export const KWLIST_URL = BASE_URL + 'corpsales/salesKeywordList';
 export const KWSALES_CHART_URL = BASE_URL + 'corpsales/salesKeywordGraph';
 
-export const KW_ANLY_SUMM_URL = (corpId: string, opt: string, date: string) => BASE_URL + `corpkeywordcomp/keySummary?corpId=${corpId}&opt=${opt}&date=${date}`;
+export const KW_ANLY_SUMM_URL = (corpId: string, startDate: string | undefined, endDate: string | undefined) => BASE_URL + `corpkeywordcomp/keySummary?corpId=${corpId}&startDate=${startDate}&endDate=${endDate}`;
 export const KW_SELECT_URL = BASE_URL + 'corpkeywordcomp/keywordList?corpId=';
 export const KW_CHECKLIST_URL = BASE_URL + 'corpkeywordcomp/keyCompList';
 export const KW_CMP_CHART_URL = BASE_URL + 'corpkeywordcomp/keyCompGraph';
@@ -27,6 +25,6 @@ export const KW_TREND_BAR_URL = BASE_URL + 'corpkeywordtrend/trendBar';
 export const KW_QTY_SALES_URL = BASE_URL + 'corpkeywordtrend/keySalesCorr';
 
 export const VP_RANK_URL = BASE_URL + 'rank/rank?id=';
-export const VP_CHART_URL = (id: string, keyword: string) => BASE_URL + `rank/graph?id=${id}&keyword=${keyword}&cat=view`;
+export const VP_CHART_URL = BASE_URL + 'rank/graph';
 
 export const KW_SCORE_URL = (corpId: string) => BASE_URL + 'placekeyword/list?id=' + corpId + '&amount=true';

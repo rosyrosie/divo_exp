@@ -6,7 +6,7 @@ import { SetStateAction } from "react";
 
 const PresetRange = ({ disableDay, setDateRange }: { disableDay: boolean, setDateRange: React.Dispatch<SetStateAction<RangeValue<Moment>>> }) => {
   return (
-    <span>
+    <span className="preset_range">
       <Button disabled={disableDay} onClick={() => setPresetRange(30, 'days', setDateRange)} style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}>30일</Button>
       <Button onClick={() => setPresetRange(13, 'weeks', setDateRange)} style={{ borderRadius: 0 }}>13주</Button>
       <Button onClick={() => setPresetRange(26, 'weeks', setDateRange)} style={{ borderRadius: 0 }}>26주</Button>
