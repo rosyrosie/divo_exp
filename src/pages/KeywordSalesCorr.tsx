@@ -9,6 +9,7 @@ import useAxios from "@useAxios";
 import { KWLIST_URL, KWSALES_CHART_URL } from "@api";
 import { dateToStringFormat, disabledDate, expandDate, isDateRangeShort } from "@utils/dateUtil";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import PresetRange from "@components/PresetRange";
 
 const KeywordSalesCorr = () => {
   const { corpId, dataId } = useParams();
@@ -56,6 +57,7 @@ const KeywordSalesCorr = () => {
   return (
     <div className="content">
       <div className="header">
+        <PresetRange disableDay={false} setDateRange={setDateRange} />
         <RangePicker 
           disabledDate={disabledDate}
           placeholder={['시작 날짜', '끝 날짜']}
