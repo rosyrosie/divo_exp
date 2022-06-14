@@ -81,6 +81,50 @@ export const barOptions: ChartOptions = {
   }
 };
 
+export const radarOptions: ChartOptions = {
+  responsive: true,
+    plugins: {
+      legend: {
+        position: 'bottom',
+      },
+      tooltip: {
+        callbacks: {
+          label: tooltipItem => tooltipItem.dataset.label + ': ' + tooltipItem.formattedValue + '등급'
+        }
+      }
+    },
+    elements: {
+      point:{
+        radius: 1,
+        hoverRadius: 2
+      },
+      line: {
+        borderWidth: 1.5
+      }
+    },
+    interaction: {
+      intersect: false,
+      mode: 'index'
+    },
+    scales: {
+      r: {
+        min: 0,
+        pointLabels: {
+          font: {
+            size: 13
+          }
+        },
+        ticks: {
+          showLabelBackdrop: false,
+          stepSize: 1,
+          font: {
+            weight: 'bold'
+          }
+        },
+      }
+    }
+}
+
 type datasetType = {
   label: string,
   data: number[],
@@ -125,6 +169,14 @@ export const applyColors = (chartData: chartDataType) => {
     data.backgroundColor = '#' + chartPalette.substring(i*6, i*6+6) + (!i ? '55' : 'ff');
   });
   chartData.datasets = chartData.datasets.reverse();
+  return chartData;
+};
+
+export const applyRadarColors = (chartData: chartDataType) => {
+  chartData.datasets.forEach((data: datasetType, i: number) => {
+    data.borderColor = '#' + chartPalette.substring(i*6, i*6+6);
+    data.backgroundColor = '#' + chartPalette.substring(i*6, i*6+6) + '33';
+  });
   return chartData;
 }
 
