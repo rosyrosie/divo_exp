@@ -67,7 +67,7 @@ const KeywordQtySales = ({ keyword, dateRange, setDateRange }: { keyword: string
   return (
     <div className="data">
       <div className="chart_box">
-        <Table columns={columns(data?.data?.trendUnit)} dataSource={data?.data?.tableData} pagination={false} />
+        <Table columns={columns(data?.data?.trendUnit)} dataSource={data?.data?.tableData} pagination={false} bordered />
         <div className="chart">
           {data &&
             <Chart 

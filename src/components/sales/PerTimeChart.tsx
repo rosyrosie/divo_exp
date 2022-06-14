@@ -20,7 +20,8 @@ const PerTimeChart = ({ dateRange }: { dateRange: RangeValue<Moment> }) => {
       opt: dataId
     },
     'POST',
-    [corpId, dateRange, dataId]
+    [corpId, dateRange, dataId],
+    corpId !== undefined && (!dataId?.includes('-w') || !isDateRangeShort(dateRange))
   );
 
   const [ barChart, barLoading, barError ] = useAxios(
