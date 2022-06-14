@@ -9,6 +9,7 @@ import { KW_SELECT_URL, KW_CHECKLIST_URL, KW_CMP_CHART_URL } from '@api';
 import { useParams } from 'react-router-dom';
 import { Chart } from 'react-chartjs-2';
 import { applyColors, lineOptions } from '@utils/chartUtil';
+import PresetRange from '@components/PresetRange';
 
 const KeywordCompare = () => {
   const { corpId } = useParams();
@@ -74,13 +75,16 @@ const KeywordCompare = () => {
             <Option value={option} key={option}>{option}</Option>
           ))}
         </Select>
-        <RangePicker 
-          disabledDate={disabledDate}
-          placeholder={['시작 날짜', '끝 날짜']}
-          value={dateRange}
-          onChange={setDateRange}
-          allowClear={false}
-        />
+        <span>
+          <PresetRange disableDay={false} setDateRange={setDateRange} />
+          <RangePicker 
+            disabledDate={disabledDate}
+            placeholder={['시작 날짜', '끝 날짜']}
+            value={dateRange}
+            onChange={setDateRange}
+            allowClear={false}
+          />
+        </span>
       </div>
       <div className="data">
         <div className="chart_box">
