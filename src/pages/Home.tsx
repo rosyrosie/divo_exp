@@ -1,13 +1,19 @@
-import { CORPLIST_URL } from "@api";
+import { BM_CORPLIST_URL, BM_TOGGLE_URL } from "@api";
 import useAxios from "@useAxios";
 import { Button, Card, Divider, List, message, Rate, Segmented, Tag } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+type corpType = [
+  number, string, string, string
+];
 
 const Home = () => {
   const navigate = useNavigate();
   const [ sortType, setSortType ] = useState<SegmentedValue>('등록일순');
+  const [ trigger, setTrigger ] = useState(false);
   const sortId: Record<SegmentedValue, string> = {
     '등록일순': 'id',
     '가나다순': 'abc'
@@ -19,13 +25,13 @@ const Home = () => {
   }, [token]);
 
   const [ corpList, loading, error ] = useAxios(
-    CORPLIST_URL + '?sortby=' + sortId[sortType],
+    BM_CORPLIST_URL + '?sortby=' + sortId[sortType],
     null,
     'GET',
-    [sortType]
+    [sortType, trigger]
   );
 
-  const setCorp = (id: string, name: string) => {
+  const setCorp = (id: number) => {
     navigate(`/bid=${id}/sales-qty`);
   };
 
@@ -35,6 +41,10 @@ const Home = () => {
     navigate('/');
   }
 
+  const toggleBookmark = (id: number) => {
+    axios.get(BM_TOGGLE_URL + id, {headers: {"Authorization": `Token ${token}`}}).then(() => setTrigger(t => !t));
+  }
+
   useEffect(() => {
     if(error) message.warning('잠시 후 다시 시도해주세요', 1.5);
   }, [error]);
@@ -42,7 +52,7 @@ const Home = () => {
   return (
     <>
       <div className="brand_box">
-        <Divider orientation="left">브랜드 목록</Divider>
+        <Divider orientation="left">즐겨찾기</Divider>
         <div className="brand_list">
           {corpList && 
             <List 
@@ -55,9 +65,9 @@ const Home = () => {
                 xl: 3,
                 xxl: 4
               }}
-              dataSource={corpList.corpList}
-              renderItem={(corp: any[]) => (
-                <List.Item onClick={() => setCorp(corp[0], corp[1])}>
+              dataSource={corpList.corpList.yesBookmark}
+              renderItem={(corp: corpType) => (
+                <List.Item onClick={() => setCorp(corp[0])}>
                   <Card 
                     hoverable
                     bodyStyle={{
@@ -76,7 +86,53 @@ const Home = () => {
                       >
                         {corp[2] === 'linked' ? '연동' : '미연동'}
                       </Tag>
-                      <Rate count={1} />
+                      <span onClick={event => event.stopPropagation()}>
+                        <Rate count={1} value={1} onChange={() => toggleBookmark(corp[0])} />
+                      </span>
+                    </span>
+                  </Card>
+                </List.Item>
+              )}
+            />
+          }
+        </div>
+        <Divider orientation="left">브랜드 목록</Divider>
+        <div className="brand_list">
+          {corpList && 
+            <List 
+              grid={{
+                gutter: 16,
+                xs: 1,
+                sm: 2,
+                md: 2,
+                lg: 3,
+                xl: 3,
+                xxl: 4
+              }}
+              dataSource={corpList.corpList.notBookmark}
+              renderItem={(corp: corpType) => (
+                <List.Item onClick={() => setCorp(corp[0])}>
+                  <Card 
+                    hoverable
+                    bodyStyle={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center'
+                    }}
+                  >
+                    {corp[1]}
+                    <span>
+                      <Tag
+                        color={corp[2] === 'linked' ? 'blue' : 'red'}
+                        style={{
+                          marginLeft: '6px'
+                        }}
+                      >
+                        {corp[2] === 'linked' ? '연동' : '미연동'}
+                      </Tag>
+                      <span onClick={event => event.stopPropagation()}>
+                        <Rate count={1} value={0} onChange={() => toggleBookmark(corp[0])} />
+                      </span>
                     </span>
                   </Card>
                 </List.Item>
