@@ -20,9 +20,9 @@ export const popoverContent = {
   ),
   pri: (
     <div>
-      <div>Place CPR(Cost Per Rank)은 해당 키워드에서</div>
-      <div>Place 상위노출 난이도를 나타내는 지표로</div>
-      <div>값이 클수록 상위노출이 어려운 키워드임을 뜻합니다.</div>
+      <div>Place RI(Recommendation Index)는 해당 키워드의</div>
+      <div>Place DPR·CPR로 계산된 마케팅 효율 지표입니다.</div>
+      <div>값이 클수록 Place 마케팅에 추천되는 키워드입니다.</div>
     </div>
   )
 }
