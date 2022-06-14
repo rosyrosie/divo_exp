@@ -1,8 +1,7 @@
 import { VP_RANK_URL } from "@api";
 import RankHistory from "@components/viewplacerank/RankHistory";
 import useAxios from "@useAxios";
-import { Button, Card, Segmented, Table, Tag } from "antd";
-import { SegmentedValue } from "antd/lib/segmented";
+import { Button, Table, Tag } from "antd";
 import { SortOrder } from "antd/lib/table/interface";
 import { Key, useState } from "react";
 import { useParams } from "react-router-dom";

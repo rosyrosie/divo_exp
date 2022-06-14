@@ -6,11 +6,12 @@ import { Moment } from "moment";
 import useAxios from "@useAxios";
 import { KW_QTY_SALES_URL } from "@api";
 import { Chart } from "react-chartjs-2";
-import { applyColors, applyMultiAxis, lineOptions } from "@utils/chartUtil";
+import { applyBarLabel, applyColors, applyMultiAxis, labelFormatter, lineOptions } from "@utils/chartUtil";
 import { RangeValue } from "rc-picker/lib/interface";
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 const KeywordQtySales = ({ keyword, dateRange, setDateRange }: { keyword: string, dateRange: RangeValue<Moment>, setDateRange: React.Dispatch<SetStateAction<RangeValue<Moment>>> }) => {
-  const { corpId } = useParams();
+  const { corpId, dataId } = useParams();
   const [ radioKey, setRadioKey ] = useState('qty');
 
   const [ data, loading, error ] = useAxios(
@@ -68,7 +69,14 @@ const KeywordQtySales = ({ keyword, dateRange, setDateRange }: { keyword: string
       <div className="chart_box">
         <Table columns={columns(data?.data?.trendUnit)} dataSource={data?.data?.tableData} pagination={false} />
         <div className="chart">
-          {data && <Chart type="line" options={lineOptions(true, false)} data={applyColors(applyMultiAxis(data?.data?.chartData))} />}
+          {data &&
+            <Chart 
+              type="line" 
+              options={applyBarLabel(lineOptions(true, false), labelFormatter(dataId || '0', loading))} 
+              data={applyColors(applyMultiAxis(data?.data?.chartData))} 
+              plugins={[ChartDataLabels]} 
+            />
+          }
         </div>
       </div>
       <div className="check_box">

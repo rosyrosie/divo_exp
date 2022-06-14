@@ -2,7 +2,7 @@ import { QuestionCircleOutlined } from "@ant-design/icons";
 import { KW_SCORE_URL } from "@api";
 import useAxios from "@useAxios";
 import { popoverContent } from "@utils/scoreUtil";
-import { Button, Popover, Segmented, Table } from "antd";
+import { Popover, Segmented, Table } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
 import { SortOrder } from "antd/lib/table/interface";
 import { useState } from "react";

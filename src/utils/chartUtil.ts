@@ -12,6 +12,16 @@ export const lineOptions: (multiAxis: boolean, forRank: boolean) => ChartOptions
       position: 'bottom',
       display: true
     },
+    datalabels: {
+      display: true,
+      align: 'end',
+      anchor: 'end',
+      font: {
+        weight: 'bold',
+        size: 11
+      },
+      padding: 4
+    },
     tooltip: {
       callbacks: {
         label: tooltipItem => {
@@ -79,7 +89,8 @@ type datasetType = {
   borderColor?: string,
   backgroundColor?: string,
   borderDash?: number[],
-  maxBarThickness?: number
+  maxBarThickness?: number,
+  datalabels?: any
 };
 
 type chartDataType = {
@@ -93,7 +104,14 @@ export const applyMultiAxis = (chartData: chartDataType) => {
       data.yAxisID = 'y1';
       data.type = 'bar';
     }
-    else data.yAxisID = 'y';
+    else{
+      data.yAxisID = 'y';
+      data.datalabels = {
+        labels: {
+          title: null
+        }
+      };
+    }
     data.maxBarThickness = 60;
   });
   return chartData;
@@ -127,4 +145,24 @@ export const applyBarStyle = (chartData: chartDataType) => {
     data.backgroundColor = '#' + chartPalette.substring(12, 18) + '88';
   });
   return chartData;
+}
+
+export const applyBarLabel = (options: ChartOptions, formatter: (val: any) => {}) => {
+  return {
+    ...options,
+    plugins: {
+      ...options.plugins,
+      datalabels: {
+        ...options.plugins?.datalabels,
+        formatter
+      }
+    }
+  }
+}
+
+export const labelFormatter = (dataId: string, loading: boolean) => {
+  if(dataId.slice(-1) !== 'r'){
+    return (val: any) => !!val && !loading ? `${Math.round((parseInt(val)/10000))}만원` : '';
+  }
+  return (val: any) => !!val && !loading ? `${Math.round(parseInt(val))}%` : '';
 }

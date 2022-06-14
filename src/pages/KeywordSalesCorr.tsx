@@ -4,10 +4,11 @@ import moment, { Moment } from "moment";
 import { Key, useEffect, useState } from "react";
 import { RangeValue } from "rc-picker/lib/interface";
 import { Chart } from "react-chartjs-2";
-import { applyColors, applyMultiAxis, lineOptions } from "@utils/chartUtil";
+import { applyBarLabel, applyColors, applyMultiAxis, labelFormatter, lineOptions } from "@utils/chartUtil";
 import useAxios from "@useAxios";
 import { KWLIST_URL, KWSALES_CHART_URL } from "@api";
 import { dateToStringFormat, disabledDate, expandDate, isDateRangeShort } from "@utils/dateUtil";
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 const KeywordSalesCorr = () => {
   const { corpId, dataId } = useParams();
@@ -66,7 +67,14 @@ const KeywordSalesCorr = () => {
       <div className="data">
         <div className="chart_box">
           <div className="chart">
-            {keywordSalesChart && <Chart type="line" options={lineOptions(true, false)} data={applyColors(applyMultiAxis(keywordSalesChart?.data))} />}
+            {keywordSalesChart && 
+              <Chart 
+                type="line" 
+                options={applyBarLabel(lineOptions(true, false), labelFormatter(dataId || '0', chartLoading))} 
+                data={applyColors(applyMultiAxis(keywordSalesChart?.data))} 
+                plugins={[ChartDataLabels]} 
+              />
+            }
           </div>
         </div>
         <div className="check_box">
