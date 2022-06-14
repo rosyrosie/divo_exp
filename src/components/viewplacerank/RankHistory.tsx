@@ -36,10 +36,10 @@ const RankHistory = ({ keywords, visible, setVisible }: { keywords: Key[], visib
     >
       <Tabs defaultActiveKey="view">
         <TabPane tab="VIEW 순위" key="view">
-          {chart && <Chart type="line" options={lineOptions(false, true)} data={applyColors(chart?.viewRankGraph)} />}
+          {chart && <Chart type="line" options={lineOptions(false, true)} data={applyColors(chart?.viewRankGraph, true)} />}
         </TabPane>
         <TabPane tab="Place 순위" key="place">
-          {chart && <Chart type="line" options={lineOptions(false, true)} data={applyColors(chart?.placeRankGraph)} />}
+          {chart && <Chart type="line" options={lineOptions(false, true)} data={applyColors(chart?.placeRankGraph, true)} />}
         </TabPane>
       </Tabs>
     </Modal>

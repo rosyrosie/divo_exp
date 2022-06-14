@@ -73,7 +73,7 @@ const KeywordSalesCorr = () => {
               <Chart 
                 type="line" 
                 options={applyBarLabel(lineOptions(true, false), labelFormatter(dataId || '0', chartLoading))} 
-                data={applyColors(applyMultiAxis(keywordSalesChart?.data))} 
+                data={applyColors(applyMultiAxis(keywordSalesChart?.data), true)} 
                 plugins={[ChartDataLabels]} 
               />
             }

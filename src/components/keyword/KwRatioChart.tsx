@@ -55,7 +55,7 @@ const KwRatioChart = ({ keyword, dateRange }: { keyword: string, dateRange: Rang
         </div>
         <div className="chart_container">
           <div className="chart">
-            {lineChart && <Chart type="line" options={lineOptions(false, false)} data={dataId === 'kw-qty-a' ? applyColors(lineChart.data) : applyTrendStyle(lineChart.data)} />}
+            {lineChart && <Chart type="line" options={lineOptions(false, false)} data={dataId === 'kw-qty-a' ? applyColors(lineChart.data, true) : applyTrendStyle(lineChart.data)} />}
           </div>
         </div>
       </div>

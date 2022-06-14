@@ -1,0 +1,54 @@
+.compare_chart:hover .ant-btn{
+  opacity: .7 !important;
+}
+
+.box{
+  padding: 0 24px;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  .compare_table_box{
+    flex: 1;
+    margin: auto;
+  }
+  .compare_chart_box{
+    flex: 2;
+    margin: auto;
+    .compare_chart{
+      margin: 0 48px;
+      position: relative;
+      .ant-btn{
+        padding: 0;
+        min-width: 0;
+        border-radius: 50%;
+        opacity: 0;
+        transition: opacity .3s;
+      }
+      .ant-btn:hover{
+        opacity: 1;
+      }
+      .prev_overlay{
+        position: absolute;
+        left: 0;
+        top: 45%;
+        transform: translateY(-50%);
+      }
+      .next_overlay{
+        position: absolute;
+        right: -36px;
+        top: 45%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+}
+
+.ant-col{
+  padding: 24px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+}

@@ -30,3 +30,4 @@ export const VP_CHART_URL = BASE_URL + 'rank/graph';
 export const KW_SCORE_URL = (corpId: string) => BASE_URL + 'placekeyword/list?id=' + corpId + '&amount=true';
 
 export const SA_RADAR_URL = (corpId: string) => BASE_URL + `corporation/sales/${corpId}/summary`;
+export const SA_COMPARE_URL = (corpId: string, scale: string) => BASE_URL + `corporation/sales/${corpId}/analysis?scale=${scale}`;

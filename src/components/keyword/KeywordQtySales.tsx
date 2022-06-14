@@ -75,7 +75,7 @@ const KeywordQtySales = ({ keyword, dateRange, setDateRange }: { keyword: string
             <Chart 
               type="line" 
               options={applyBarLabel(lineOptions(true, false), labelFormatter(dataId || '0', loading))} 
-              data={applyColors(applyMultiAxis(data?.data?.chartData))} 
+              data={applyColors(applyMultiAxis(data?.data?.chartData), true)} 
               plugins={[ChartDataLabels]} 
             />
           }
