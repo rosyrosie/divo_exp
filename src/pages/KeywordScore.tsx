@@ -133,9 +133,7 @@ const KeywordScore = () => {
           columns={columns}
           dataSource={tableData?.[typeId[keywordType]]}
           loading={loading}
-          pagination={{
-            hideOnSinglePage: true
-          }}
+          pagination={false}
         />
       </div>
     </div>

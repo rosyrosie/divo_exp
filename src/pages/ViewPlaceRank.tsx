@@ -124,9 +124,7 @@ const ViewPlaceRank = () => {
             style={{
               marginTop: '24px'
             }}
-            pagination={{
-              hideOnSinglePage: true
-            }}
+            pagination={false}
           />
         </div>
       </div>
