@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { DatePicker, Select, message } from 'antd';
 import useAxios from "@useAxios";
 import { KW_SELECT_URL } from "@api";
-import { disabledDate, expandDate } from "@utils/dateUtil";
+import { disabledDate, expandDate, isDateRangeShort } from "@utils/dateUtil";
 import KwQtyChart from "@components/keyword/KwQtyChart";
 import KwRatioChart from "@components/keyword/KwRatioChart";
 import KeywordQtySales from "@components/keyword/KeywordQtySales";
@@ -23,7 +23,7 @@ const Keyword = () => {
     null,
     'GET',
     [corpId],
-    corpId !== undefined
+    corpId !== undefined && (dataId !== 'kw-qty-w' || !isDateRangeShort(dateRange))
   );
 
   const options = keywordList ? [...keywordList?.data[0], ...keywordList?.data[1], ...keywordList.data[2], ...keywordList.data[3]] : [];

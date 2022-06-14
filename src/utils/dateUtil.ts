@@ -67,8 +67,12 @@ export const setPresetRange = (range: number, unit: 'days' | 'weeks' | 'months',
   setDateRange([startDate, endDate]);
 };
 
+export const isDateRangeShort = (dateRange: RangeValue<Moment>) => {
+  return dateRange?.[1] && dateRange[1]?.diff(dateRange[0], 'months') < 2;
+};
+
 export const expandDate = (dateRange: RangeValue<Moment>, setDateRange: React.Dispatch<SetStateAction<RangeValue<Moment>>>) => {
-  if(dateRange?.[1] && dateRange[1].diff(dateRange[0], 'months') < 2){
+  if(isDateRangeShort(dateRange)){
     setDateRange((range: RangeValue<Moment>) => {
       const endDate = range?.[1]?.clone();
       const newStartDate = endDate?.clone()?.subtract(2, 'month');

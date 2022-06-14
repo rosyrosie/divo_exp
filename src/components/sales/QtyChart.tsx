@@ -20,7 +20,8 @@ const QtyChart = ({ dateRange }: { dateRange: RangeValue<Moment> }) => {
       opt: dataId
     },
     'POST',
-    [corpId, dateRange, dataId]
+    [corpId, dateRange, dataId],
+    corpId !== undefined
   );
 
   useEffect(() => {

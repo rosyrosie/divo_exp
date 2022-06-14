@@ -1,6 +1,8 @@
+import { QuestionCircleOutlined } from "@ant-design/icons";
 import { KW_SCORE_URL } from "@api";
 import useAxios from "@useAxios";
-import { Segmented, Table } from "antd";
+import { popoverContent } from "@utils/scoreUtil";
+import { Button, Popover, Segmented, Table } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
 import { SortOrder } from "antd/lib/table/interface";
 import { useState } from "react";
@@ -39,26 +41,47 @@ const KeywordScore = () => {
 
   const brandColumns = [
     {
-      title: 'Brand EPS',
+      title: (
+        <>
+          Brand EPS&nbsp;
+          <Popover content={popoverContent['eps']}>
+            <QuestionCircleOutlined />
+          </Popover>
+        </>
+      ),
       dataIndex: 'EPS',
       key: 'EPS',
       width: '25%',
-      sorter: (a: scoreType, b: scoreType) => parseFloat(a?.EPS || '0') - parseFloat(b?.EPS || '0'),
+      sorter: (a: scoreType, b: scoreType) => parseInt(a?.EPS?.replaceAll(',', '') || '0') - parseInt(b?.EPS?.replaceAll(',', '') || '0'),
       sortDirections: ['descend'] as SortOrder[],
     },
     {
-      title: 'Brand VPS',
+      title: (
+        <>
+          Brand VPS&nbsp;
+          <Popover content={popoverContent['vps']}>
+            <QuestionCircleOutlined />
+          </Popover>
+        </>
+      ),
       dataIndex: 'VPS',
       key: 'VPS',
       width: '25%',
-      sorter: (a: scoreType, b: scoreType) => parseFloat(a?.VPS || '0') - parseFloat(b?.VPS || '0'),
+      sorter: (a: scoreType, b: scoreType) => parseFloat(a?.VPS?.replaceAll(',', '') || '0') - parseFloat(b?.VPS?.replaceAll(',', '') || '0'),
       sortDirections: ['descend'] as SortOrder[],
     }
   ];
 
   const relColumns = [
     {
-      title: 'View RI',
+      title: (
+        <>
+          View RI&nbsp;
+          <Popover content={popoverContent['vri']}>
+            <QuestionCircleOutlined />
+          </Popover>
+        </>
+      ),
       dataIndex: 'viewRI',
       key: 'viewRI',
       width: '25%',
@@ -66,7 +89,14 @@ const KeywordScore = () => {
       sortDirections: ['descend'] as SortOrder[],
     },
     {
-      title: 'Place RI',
+      title: (
+        <>
+          Place RI&nbsp;
+          <Popover content={popoverContent['pri']}>
+            <QuestionCircleOutlined />
+          </Popover>
+        </>
+      ),
       dataIndex: 'placeRI',
       key: 'placeRI',
       width: '25%',
@@ -82,6 +112,8 @@ const KeywordScore = () => {
     [corpId],
     corpId !== undefined
   );
+
+  console.log(tableData);
 
   const typeId: Record<SegmentedValue, string> = {
     '브랜드': 'brand',

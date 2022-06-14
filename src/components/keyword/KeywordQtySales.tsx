@@ -1,4 +1,4 @@
-import { dateToStringFormat, expandDate } from "@utils/dateUtil";
+import { dateToStringFormat, expandDate, isDateRangeShort } from "@utils/dateUtil";
 import { message, Radio, Space, Table } from "antd";
 import { SetStateAction, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -24,7 +24,7 @@ const KeywordQtySales = ({ keyword, dateRange, setDateRange }: { keyword: string
     },
     'POST',
     [corpId, keyword, dateRange, radioKey],
-    keyword !== '' && (true)
+    keyword !== '' && (!radioKey.includes('qty-w') || !isDateRangeShort(dateRange))
   );
 
   const radioData = [

@@ -1,7 +1,7 @@
 import { SALES_BAR_URL, SALES_URL } from "@api";
 import useAxios from "@useAxios";
 import { applyBarStyle, applyTrendStyle, barOptions, lineOptions } from "@utils/chartUtil";
-import { dateToStringFormat } from "@utils/dateUtil";
+import { dateToStringFormat, isDateRangeShort } from "@utils/dateUtil";
 import { message } from "antd";
 import { useEffect } from "react";
 import { Chart } from "react-chartjs-2";
@@ -32,7 +32,8 @@ const PerTimeChart = ({ dateRange }: { dateRange: RangeValue<Moment> }) => {
       opt: dataId
     },
     'POST',
-    [corpId, dateRange, dataId]
+    [corpId, dateRange, dataId],
+    corpId !== undefined && (!dataId?.includes('-w') || !isDateRangeShort(dateRange))
   );
 
   useEffect(() => {

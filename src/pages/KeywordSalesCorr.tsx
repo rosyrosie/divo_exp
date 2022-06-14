@@ -7,7 +7,7 @@ import { Chart } from "react-chartjs-2";
 import { applyColors, applyMultiAxis, lineOptions } from "@utils/chartUtil";
 import useAxios from "@useAxios";
 import { KWLIST_URL, KWSALES_CHART_URL } from "@api";
-import { dateToStringFormat, disabledDate, expandDate } from "@utils/dateUtil";
+import { dateToStringFormat, disabledDate, expandDate, isDateRangeShort } from "@utils/dateUtil";
 
 const KeywordSalesCorr = () => {
   const { corpId, dataId } = useParams();
@@ -38,7 +38,8 @@ const KeywordSalesCorr = () => {
       opt: dataId
     },
     'POST',
-    [corpId, dateRange, checkedKeys, dataId]
+    [corpId, dateRange, checkedKeys, dataId],
+    corpId !== undefined && (!isDateRangeShort(dateRange) || !dataId?.includes('kw-w'))
   );
 
   useEffect(() => {
