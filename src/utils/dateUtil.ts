@@ -1,7 +1,9 @@
+import { RangeValue } from 'rc-picker/lib/interface';
 import { SegmentedLabeledOption, SegmentedValue } from 'antd/lib/segmented';
 import { Moment } from 'moment';
 import moment from 'moment';
 import 'moment/locale/ko';
+import React, { SetStateAction } from 'react';
 
 moment.locale("ko", {
   week: {
@@ -57,4 +59,20 @@ export const picker = (range: SegmentedValue) => {
   if(range.slice(-1) === '일') return 'date';
   if(range.slice(-1) === '주') return 'week';
   return 'month';
+};
+
+export const setPresetRange = (range: number, unit: 'days' | 'weeks' | 'months', setDateRange: React.Dispatch<SetStateAction<RangeValue<Moment>>>) => {
+  const endDate = moment().subtract(2, 'days');
+  const startDate = endDate.clone().subtract(range, unit);
+  setDateRange([startDate, endDate]);
+};
+
+export const expandDate = (dateRange: RangeValue<Moment>, setDateRange: React.Dispatch<SetStateAction<RangeValue<Moment>>>) => {
+  if(dateRange?.[1] && dateRange[1].diff(dateRange[0], 'months') < 2){
+    setDateRange((range: RangeValue<Moment>) => {
+      const endDate = range?.[1]?.clone();
+      const newStartDate = endDate?.clone()?.subtract(2, 'month');
+      return [newStartDate, endDate] as RangeValue<Moment>;
+    });
+  }
 }

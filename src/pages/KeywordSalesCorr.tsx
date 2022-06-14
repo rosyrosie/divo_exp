@@ -7,13 +7,12 @@ import { Chart } from "react-chartjs-2";
 import { applyColors, applyMultiAxis, lineOptions } from "@utils/chartUtil";
 import useAxios from "@useAxios";
 import { KWLIST_URL, KWSALES_CHART_URL } from "@api";
-import { dateToStringFormat, disabledDate } from "@utils/dateUtil";
+import { dateToStringFormat, disabledDate, expandDate } from "@utils/dateUtil";
 
 const KeywordSalesCorr = () => {
   const { corpId, dataId } = useParams();
   const { RangePicker } = DatePicker;
   const [ dateRange, setDateRange ] = useState<RangeValue<Moment>>([moment().subtract(1, 'months').subtract(2, 'days'), moment().subtract(2, 'days')]);
-  const onDateChange = (dates: RangeValue<Moment>) => setDateRange(dates);
 
   const [ checkedKeys, setCheckedKeys ] = useState<Key[] | { checked: Key[], halfChecked: Key[] }>({ checked: ['brand'], halfChecked: [] });
 
@@ -49,13 +48,7 @@ const KeywordSalesCorr = () => {
 
   useEffect(() => {
     if(!dataId?.includes('kw-w')) return;
-    if(dateRange?.[1] && dateRange[1].diff(dateRange[0], 'months') < 2){
-      setDateRange((range: RangeValue<Moment>) => {
-        const endDate = range?.[1]?.clone();
-        const newStartDate = endDate?.clone()?.subtract(2, 'month');
-        return [newStartDate, endDate] as RangeValue<Moment>;
-      });
-    }
+    expandDate(dateRange, setDateRange);
   }, [dataId]);
 
   return (
@@ -65,7 +58,7 @@ const KeywordSalesCorr = () => {
           disabledDate={disabledDate}
           placeholder={['시작 날짜', '끝 날짜']}
           value={dateRange}
-          onChange={onDateChange}
+          onChange={setDateRange}
           allowClear={false}
         />
       </div>

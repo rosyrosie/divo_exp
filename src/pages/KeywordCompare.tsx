@@ -16,7 +16,6 @@ const KeywordCompare = () => {
   const { RangePicker } = DatePicker;
   const [ keyword, setKeyword ] = useState('');
   const [ dateRange, setDateRange ] = useState<RangeValue<Moment>>([moment().subtract(1, 'months').subtract(2, 'days'), moment().subtract(2, 'days')]);
-  const onDateChange = (dates: RangeValue<Moment>) => setDateRange(dates);
   const [ checkedKeys, setCheckedKeys ] = useState<Key[] | { checked: Key[], halfChecked: Key[] }>({ checked: ['brand'], halfChecked: [] });
 
   const [ keywordList, loading, error ] = useAxios(
@@ -79,7 +78,7 @@ const KeywordCompare = () => {
           disabledDate={disabledDate}
           placeholder={['시작 날짜', '끝 날짜']}
           value={dateRange}
-          onChange={onDateChange}
+          onChange={setDateRange}
           allowClear={false}
         />
       </div>

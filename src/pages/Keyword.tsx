@@ -1,21 +1,22 @@
-import { SegmentedValue } from "antd/lib/segmented";
-import moment from "moment";
+import moment, { Moment } from "moment";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { DatePicker, Select, Segmented, message } from 'antd';
+import { DatePicker, Select, message } from 'antd';
 import useAxios from "@useAxios";
 import { KW_SELECT_URL } from "@api";
-import { dateFormat, picker, rangeOptions } from "@utils/dateUtil";
+import { disabledDate, expandDate } from "@utils/dateUtil";
 import KwQtyChart from "@components/keyword/KwQtyChart";
 import KwRatioChart from "@components/keyword/KwRatioChart";
 import KeywordQtySales from "@components/keyword/KeywordQtySales";
+import { RangeValue } from "rc-picker/lib/interface";
+import PresetRange from "@components/PresetRange";
 
 const Keyword = () => {
   const { Option } = Select;
   const { corpId, dataId } = useParams();
+  const { RangePicker } = DatePicker;
   const [ keyword, setKeyword ] = useState('');
-  const [ range, setRange ] = useState<SegmentedValue>('30일');
-  const [ endDate, setEndDate ] = useState(moment().subtract(2, 'days'));
+  const [ dateRange, setDateRange ] = useState<RangeValue<Moment>>([moment().subtract(1, 'months').subtract(2, 'days'), moment().subtract(2, 'days')]);
 
   const [ keywordList, loading, error ] = useAxios(
     KW_SELECT_URL + corpId,
@@ -25,17 +26,16 @@ const Keyword = () => {
     corpId !== undefined
   );
 
-  useEffect(() => {
-    if(dataId?.slice(-1) === 'w'){
-      if(range === '30일') setRange('13주');
-    }
-  }, [dataId, range]);
-
   const options = keywordList ? [...keywordList?.data[0], ...keywordList?.data[1], ...keywordList.data[2], ...keywordList.data[3]] : [];
 
   useEffect(() => {
     if(keyword === '') message.info('키워드를 선택해주세요', 2);
   }, [keyword]);
+
+  useEffect(() => {
+    if(dataId !== 'kw-qty-w') return;
+    expandDate(dateRange, setDateRange);
+  }, [dataId]);
 
   return (
     <div className="content">
@@ -53,31 +53,24 @@ const Keyword = () => {
           ))}
         </Select>
         <span>
-          <Segmented 
-            options={rangeOptions(dataId || '')}
-            value={range}
-            onChange={setRange}
-            style={{
-              marginRight: '12px'
-            }}
+          <PresetRange 
+            disableDay={dataId === 'kw-qty-w'}
+            setDateRange={setDateRange}
           />
-          <DatePicker
-            picker={picker(range)}
-            value={endDate}
-            onChange={(date) => date && setEndDate(date)}
+          <RangePicker 
+            disabledDate={disabledDate}
+            placeholder={['시작 날짜', '끝 날짜']}
+            value={dateRange}
+            onChange={setDateRange}
             allowClear={false}
-            format={dateFormat[picker(range)]}
-            style={{
-              width: '170px'
-            }}
           />
         </span>
       </div>
-      {
+      {/* {
         dataId === 'kw-qty' ? <KwQtyChart keyword={keyword} range={range} endDate={endDate} /> : 
         dataId !== 'kw-qty-sales' ? <KwRatioChart keyword={keyword} range={range} endDate={endDate} /> :
         <KeywordQtySales keyword={keyword} range={range} setRange={setRange} endDate={endDate} />
-      }
+      } */}
     </div>
   );
 }
