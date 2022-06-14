@@ -11,9 +11,9 @@ const getItem = (label: any, key: any, icon: any = null, children: any = null, t
 };
 
 export const rootSubmenuKeys = ['sales', 'keyword', 'review'];
-export const salesMenu = ['sales-qty', 'sales-qty-w', 'sales-qty-t', 'price', 'price-w', 'price-t', 'cnt', 'cnt-w', 'cnt-t', 'rvst', 'rvstr', 'rvstr-w', 'rvstr-t'] as const;
+export const salesMenu = ['sales-qty', 'sales-qty-w', 'sales-qty-t', 'price', 'price-w', 'price-t', 'cnt', 'cnt-w', 'cnt-t', 'nvst', 'nvstr', 'nvstr-w', 'nvstr-t', 'rvst', 'rvstr', 'rvstr-w', 'rvstr-t'] as const;
 export const kwMenu = ['kw-qty', 'kw-qty-w', 'kw-qty-a', 'kw-qty-s', 'kw-qty-d', 'kw-qty-sales'] as const;
-export const kwSalesMenu = ['kw-sales-qty', 'kw-rvst', 'kw-rvstr', 'kw-price', 'kw-wd-sales', 'kw-wd-salesr', 'kw-we-sales', 'kw-we-salesr', 'kw-lc-sales', 'kw-lc-salesr', 'kw-dn-sales', 'kw-dn-salesr'] as const;
+export const kwSalesMenu = ['kw-sales-qty', 'kw-nvst', 'kw-nvstr', 'kw-rvst', 'kw-rvstr', 'kw-price', 'kw-wd-sales', 'kw-wd-salesr', 'kw-we-sales', 'kw-we-salesr', 'kw-lc-sales', 'kw-lc-salesr', 'kw-dn-sales', 'kw-dn-salesr'] as const;
 export const kwAnalysisMenu = ['kw-summary', 'kw-compare'] as const;
 export const reviewMenu = ['review-blog', 'review-place'] as const;
 export const vpRankMenu = 'vp-rank' as const;
@@ -30,6 +30,10 @@ const menus = [
     getItem('결제건수', 'cnt'),
     getItem('요일별 결제건수', 'cnt-w'),
     getItem('시간별 결제건수', 'cnt-t'),
+    getItem('신규고객 매출액', 'nvst'),
+    getItem('신규고객 매출 비율', 'nvstr'),
+    getItem('요일별 신규매출 비율', 'nvstr-w'),
+    getItem('시간별 신규매출 비율', 'nvstr-t'),
     getItem('재방문자 매출액', 'rvst'),
     getItem('재방문자 매출 비율', 'rvstr'),
     getItem('요일별 재방문매출 비율', 'rvstr-w'),
@@ -45,6 +49,8 @@ const menus = [
   ]),
   getItem('키워드-매출', 'keyword-sales', <BarChartOutlined />, [
     getItem('키워드-매출액', 'kw-sales-qty'),
+    getItem('키워드-신규매출', 'kw-nvst'),
+    getItem('키워드-신규매출비율', 'kw-nvstr'),
     getItem('키워드-재방문매출', 'kw-rvst'),
     getItem('키워드-재방문매출비율', 'kw-rvstr'),
     getItem('키워드-결제단가', 'kw-price'),

@@ -1,7 +1,7 @@
 import moment, { Moment } from "moment";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { DatePicker, Select, message } from 'antd';
+import { DatePicker, Select, message, Table } from 'antd';
 import useAxios from "@useAxios";
 import { KW_SELECT_URL } from "@api";
 import { disabledDate, expandDate, isDateRangeShort } from "@utils/dateUtil";
@@ -37,6 +37,42 @@ const Keyword = () => {
     expandDate(dateRange, setDateRange);
   }, [dataId]);
 
+  const columns = [
+    {
+      title: '기간',
+      dataIndex: 'range',
+      key: 'range'
+    },
+    {
+      title: '평균값',
+      dataIndex: 'average',
+      key: 'average'
+    },
+    {
+      title: '추세(원/일)',
+      dataIndex: 'trend',
+      key: 'trend'
+    }
+  ];
+
+  const dummy = [
+    {
+      range: '선택 기간',
+      average: 30,
+      trend: 20
+    },
+    {
+      range: '30일',
+      average: 30,
+      trend: 20
+    },
+    {
+      range: '60일',
+      average: 30,
+      trend: 20
+    }
+  ];
+
   return (
     <div className="content">
       <div className="header">
@@ -66,9 +102,18 @@ const Keyword = () => {
           />
         </span>
       </div>
-      {
-        dataId === 'kw-qty' ? <KwQtyChart keyword={keyword} dateRange={dateRange} /> : 
-        dataId !== 'kw-qty-sales' ? <KwRatioChart keyword={keyword} dateRange={dateRange} /> :
+      {dataId !== 'kw-qty-sales' ? 
+        <div className="data">
+          <div className="chart_box">
+            <div className="table_box">
+              <Table columns={columns} dataSource={dummy} pagination={false} bordered />
+            </div>
+            {dataId === 'kw-qty' ? 
+              <KwQtyChart keyword={keyword} dateRange={dateRange} /> : 
+              <KwRatioChart keyword={keyword} dateRange={dateRange} />
+            }
+          </div>
+        </div> : 
         <KeywordQtySales keyword={keyword} dateRange={dateRange} setDateRange={setDateRange} />
       }
     </div>

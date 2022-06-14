@@ -71,7 +71,9 @@ const Sales = () => {
       </div>
       <div className="data">
         <div className="chart_box">
-          <Table columns={columns} dataSource={dummy} pagination={false} />
+          <div className="table_box">
+            <Table columns={columns} dataSource={dummy} pagination={false} bordered />
+          </div>
           {
             (dataId?.includes('-w') || dataId?.includes('-t')) ?
             <PerTimeChart dateRange={dateRange} /> :

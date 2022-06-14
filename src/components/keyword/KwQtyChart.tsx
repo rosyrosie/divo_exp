@@ -32,12 +32,8 @@ const KwQtyChart = ({ keyword, dateRange }: { keyword: string, dateRange: RangeV
   }, [error]);  
 
   return (
-    <div className="data">
-      <div className="chart_box">
-        <div className="chart">
-          {chart && <Chart type="line" options={lineOptions(false, false)} data={applyTrendStyle(chart.data)} />}
-        </div>
-      </div>
+    <div className="qty_chart">
+      {chart && <Chart type="line" options={lineOptions(false, false)} data={applyTrendStyle(chart.data)} />}
     </div>
   );
 }
