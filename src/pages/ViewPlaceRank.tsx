@@ -1,9 +1,9 @@
 import { VP_RANK_URL } from "@api";
 import RankHistory from "@components/viewplacerank/RankHistory";
 import useAxios from "@useAxios";
-import { Button, Table, Tag } from "antd";
+import { Button, message, Table, Tag } from "antd";
 import { SortOrder } from "antd/lib/table/interface";
-import { Key, useState } from "react";
+import { Key, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 type kwRankType = {
@@ -104,6 +104,10 @@ const ViewPlaceRank = () => {
       }
     }
   ];
+
+  useEffect(() => {
+    if(error) message.warning('error', 1.5);
+  }, [error]);
 
   return (
     <>

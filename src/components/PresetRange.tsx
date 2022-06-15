@@ -10,7 +10,7 @@ const PresetRange = ({ disableDay, setDateRange }: { disableDay: boolean, setDat
       <Button disabled={disableDay} onClick={() => setPresetRange(30, 'days', setDateRange)} style={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}>30일</Button>
       <Button onClick={() => setPresetRange(13, 'weeks', setDateRange)} style={{ borderRadius: 0 }}>13주</Button>
       <Button onClick={() => setPresetRange(26, 'weeks', setDateRange)} style={{ borderRadius: 0 }}>26주</Button>
-      <Button onClick={() => setPresetRange(52, 'weeks', setDateRange)} style={{ borderRadius: 0 }}>52주</Button>
+      <Button onClick={() => setPresetRange(12, 'months', setDateRange)} style={{ borderRadius: 0 }}>12개월</Button>
       <Button onClick={() => setPresetRange(24, 'months', setDateRange)} style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}>24개월</Button>
     </span>
   );

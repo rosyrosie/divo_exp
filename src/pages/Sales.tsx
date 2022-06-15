@@ -71,14 +71,14 @@ const Sales = () => {
       </div>
       <div className="data">
         <div className="chart_box">
-          <div className="table_box">
-            <Table columns={columns} dataSource={dummy} pagination={false} bordered />
-          </div>
           {
             (dataId?.includes('-w') || dataId?.includes('-t')) ?
             <PerTimeChart dateRange={dateRange} /> :
             <QtyChart dateRange={dateRange} />
           }
+          <div className="data_table_box">
+            <Table className="text_table" columns={columns} dataSource={dummy} pagination={false} bordered />
+          </div>
         </div>
       </div>
     </div>

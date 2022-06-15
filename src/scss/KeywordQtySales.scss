@@ -1,6 +1,7 @@
 .chart_box{
   table{
     display: flex;
+    width: fit-content;
     tr{
       display: block;
       float: left;
@@ -12,5 +13,14 @@
       width: 120px;
     }
     margin-bottom: 12px;
+    font-size: 14px;
+  }
+}
+
+.data_table_box{
+  margin: 72px auto 0 auto;
+  width: 80%;
+  table{
+    width: 100%;
   }
 }

@@ -105,13 +105,13 @@ const Keyword = () => {
       {dataId !== 'kw-qty-sales' ? 
         <div className="data">
           <div className="chart_box">
-            <div className="table_box">
-              <Table columns={columns} dataSource={dummy} pagination={false} bordered />
-            </div>
             {dataId === 'kw-qty' ? 
               <KwQtyChart keyword={keyword} dateRange={dateRange} /> : 
               <KwRatioChart keyword={keyword} dateRange={dateRange} />
             }
+            <div className="data_table_box">
+              <Table columns={columns} dataSource={dummy} pagination={false} bordered />
+            </div>
           </div>
         </div> : 
         <KeywordQtySales keyword={keyword} dateRange={dateRange} setDateRange={setDateRange} />

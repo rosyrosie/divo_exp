@@ -2,7 +2,7 @@ import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { SA_COMPARE_URL } from "@api";
 import useAxios from "@useAxios";
 import { applyColors, lineOptions } from "@utils/chartUtil";
-import { Button, Col, Row, Segmented } from "antd";
+import { Button, Col, message, Row, Segmented } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
 import { useEffect, useState } from "react";
 import { Chart } from "react-chartjs-2";
@@ -39,6 +39,10 @@ const SalesCompare = () => {
   useEffect(() => {
     setDataIndex(0);
   }, [compareType]);
+
+  useEffect(() => {
+    if(error) message.warning('error', 1.5);
+  }, [error]);
 
   return (
     <div className="content">

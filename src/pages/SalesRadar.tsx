@@ -1,6 +1,8 @@
 import { SA_RADAR_URL } from "@api";
 import useAxios from "@useAxios";
 import { applyRadarColors, radarOptions } from "@utils/chartUtil";
+import { message } from "antd";
+import { useEffect } from "react";
 import { Chart } from "react-chartjs-2";
 import { useParams } from "react-router-dom";
 
@@ -15,6 +17,10 @@ const SalesRadar = () => {
   );
 
   const chartData = radarData?.radar;
+
+  useEffect(() => {
+    if(error) message.warning('error', 1.5);
+  }, [error]);
 
   return (
     <div className="content">

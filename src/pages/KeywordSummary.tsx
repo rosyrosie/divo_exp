@@ -48,7 +48,7 @@ const KeywordSummary = () => {
           }}
           loading={loading}
         >
-          {summary?.data[0].map((text: string) => <p key={text}>{text}</p>)}
+          {summary?.data[0].map((text: string) => <p key={text} dangerouslySetInnerHTML={{__html: text}} />)}
         </Card>
         <Card
           title="키워드 상관관계"
@@ -56,7 +56,7 @@ const KeywordSummary = () => {
         >
           {summary?.data[1].map((texts: string[], idx: number) => 
             <Card type="inner" title={texts[0]} style={{ marginTop: idx > 0 ? '12px' : '0' }} key={idx}>
-              {texts.map((text: string, i: number) => i>0 && <p key={text}>{text}</p>)}
+              {texts.map((text: string, i: number) => i>0 && <p key={text} dangerouslySetInnerHTML={{__html: text}} />)}
             </Card>
           )}
         </Card>

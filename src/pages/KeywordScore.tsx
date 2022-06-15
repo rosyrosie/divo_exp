@@ -2,10 +2,10 @@ import { QuestionCircleOutlined } from "@ant-design/icons";
 import { KW_SCORE_URL } from "@api";
 import useAxios from "@useAxios";
 import { popoverContent } from "@utils/scoreUtil";
-import { Popover, Segmented, Table } from "antd";
+import { message, Popover, Segmented, Table } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
 import { SortOrder } from "antd/lib/table/interface";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 type scoreType = {
@@ -113,8 +113,6 @@ const KeywordScore = () => {
     corpId !== undefined
   );
 
-  console.log(tableData);
-
   const typeId: Record<SegmentedValue, string> = {
     '브랜드': 'brand',
     '상권': 'section',
@@ -122,6 +120,10 @@ const KeywordScore = () => {
   };
 
   const columns = [...baseColumns, ...(keywordType === '브랜드' ? brandColumns : relColumns)];
+
+  useEffect(() => {
+    if(error) message.warning('error', 1.5);
+  }, [error]);
 
   return (
     <div className="content">

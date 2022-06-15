@@ -27,7 +27,7 @@ const KeywordCompare = () => {
     corpId !== undefined
   );
 
-  const [ checkList, _, __] = useAxios(
+  const [ checkList, _, checkListError] = useAxios(
     KW_CHECKLIST_URL,
     {
       corpId,
@@ -40,7 +40,7 @@ const KeywordCompare = () => {
     keyword !== ''
   );
 
-  const [ chartData, chartLoading, ____ ] = useAxios(
+  const [ chartData, chartLoading, chartError ] = useAxios(
     KW_CMP_CHART_URL,
     {
       corpId,
@@ -59,6 +59,10 @@ const KeywordCompare = () => {
   useEffect(() => {
     if(keyword === '') message.info('키워드를 선택해주세요', 2);
   }, [keyword]);
+
+  useEffect(() => {
+    if(error || checkListError || chartError) message.warning('error', 1.5);
+  }, [error, checkListError, chartError]);
 
   return (
     <div className="content">

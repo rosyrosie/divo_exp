@@ -63,7 +63,7 @@ export const picker = (range: SegmentedValue) => {
 
 export const setPresetRange = (range: number, unit: 'days' | 'weeks' | 'months', setDateRange: React.Dispatch<SetStateAction<RangeValue<Moment>>>) => {
   const endDate = moment().subtract(2, 'days');
-  const startDate = endDate.clone().subtract(range, unit);
+  const startDate = endDate.clone().subtract(range-1, unit);
   setDateRange([startDate, endDate]);
 };
 
