@@ -11,7 +11,7 @@ const getItem = (label: any, key: any, icon: any = null, children: any = null, t
 };
 
 export const rootSubmenuKeys = ['sales', 'keyword', 'review'];
-export const saMenu = ['sa-radar', 'sa-compare'];
+export const saMenu = ['sa-radar', 'sa-compare'] as const;
 export const salesMenu = ['sales-qty', 'sales-qty-w', 'sales-qty-t', 'price', 'price-w', 'price-t', 'cnt', 'cnt-w', 'cnt-t', 'nvst', 'nvstr', 'nvstr-w', 'nvstr-t', 'rvst', 'rvstr', 'rvstr-w', 'rvstr-t'] as const;
 export const kwMenu = ['kw-qty', 'kw-qty-w', 'kw-qty-a', 'kw-qty-s', 'kw-qty-d', 'kw-qty-sales'] as const;
 export const kwSalesMenu = ['kw-sales-qty', 'kw-nvst', 'kw-nvstr', 'kw-rvst', 'kw-rvstr', 'kw-price', 'kw-wd-sales', 'kw-wd-salesr', 'kw-we-sales', 'kw-we-salesr', 'kw-lc-sales', 'kw-lc-salesr', 'kw-dn-sales', 'kw-dn-salesr'] as const;

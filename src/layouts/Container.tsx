@@ -14,10 +14,13 @@ import { useParams } from "react-router-dom";
 const Container = () => {
   const { dataId } = useParams();
   type menuType = typeof salesMenu[number] | typeof kwSalesMenu[number] | typeof reviewMenu[number] | typeof kwMenu[number] | typeof vpRankMenu | typeof kwScoreMenu | typeof saMenu[number];
-  const getComponent: Record<string, JSX.Element> = Object.assign(
-    salesMenu.map((key: menuType) => ({ [key]: <Sales /> })).reduce((p, n) => ({...p, ...n}), {}),
-    kwMenu.map((key: menuType) => ({ [key]: <Keyword /> })).reduce((p, n) => ({...p, ...n}), {}),
-    kwSalesMenu.map((key: menuType) => ({ [key]: <KeywordSalesCorr /> })).reduce((p, n) => ({...p, ...n}), {}),
+  type menuRoute = {
+    [x in menuType]?: JSX.Element;
+  };
+  const getComponent: Record<menuType, JSX.Element> = Object.assign(
+    salesMenu.reduce((obj, key) => ({...obj, [key]: <Sales />}), {}) as Record<typeof salesMenu[number], JSX.Element>,
+    kwMenu.reduce((obj, key) => ({...obj, [key]: <Keyword />}), {}) as Record<typeof kwMenu[number], JSX.Element>,
+    kwSalesMenu.reduce((obj, key) => ({...obj, [key]: <KeywordSalesCorr />}), {}) as Record<typeof kwSalesMenu[number], JSX.Element>,
     {
       'review-blog': <Review type="blog" />,
       'review-place': <Review type="place" />,
@@ -30,7 +33,7 @@ const Container = () => {
     },
   );
 
-  return getComponent[dataId || 'sales-qty'];
+  return getComponent[dataId as menuType];
 };
 
 export default Container;
