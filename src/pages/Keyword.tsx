@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { DatePicker, Select, message, Table } from 'antd';
 import useAxios from "@useAxios";
-import { KW_SELECT_URL } from "@api";
-import { disabledDate, expandDate, isDateRangeShort } from "@utils/dateUtil";
+import { KW_SELECT_URL, KW_TABLE_URL } from "@api";
+import { dateToStringFormat, disabledDate, expandDate, isDateRangeShort } from "@utils/dateUtil";
 import KwQtyChart from "@components/keyword/KwQtyChart";
 import KwRatioChart from "@components/keyword/KwRatioChart";
 import KeywordQtySales from "@components/keyword/KeywordQtySales";
@@ -26,6 +26,20 @@ const Keyword = () => {
     corpId !== undefined && (dataId !== 'kw-qty-w' || !isDateRangeShort(dateRange))
   );
 
+  const [ tableData, _, __ ] = useAxios(
+    KW_TABLE_URL,
+    {
+      corpId: parseInt(corpId || '0'),
+      pivot: keyword,
+      startDate: dateRange?.[0]?.format(dateToStringFormat),
+      endDate: dateRange?.[1]?.format(dateToStringFormat),
+      opt: dataId
+    },
+    'POST',
+    [corpId, dateRange, keyword, dataId],
+    keyword !== '' && dataId !== 'kw-qty-sales' && (!dataId?.includes('-w') || !isDateRangeShort(dateRange))
+  );
+
   const options = keywordList ? [...keywordList?.data[0], ...keywordList?.data[1], ...keywordList.data[2], ...keywordList.data[3]] : [];
 
   useEffect(() => {
@@ -36,42 +50,6 @@ const Keyword = () => {
     if(dataId !== 'kw-qty-w') return;
     expandDate(dateRange, setDateRange);
   }, [dataId]);
-
-  const columns = [
-    {
-      title: '기간',
-      dataIndex: 'range',
-      key: 'range'
-    },
-    {
-      title: '평균값',
-      dataIndex: 'average',
-      key: 'average'
-    },
-    {
-      title: '추세(원/일)',
-      dataIndex: 'trend',
-      key: 'trend'
-    }
-  ];
-
-  const dummy = [
-    {
-      range: '선택 기간',
-      average: 30,
-      trend: 20
-    },
-    {
-      range: '30일',
-      average: 30,
-      trend: 20
-    },
-    {
-      range: '60일',
-      average: 30,
-      trend: 20
-    }
-  ];
 
   return (
     <div className="content">
@@ -109,9 +87,9 @@ const Keyword = () => {
               <KwQtyChart keyword={keyword} dateRange={dateRange} /> : 
               <KwRatioChart keyword={keyword} dateRange={dateRange} />
             }
-            <div className="data_table_box">
-              <Table columns={columns} dataSource={dummy} pagination={false} bordered />
-            </div>
+            {tableData && <div className="data_table_box">
+              <Table columns={tableData.data.columns} dataSource={tableData.data.data} pagination={false} bordered />
+            </div>}
           </div>
         </div> : 
         <KeywordQtySales keyword={keyword} dateRange={dateRange} setDateRange={setDateRange} />

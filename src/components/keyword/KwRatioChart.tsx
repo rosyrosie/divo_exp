@@ -1,7 +1,7 @@
 import { KW_TREND_BAR_URL, KW_TREND_URL } from "@api";
 import useAxios from "@useAxios";
 import { applyBarStyle, applyColors, applyTrendStyle, barOptions, lineOptions } from "@utils/chartUtil";
-import { dateToStringFormat, rangeId } from "@utils/dateUtil";
+import { dateToStringFormat, isDateRangeShort } from "@utils/dateUtil";
 import { message } from "antd";
 import { Moment } from "moment";
 import { RangeValue } from "rc-picker/lib/interface";
@@ -23,7 +23,7 @@ const KwRatioChart = ({ keyword, dateRange }: { keyword: string, dateRange: Rang
     },
     'POST',
     [corpId, keyword, dateRange, dataId],
-    keyword !== ''
+    keyword !== '' && (!dataId?.includes('-w') || !isDateRangeShort(dateRange))
   );
 
   const [ barChart, barLoading, barError ] = useAxios(
@@ -37,7 +37,7 @@ const KwRatioChart = ({ keyword, dateRange }: { keyword: string, dateRange: Rang
     },
     'POST',
     [corpId, keyword, dateRange, dataId],
-    keyword !== ''
+    keyword !== '' && (!dataId?.includes('-w') || !isDateRangeShort(dateRange))
   );
 
   useEffect(() => {

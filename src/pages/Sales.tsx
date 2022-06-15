@@ -1,58 +1,37 @@
 import { DatePicker, Table } from "antd";
 import moment, { Moment } from "moment";
 import { useEffect, useState } from "react";
-import { disabledDate, expandDate } from "@utils/dateUtil";
+import { dateToStringFormat, disabledDate, expandDate, isDateRangeShort } from "@utils/dateUtil";
 import { useParams } from "react-router-dom";
 import { RangeValue } from "rc-picker/lib/interface";
 import QtyChart from "@components/sales/QtyChart";
 import PerTimeChart from "@components/sales/PerTimeChart";
 import PresetRange from "@components/PresetRange";
+import useAxios from "@useAxios";
+import { SALES_TABLE_URL } from "@api";
 
 const Sales = () => {
-  const { dataId } = useParams();
+  const { corpId, dataId } = useParams();
   const { RangePicker } = DatePicker;
   const [ dateRange, setDateRange ] = useState<RangeValue<Moment>>([moment().subtract(1, 'months').subtract(2, 'days'), moment().subtract(2, 'days')]);
+
+  const [ tableData, loading, error ] = useAxios(
+    SALES_TABLE_URL,
+    {
+      corpId: parseInt(corpId || '0'),
+      startDate: dateRange?.[0]?.format(dateToStringFormat),
+      endDate: dateRange?.[1]?.format(dateToStringFormat),
+      opt: dataId
+    },
+    'POST',
+    [corpId, dateRange, dataId],
+    corpId !== undefined && (!dataId?.includes('-w') || !isDateRangeShort(dateRange))
+  );
 
   useEffect(() => {
     if(dataId?.slice(-1) !== 'w') return;
     expandDate(dateRange, setDateRange);
   }, [dataId]);
-
-  const columns = [
-    {
-      title: '기간',
-      dataIndex: 'range',
-      key: 'range'
-    },
-    {
-      title: '평균값',
-      dataIndex: 'average',
-      key: 'average'
-    },
-    {
-      title: '추세(원/일)',
-      dataIndex: 'trend',
-      key: 'trend'
-    }
-  ];
-
-  const dummy = [
-    {
-      range: '선택 기간',
-      average: 30,
-      trend: 20
-    },
-    {
-      range: '30일',
-      average: 30,
-      trend: 20
-    },
-    {
-      range: '60일',
-      average: 30,
-      trend: 20
-    }
-  ];
 
   return (
     <div className="content">
@@ -76,9 +55,9 @@ const Sales = () => {
             <PerTimeChart dateRange={dateRange} /> :
             <QtyChart dateRange={dateRange} />
           }
-          <div className="data_table_box">
-            <Table className="text_table" columns={columns} dataSource={dummy} pagination={false} bordered />
-          </div>
+          {tableData && <div className="data_table_box">
+            <Table className="text_table" columns={tableData.data.column} dataSource={tableData.data.data} pagination={false} bordered />
+          </div>}
         </div>
       </div>
     </div>

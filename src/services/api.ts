@@ -19,10 +19,12 @@ export const KW_CMP_CHART_URL = BASE_URL + 'corpkeywordcomp/keyCompGraph';
 
 export const SALES_URL = BASE_URL + 'corpsales/salesTrend';
 export const SALES_BAR_URL = BASE_URL + 'corpsales/salesTrendBar';
+export const SALES_TABLE_URL = BASE_URL + 'corpsales/salesTrendTable';
 
 export const KW_TREND_URL = BASE_URL + 'corpkeywordtrend/trend';
 export const KW_TREND_BAR_URL = BASE_URL + 'corpkeywordtrend/trendBar';
 export const KW_QTY_SALES_URL = BASE_URL + 'corpkeywordtrend/keySalesCorr';
+export const KW_TABLE_URL = BASE_URL + 'corpkeywordtrend/trendTable';
 
 export const VP_RANK_URL = BASE_URL + 'rank/rank?id=';
 export const VP_CHART_URL = BASE_URL + 'rank/graph';

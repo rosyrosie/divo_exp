@@ -19,8 +19,7 @@
 
 .data_table_box{
   margin: 72px auto 0 auto;
-  width: 80%;
-  table{
-    width: 100%;
+  td{
+    width: 100% !important;
   }
 }
