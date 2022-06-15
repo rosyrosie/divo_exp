@@ -43,17 +43,15 @@ const PerTimeChart = ({ dateRange }: { dateRange: RangeValue<Moment> }) => {
   }, [lineError, barError]);  
 
   return (
-    <div className="data">
-      <div className="double_chart_box">
-        <div className="chart_container">
-          <div className="chart">
-            {barChart && <Chart type="bar" options={barOptions} data={applyBarStyle(barChart.data.salesTrend)} />}
-          </div>
+    <div className="double_chart_box">
+      <div className="chart_container">
+        <div className="chart">
+          {barChart && <Chart type="bar" options={barOptions} data={applyBarStyle(barChart.data.salesTrend)} />}
         </div>
-        <div className="chart_container">
-          <div className="chart">
-            {lineChart && <Chart type="line" options={lineOptions(false, false)} data={applyTrendStyle(lineChart.data.salesTrend)} />}
-          </div>
+      </div>
+      <div className="chart_container">
+        <div className="chart">
+          {lineChart && <Chart type="line" options={lineOptions(false, false)} data={applyTrendStyle(lineChart.data.salesTrend)} />}
         </div>
       </div>
     </div>

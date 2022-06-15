@@ -46,7 +46,6 @@ const KwRatioChart = ({ keyword, dateRange }: { keyword: string, dateRange: Rang
   }, [lineError, barError]);  
 
   return (
-    <div className="data">
       <div className="double_chart_box">
         <div className="chart_container">
           <div className="chart">
@@ -59,7 +58,6 @@ const KwRatioChart = ({ keyword, dateRange }: { keyword: string, dateRange: Rang
           </div>
         </div>
       </div>
-    </div>
   );
 }
 
