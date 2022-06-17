@@ -13,7 +13,7 @@ type kwRankType = {
   viewDelta: number,
   placeDelta: number,
   searchAmount: number,
-  type?: 'section' | 'category',
+  type?: 'section' | 'category' | 'rival',
   key: string
 };
 
@@ -38,6 +38,11 @@ const ViewPlaceRank = () => {
       ...kwRank,
       type: 'category',
       key: kwRank.keyword
+    })),
+    ...rankData.rival.map((kwRank: kwRankType) => ({
+      ...kwRank,
+      type: 'rival',
+      key: kwRank.keyword
     }))
   ] : [];
 
@@ -55,6 +60,10 @@ const ViewPlaceRank = () => {
         {
           text: '업종 키워드',
           value: 'category' as const
+        },
+        {
+          text: '경쟁 키워드',
+          value: 'rival' as const
         }
       ],
       onFilter: (value: string | number | boolean, record: kwRankType) => record.type === value
