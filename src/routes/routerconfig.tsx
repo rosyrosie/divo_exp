@@ -1,8 +1,9 @@
-import Home from "@pages/Home";
+import BrandHome from "@pages/BrandHome";
 import Login from "@pages/Login"
 import Layout from "@layouts/Layout";
 import { RouteObject } from "react-router-dom";
 import Container from "@layouts/Container";
+import Home from "@pages/Home";
 
 export const routes: RouteObject[] = [
   {

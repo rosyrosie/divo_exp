@@ -1,6 +1,6 @@
 import { Menu } from "antd";
 import menus from "@routes/menuconfig";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HomeOutlined } from "@ant-design/icons";
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { CORPINFO_URL } from "@api";
@@ -15,6 +15,12 @@ const Layout = () => {
     [corpId],
     corpId !== undefined
   );
+
+  let token = localStorage.getItem('token');
+
+  useEffect(() => {
+    if(!token) navigate('/login');
+  }, [token]);
 
   const [ openKeys, setOpenKeys ] = useState<string[]>([]);
   const navigate = useNavigate();
