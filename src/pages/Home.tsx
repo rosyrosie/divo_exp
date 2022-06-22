@@ -6,12 +6,17 @@ import BrandHome from "@pages/BrandHome";
 const Home = () => {
   const navigate = useNavigate();
   let token = localStorage.getItem('token');
+  let initialMode = localStorage.getItem('isBrandMode');
 
   useEffect(() => {
     if(!token) navigate('/login');
   }, [token]);
 
-  const [ isBrandMode, setIsBrandMode ] = useState(true);
+  const [ isBrandMode, setIsBrandMode ] = useState(initialMode==='brand' ? true : false);
+
+  useEffect(() => {
+    localStorage.setItem('isBrandMode', isBrandMode ? 'brand' : 'trend');
+  }, [isBrandMode]);
 
   return (
     <div className="home_box">
