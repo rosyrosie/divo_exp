@@ -32,6 +32,7 @@ const Home = () => {
           <Card 
             hoverable 
             style={{ width: 240, textAlign: 'center', marginBottom: 12 }}
+            onClick={() => navigate('/hot-trend')}
           >
             급등락 키워드
           </Card>
