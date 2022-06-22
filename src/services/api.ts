@@ -33,3 +33,7 @@ export const KW_SCORE_URL = (corpId: string) => BASE_URL + 'placekeyword/list?id
 
 export const SA_RADAR_URL = (corpId: string) => BASE_URL + `corporation/sales/${corpId}/summary`;
 export const SA_COMPARE_URL = (corpId: string, scale: string) => BASE_URL + `corporation/sales/${corpId}/analysis?scale=${scale}`;
+
+export const GET_REG_URL = BASE_URL + 'map/bound/region/subset/rename?id=';
+
+export const HT_URL = (scale: string, type: string, start: number, display: number, regionCode: string) => BASE_URL + `map/bound/system/trend?scale=${scale}&type=${type}&start=${start}&display=${display}&regionCode=${regionCode}`;

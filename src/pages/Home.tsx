@@ -24,13 +24,20 @@ const Home = () => {
       <BrandHome isBrandMode={isBrandMode} />
       {!isBrandMode && 
         <div className="trend_box">
-          <Card hoverable style={{ width: 240, textAlign: 'center', marginBottom: 12 }}>
-            외식소비의도 분석
-          </Card>
-          <Card hoverable style={{ width: 240, textAlign: 'center', marginBottom: 12 }}>
+          <Card 
+            hoverable 
+            style={{ width: 240, textAlign: 'center', marginBottom: 12 }}
+          >
             급등락 키워드
           </Card>
           <Card hoverable style={{ width: 240, textAlign: 'center', marginBottom: 12 }}>
+            외식소비의도 분석
+          </Card>
+          <Card 
+            hoverable 
+            style={{ width: 240, textAlign: 'center', marginBottom: 12 }}
+            onClick={() => window.open("https://map.divo.kr", "_blank", "noopener, noreferrer")}
+          >
             전국 상권 분석
           </Card>
         </div>
