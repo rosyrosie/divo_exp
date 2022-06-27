@@ -3,7 +3,6 @@
   width: 100%;
   display: flex;
   flex-flow: column;
-  overflow: hidden;
 
   .header{
     height: 64px;
@@ -48,7 +47,6 @@
   .body{
     margin-top: 64px;
     height: calc(100vh - 64px);
-    overflow: hidden;
 
     .region_box{
       width: 60%;
@@ -67,6 +65,13 @@
       margin: 0 auto 24px auto;
       table{
         font-size: 12px;
+      }
+      .save_csv_box{
+        display: flex;
+        justify-content: right;
+        .save_csv{
+          margin: 12px 0 24px 0;
+        }
       }
     }
 

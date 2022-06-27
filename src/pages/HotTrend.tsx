@@ -2,8 +2,8 @@ import { HomeOutlined } from "@ant-design/icons";
 import { HT_URL } from "@api";
 import LegalAreaRadio from "@components/LegalAreaRadio";
 import useAxios from "@useAxios";
-import { hotTrendColumns, scrollProps } from "@utils/tableUtil";
-import { Pagination, Segmented, Table } from "antd";
+import { hotTrendColumns, saveasCSV, scrollProps } from "@utils/tableUtil";
+import { Button, Pagination, Segmented, Table } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -102,6 +102,9 @@ const HotTrend = () => {
         </div>
         <div className="table">
           <Table columns={hotTrendColumns(type)} dataSource={tableData?.data?.data} bordered size="small" pagination={false} loading={tLoading} scroll={scrollProps} />
+          <div className="save_csv_box">
+            <Button className="save_csv" onClick={() => saveasCSV(hotTrendColumns(type), tableData?.data?.data, `급등락 데이터.xlsx`)}>CSV 다운로드</Button>
+          </div>
         </div>
       </div>
     </div>

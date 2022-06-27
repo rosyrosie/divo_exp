@@ -1,9 +1,11 @@
+import { Excel } from "antd-table-saveas-excel";
+
   export const scrollProps = {
-    y: document.body.clientHeight - 600
+    y: document.body.clientHeight - 700
   };
 
   export const frchScrollProps = {
-    y: document.body.clientHeight - 200
+    y: document.body.clientHeight - 300
   }
 
   const columnTitle = {
@@ -295,3 +297,8 @@
       key: 'address'
     },
   ];
+
+  export const saveasCSV = (columns: any[], data: any[], title: string) => {
+    const excel = new Excel();
+    excel.addSheet("Sheet 1").addColumns(columns).addDataSource(data).saveAs(title);
+  };

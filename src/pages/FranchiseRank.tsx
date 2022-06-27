@@ -1,13 +1,10 @@
 import { HomeOutlined } from "@ant-design/icons";
 import { ID_URL } from "@api";
 import useAxios from "@useAxios";
-import { DatePicker, Input, message, Table } from "antd";
-import moment, { Moment } from "moment";
+import { Button, Input, message, Table } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { RangeValue } from "rc-picker/lib/interface";
-import { dateToStringFormat, disabledDate } from "@utils/dateUtil";
-import { frchRankColumns, frchScrollProps } from "@utils/tableUtil";
+import { frchRankColumns, frchScrollProps, saveasCSV } from "@utils/tableUtil";
 
 const FranchiseRank = () => {
   const navigate = useNavigate();
@@ -34,7 +31,7 @@ const FranchiseRank = () => {
       <div className="header">
         <span className="header_title">
           <HomeOutlined onClick={() => navigate('/')} />
-          <span className="menu_title">외식소비의도 분석</span>
+          <span className="menu_title">프랜차이즈 지점 순위</span>
         </span>
         <span className="spread">
           <Search 
@@ -48,7 +45,19 @@ const FranchiseRank = () => {
       </div>
       <div className="body">
         <div className="table">
-          <Table columns={frchRankColumns} dataSource={tableData?.data} size="middle" bordered pagination={{ hideOnSinglePage: true, current: page }} onChange={pagination => setPage(pagination.current || 1)} loading={query && tLoading} scroll={frchScrollProps} />
+          <Table 
+            columns={frchRankColumns} 
+            dataSource={tableData?.data} 
+            size="middle" 
+            bordered 
+            pagination={{ hideOnSinglePage: true, current: page, position: ['topRight'] }} 
+            onChange={pagination => setPage(pagination.current || 1)} 
+            loading={query && tLoading} 
+            scroll={frchScrollProps}
+          />
+          <div className="save_csv_box">
+            <Button className="save_csv" onClick={() => saveasCSV(frchRankColumns, tableData?.data, `${query} 지점 순위.xlsx`)}>CSV 다운로드</Button>
+          </div>
         </div>
       </div>
     </div>

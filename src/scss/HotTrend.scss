@@ -68,6 +68,13 @@
       table{
         font-size: 13px;
       }
+      .save_csv_box{
+        display: flex;
+        justify-content: right;
+        .save_csv{
+          margin: 12px 0 24px 0;
+        }
+      }
     }
   }
 }

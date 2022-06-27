@@ -10,13 +10,13 @@ import { useNavigate } from "react-router-dom";
 import { RangeValue } from "rc-picker/lib/interface";
 import { dateToStringFormat, disabledDate } from "@utils/dateUtil";
 import KeywordTags from "@components/interestdata/KeywordTags";
-import { interestDataColumns, scrollProps } from "@utils/tableUtil";
+import { interestDataColumns, saveasCSV, scrollProps } from "@utils/tableUtil";
 
 const InterestData = () => {
   const navigate = useNavigate();
   const { RangePicker } = DatePicker;
 
-  const [ type, setType ] = useState<'keyword' | 'area'>('area');
+  const [ type, setType ] = useState<'keyword' | 'area'>('keyword');
   const [ trigger, setTrigger ] = useState(false);
   const [ dateRange, setDateRange ] = useState<RangeValue<Moment>>([moment().subtract(1, 'months').subtract(2, 'days'), moment().subtract(2, 'days')]);
 
@@ -56,7 +56,6 @@ const InterestData = () => {
     },
     'POST',
     [trigger, type],
-    !!filterInput.length
   );
 
   return (
@@ -87,7 +86,10 @@ const InterestData = () => {
           </Button>
         </div>
         <div className="table">
-          <Table columns={interestDataColumns} dataSource={tableData?.data} bordered size="small" pagination={false} loading={tLoading} scroll={scrollProps} />
+          <Table columns={interestDataColumns} dataSource={tableData?.data} bordered size="small" pagination={false} loading={filterInput.length && tLoading} scroll={scrollProps} />
+          <div className="save_csv_box">
+            <Button className="save_csv" onClick={() => saveasCSV(interestDataColumns, tableData?.data, `외식소비의도 분석.xlsx`)}>CSV 다운로드</Button>
+          </div>
         </div>
       </div>
     </div>
