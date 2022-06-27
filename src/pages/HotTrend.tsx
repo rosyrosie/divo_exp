@@ -1,26 +1,31 @@
 import { HomeOutlined } from "@ant-design/icons";
 import { HT_URL } from "@api";
-import LegalAreaCheck from "@components/LegalAreaCheck";
 import LegalAreaRadio from "@components/LegalAreaRadio";
 import useAxios from "@useAxios";
-import { Segmented } from "antd";
+import { Pagination, Segmented, Table } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const HotTrend = () => {
   const navigate = useNavigate();
 
   const [ scale, setScale ] = useState('day');
-  const [ type, setType ] = useState('keyword');
+  const [ type, setType ] = useState<'keyword' | 'area' | 'category' | 'omrank'>('keyword');
   const [ start, setStart ] = useState(0);
+  const [ display, setDisplay ] = useState(50);
+  const [ trigger, setTrigger ] = useState(false);
 
-  const [ tableData, tLoading, tError ] = useAxios(
-    HT_URL(scale, type, start, 50, '0'),
-    null,
-    'GET',
-    [scale, type, start]
-  );
+  const [ ctpCode, setCtpCode ] = useState<string | null>(null);
+  const [ sigCode, setSigCode ] = useState<string | null>(null);
+  const [ emdCode, setEmdCode ] = useState<string | null>(null);
+
+  const regionCode = useMemo(() => {
+    if(emdCode) return emdCode;
+    if(sigCode) return sigCode;
+    if(ctpCode) return ctpCode;
+    return '0';
+  }, [ctpCode, sigCode, emdCode]);
 
   const scaleOptions = [
     {
@@ -64,6 +69,86 @@ const HotTrend = () => {
     }
   ];
 
+  const [ tableData, tLoading, tError ] = useAxios(
+    HT_URL(scale, type, start, display, regionCode),
+    null,
+    'GET',
+    [trigger, start, display]
+  );
+
+  const columnTitle = {
+    area: '행정구역',
+    category: '업종',
+    omrank: '점포',
+    keyword: '키워드'
+  }
+
+  const columns = [
+    {
+      title: '순위',
+      dataIndex: 'rank',
+      key: 'rank'
+    },
+    {
+      title: '급상승',
+      children: [
+        {
+          title: columnTitle[type],
+          dataIndex: 'uname',
+          key: 'uname'
+        },
+        {
+          title: '과거',
+          dataIndex: 'uPrv',
+          key: 'uPrv'
+        },
+        {
+          title: '현재',
+          dataIndex: 'uNow',
+          key: 'uNow'
+        },
+        {
+          title: '상승률',
+          dataIndex: 'ugrowth',
+          key: 'ugrowth'
+        }
+      ]
+    },
+    {
+      title: '급하락',
+      children: [
+        {
+          title: columnTitle[type],
+          dataIndex: 'dname',
+          key: 'dname'
+        },
+        {
+          title: '과거',
+          dataIndex: 'dPrv',
+          key: 'dPrv'
+        },
+        {
+          title: '현재',
+          dataIndex: 'dNow',
+          key: 'dNow'
+        },
+        {
+          title: '하락률',
+          dataIndex: 'dgrowth',
+          key: 'dgrowth'
+        }
+      ]
+    },
+  ];
+
+  const scrollProps = {
+    y: document.body.clientHeight - 600
+  };
+
+  useEffect(() => {
+    start>0 ? setStart(0) : setTrigger(t => !t);
+  }, [type, scale, regionCode]);
+
   return (
     <div className="hot_trend">
       <div className="header">
@@ -76,8 +161,16 @@ const HotTrend = () => {
           <Segmented value={scale} onChange={setScale as (arg: SegmentedValue) => void} options={scaleOptions} />
         </span>
       </div>
-      <div className="region_box">
-        <LegalAreaRadio />
+      <div className="body">
+        <div className="region_box">
+          <LegalAreaRadio ctpCode={ctpCode} setCtpCode={setCtpCode} sigCode={sigCode} setSigCode={setSigCode} emdCode={emdCode} setEmdCode={setEmdCode} disabled={type === 'category'} />
+        </div>
+        <div className="pagination">
+          <Pagination disabled={tLoading} showSizeChanger onShowSizeChange={(current, pageSize) => setDisplay(pageSize)} total={(tableData?.data?.maxPage+1)*display} current={start+1} pageSize={display} onChange={page => setStart(page-1)} />
+        </div>
+        <div className="table">
+          <Table columns={columns} dataSource={tableData?.data?.data} bordered size="small" pagination={false} loading={tLoading} scroll={scrollProps} />
+        </div>
       </div>
     </div>
   );

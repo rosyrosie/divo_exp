@@ -3,6 +3,7 @@
   width: 100%;
   display: flex;
   flex-flow: column;
+  overflow: hidden;
 
   .header{
     height: 64px;
@@ -17,7 +18,7 @@
     clip-path: inset(-5px -5px -5px 0px);
     background: white;
     z-index: 2;
-    position: sticky;
+    position: fixed;
     top: 0;
 
     .spread{
@@ -43,9 +44,27 @@
       }
     }
   }
-}
 
-.region_box{
-  width: 60%;
-  margin: 0 auto;
+  .body{
+    margin-top: 64px;
+    height: calc(100vh - 64px);
+    overflow: hidden;
+
+    .region_box{
+      width: 60%;
+      margin: 0 auto 24px auto;
+    }
+  
+    .pagination{
+      margin: 24px auto;
+      display: flex;
+      justify-content: right;
+      width: 60%;
+    }
+
+    .table{
+      width: 60%;
+      margin: 0 auto 24px auto;
+    }
+  }
 }
