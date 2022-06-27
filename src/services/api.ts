@@ -37,3 +37,6 @@ export const SA_COMPARE_URL = (corpId: string, scale: string) => BASE_URL + `cor
 export const GET_REG_URL = BASE_URL + 'map/bound/region/subset/rename?id=';
 
 export const HT_URL = (scale: string, type: string, start: number, display: number, regionCode: string) => BASE_URL + `map/bound/system/trend?scale=${scale}&type=${type}&start=${start}&display=${display}&regionCode=${regionCode}`;
+
+export const ID_URL = BASE_URL + 'map/bound/region?area=0';
+export const ID_QUERY_URL = (query: string) => BASE_URL + `map/bound/search?query=${query}&rf=0`;

@@ -2,7 +2,7 @@ import { GET_REG_URL } from "@api";
 import useAxios from "@useAxios";
 import { Checkbox, Col, Divider, Row } from "antd";
 import { CheckboxChangeEvent } from "antd/lib/checkbox";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 type codeListType = {
   ctp: string[],
@@ -15,13 +15,7 @@ type areaType = {
   value: string
 };
 
-const LegalAreaCheck = () => {
-  const [ codeList, setCodeList ] = useState<codeListType>({
-    ctp: [],
-    sig: [],
-    emd: []
-  });
-
+const LegalAreaCheck = ({ codeList, setCodeList }: { codeList: codeListType, setCodeList: Dispatch<SetStateAction<codeListType>>}) => {
   const defaultOptions = {
     label: '전국',
     value: '0',
@@ -77,7 +71,7 @@ const LegalAreaCheck = () => {
   const onCheckAllChange = (e: CheckboxChangeEvent, type: 'ctp' | 'sig' | 'emd') => {
     const areaList = type === 'ctp' ? ctpList?.subset : type === 'sig' ? sigList?.subset : emdList?.subset;
     setCodeList(c => ({...c, [type]: e.target.checked ? areaList.map((area: areaType) => area.value) : []}));
-  }
+  };
 
   return (
     <div className="legal_area">
@@ -94,12 +88,13 @@ const LegalAreaCheck = () => {
           <Checkbox
             onChange={e => onCheckAllChange(e, 'ctp')}
             checked={codeList.ctp.length === ctpList?.subset?.length}
-            indeterminate={!!codeList.ctp.length && codeList.ctp.length < ctpList.subset.length}
+            indeterminate={!!codeList.ctp.length && codeList.ctp.length < ctpList?.subset?.length}
           >
             전체 선택
           </Checkbox>
           <Divider />
-          <Checkbox.Group  
+          <Checkbox.Group 
+            style={{ height: 250 }} 
             options={ctpList?.subset}
             value={codeList.ctp} 
             onChange={checkedValues => setCodeList(c => ({...c, ctp: checkedValues as string[]}))}
@@ -118,7 +113,7 @@ const LegalAreaCheck = () => {
               </Checkbox>
               <Divider />
               <Checkbox.Group
-                style={{ maxHeight: 250, overflow: 'auto' }}
+                style={{ height: 250, overflow: 'auto' }}
                 options={sigList?.subset}
                 value={codeList.sig}
                 onChange={checkedValues => setCodeList(c => ({...c, sig: checkedValues as string[]}))}
@@ -133,13 +128,13 @@ const LegalAreaCheck = () => {
               <Checkbox
                 onChange={e => onCheckAllChange(e, 'emd')}
                 checked={codeList.emd.length === emdList?.subset?.length}
-                indeterminate={!!codeList.emd.length && codeList.emd.length < emdList.subset.length}
+                indeterminate={!!codeList.emd.length && codeList.emd.length < emdList?.subset?.length}
               >
                 전체 선택
               </Checkbox>
               <Divider />
               <Checkbox.Group
-                style={{ maxHeight: 250, overflow: 'auto' }}
+                style={{ height: 250, overflow: 'auto' }}
                 options={emdList?.subset}
                 value={codeList.emd}
                 onChange={checkedValues => setCodeList(c => ({...c, emd: checkedValues as string[]}))}

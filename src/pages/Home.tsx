@@ -36,7 +36,11 @@ const Home = () => {
           >
             급등락 키워드
           </Card>
-          <Card hoverable style={{ width: 240, textAlign: 'center', marginBottom: 12 }}>
+          <Card 
+            hoverable 
+            style={{ width: 240, textAlign: 'center', marginBottom: 12 }}
+            onClick={() => navigate('/interest-data')}
+          >
             외식소비의도 분석
           </Card>
           <Card 

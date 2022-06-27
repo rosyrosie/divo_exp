@@ -1,10 +1,10 @@
-import BrandHome from "@pages/BrandHome";
 import Login from "@pages/Login"
 import Layout from "@layouts/Layout";
 import { RouteObject } from "react-router-dom";
 import Container from "@layouts/Container";
 import Home from "@pages/Home";
 import HotTrend from "@pages/HotTrend";
+import InterestData from "@pages/InterestData";
 
 export const routes: RouteObject[] = [
   {
@@ -18,6 +18,10 @@ export const routes: RouteObject[] = [
   {
     path: '/hot-trend',
     element: <HotTrend />
+  },
+  {
+    path: '/interest-data',
+    element: <InterestData />
   },
   {
     path: '/bid=:corpId',
