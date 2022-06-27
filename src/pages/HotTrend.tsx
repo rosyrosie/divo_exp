@@ -1,29 +1,15 @@
 import { HomeOutlined } from "@ant-design/icons";
-import { GET_REG_URL, HT_URL } from "@api";
+import { HT_URL } from "@api";
+import LegalAreaCheck from "@components/LegalAreaCheck";
+import LegalAreaRadio from "@components/LegalAreaRadio";
 import useAxios from "@useAxios";
-import { Cascader, Segmented } from "antd";
+import { Segmented } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
-import { DefaultOptionType } from "antd/lib/select";
-import axios from "axios";
-import { SingleValueType } from "rc-cascader/lib/Cascader";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const HotTrend = () => {
   const navigate = useNavigate();
-  const defaultOptions = {
-    label: '전국',
-    value: '0',
-    isLeaf: false
-  }
-
-  const [ value, setValue ] = useState<SingleValueType[]>([]);
-  const [ options, setOptions ] = useState([defaultOptions]);
-  const [ ctpList, ctpLoading, ctpError ] = useAxios(
-    GET_REG_URL + '0',
-    null,
-    'GET'
-  );
 
   const [ scale, setScale ] = useState('day');
   const [ type, setType ] = useState('keyword');
@@ -35,24 +21,6 @@ const HotTrend = () => {
     'GET',
     [scale, type, start]
   );
-  
-  const loadData = (selectedOptions: DefaultOptionType[]) => {
-    const targetOption = selectedOptions[selectedOptions.length - 1];
-    targetOption.loading = true;
-
-    axios.get(GET_REG_URL + targetOption.value).then(res => {
-      targetOption.loading = false;
-      targetOption.children = res.data.subset;
-      setOptions([...options]);
-    })
-  };
-
-  const onChange = (value: SingleValueType[]) => {
-    if(value.length === 0){
-      setValue([['0']]);
-    }
-    else setValue(value);
-  }
 
   const scaleOptions = [
     {
@@ -104,22 +72,12 @@ const HotTrend = () => {
           <span className="menu_title">급등락 키워드</span>
         </span>
         <span className="spread">
-          <Cascader
-            style={{
-              width: 480
-            }}
-            value={value}
-            options={options}
-            loadData={loadData}
-            multiple
-            maxTagCount="responsive"
-            onChange={(value) => onChange(value)}
-          />
-          <span>
-            <Segmented value={scale} onChange={setScale as (arg: SegmentedValue) => void} options={scaleOptions} style={{ marginRight: 12 }}/>
-            <Segmented value={type} onChange={setType as (arg: SegmentedValue) => void} options={typeOptions} />
-          </span>
+          <Segmented value={type} onChange={setType as (arg: SegmentedValue) => void} options={typeOptions} />
+          <Segmented value={scale} onChange={setScale as (arg: SegmentedValue) => void} options={scaleOptions} />
         </span>
+      </div>
+      <div className="region_box">
+        <LegalAreaRadio />
       </div>
     </div>
   );

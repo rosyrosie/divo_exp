@@ -95,9 +95,9 @@ const SalesCompare = () => {
       <div className="box">
         <div className="compare_table_box">
           <Row>
-            <Col span={8}>{compareTitle[compareType][0]}</Col>
+            <Col span={8} className="title">{compareTitle[compareType][0]}</Col>
             <Col span={8}></Col>
-            <Col span={8}>{compareTitle[compareType][1]}</Col>
+            <Col span={8} className="title">{compareTitle[compareType][1]}</Col>
           </Row>
           {Array.from({ length: chartData?.length }, (_, i) => i).map(index => (
             <Row key={index}>
@@ -111,7 +111,11 @@ const SalesCompare = () => {
                   {compareData[compareType][index]}
                 </Button>
               </Col>
-              <Col span={8}>{statData?.rightAvg[index]}</Col>
+              <Col span={8}>
+                <span className="stat">
+                  {statData?.rightAvg[index]}
+                </span>
+              </Col>
             </Row>
           ))}
         </div>

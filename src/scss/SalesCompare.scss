@@ -11,6 +11,17 @@
   .compare_table_box{
     flex: 1;
     margin: auto;
+    .title{
+      font-size: 16px;
+      color: #515154;
+    }
+    .stat{
+      font-weight: bold;
+      font-size: 18px;
+    }
+    button{
+      font-size: 14px;
+    }
   }
   .compare_chart_box{
     flex: 2;
