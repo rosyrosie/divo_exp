@@ -3,7 +3,6 @@
   width: 100%;
   display: flex;
   flex-flow: column;
-  overflow: hidden;
 
   .header{
     height: 64px;
@@ -48,7 +47,6 @@
   .body{
     margin-top: 64px;
     height: calc(100vh - 64px);
-    overflow: hidden;
 
     .region_box{
       width: 60%;
