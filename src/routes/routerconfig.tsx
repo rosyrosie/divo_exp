@@ -5,6 +5,7 @@ import Container from "@layouts/Container";
 import Home from "@pages/Home";
 import HotTrend from "@pages/HotTrend";
 import InterestData from "@pages/InterestData";
+import FranchiseRank from "@pages/FranchiseRank";
 
 export const routes: RouteObject[] = [
   {
@@ -22,6 +23,10 @@ export const routes: RouteObject[] = [
   {
     path: '/interest-data',
     element: <InterestData />
+  },
+  {
+    path: '/frch-rank',
+    element: <FranchiseRank />
   },
   {
     path: '/bid=:corpId',

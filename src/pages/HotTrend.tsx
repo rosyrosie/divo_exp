@@ -86,7 +86,7 @@ const HotTrend = () => {
       <div className="header">
         <span className="header_title">
           <HomeOutlined onClick={() => navigate('/')} />
-          <span className="menu_title">급등락 키워드</span>
+          <span className="menu_title">급등락 데이터</span>
         </span>
         <span className="spread">
           <Segmented value={type} onChange={setType as (arg: SegmentedValue) => void} options={typeOptions} />

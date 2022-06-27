@@ -2,7 +2,10 @@
     y: document.body.clientHeight - 600
   };
 
-  
+  export const frchScrollProps = {
+    y: document.body.clientHeight - 200
+  }
+
   const columnTitle = {
     area: '행정구역',
     category: '업종',
@@ -252,4 +255,43 @@
         },
       ]
     }
+  ];
+
+  export const frchRankColumns = [
+    {
+      title: '지점 순위',
+      dataIndex: 'rank',
+      key: 'rank',
+      width: 100
+    },
+    {
+      title: '지점명',
+      dataIndex: 'name',
+      key: 'name'
+    },
+    {
+      title: '전국 점포 순위',
+      dataIndex: 'omrank',
+      key: 'omrank'
+    },
+    {
+      title: '블로그 리뷰수',
+      dataIndex: 'blogReviewCnt',
+      key: 'blogReviewCnt'
+    },
+    {
+      title: '방문자 리뷰수',
+      dataIndex: 'visitorReviewCnt',
+      key: 'visitorReviewCnt'
+    },
+    {
+      title: '업종',
+      dataIndex: 'category',
+      key: 'category'
+    },
+    {
+      title: '주소',
+      dataIndex: 'address',
+      key: 'address'
+    },
   ];
