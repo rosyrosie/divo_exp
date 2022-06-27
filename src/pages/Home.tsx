@@ -2,6 +2,8 @@ import { Card, Switch } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BrandHome from "@pages/BrandHome";
+import useAxios from "@useAxios";
+import { CHECK_USER_URL } from "@api";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -11,8 +13,15 @@ const Home = () => {
   useEffect(() => {
     if(!token) navigate('/login');
   }, [token]);
+  
+  const [ sysAuth, _, __] = useAxios(
+    CHECK_USER_URL,
+    null,
+    'GET',
+    []
+  );
 
-  const [ isBrandMode, setIsBrandMode ] = useState(initialMode==='brand' ? true : false);
+  const [ isBrandMode, setIsBrandMode ] = useState(!sysAuth?.isCorp || initialMode==='brand' ? true : false);
 
   useEffect(() => {
     localStorage.setItem('isBrandMode', isBrandMode ? 'brand' : 'trend');
@@ -20,12 +29,12 @@ const Home = () => {
 
   return (
     <div className="home_box">
-      <div className="switch">
-        <Switch
+      {<div className="switch">
+        {sysAuth?.isCorp && <Switch
           checked={isBrandMode}
           onChange={setIsBrandMode}
-        />
-      </div>
+        />}
+      </div>}
       <BrandHome isBrandMode={isBrandMode} />
       {!isBrandMode && 
         <div className="trend_box">

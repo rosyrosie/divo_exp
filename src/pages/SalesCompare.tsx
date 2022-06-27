@@ -21,8 +21,8 @@ const SalesCompare = () => {
     corpId !== undefined
   );
 
-  const statData = data?.analysisList[compareType];
-  const chartData = data?.analysisList[compareType].graphList;
+  const statData = data?.analysisList?.[compareType];
+  const chartData = data?.analysisList?.[compareType]?.graphList;
 
   const compareTitle = [
     ['점심', '저녁'],
