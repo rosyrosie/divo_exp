@@ -1,5 +1,5 @@
 import { HomeOutlined } from "@ant-design/icons";
-import { ID_URL } from "@api";
+import { CHECK_USER_URL, ID_URL } from "@api";
 import useAxios from "@useAxios";
 import { Button, Input, message, Table } from "antd";
 import { useEffect, useState } from "react";
@@ -8,6 +8,18 @@ import { frchRankColumns, frchScrollProps, saveasCSV } from "@utils/tableUtil";
 
 const FranchiseRank = () => {
   const navigate = useNavigate();
+
+  const [ sysAuth, _, __] = useAxios(
+    CHECK_USER_URL,
+    null,
+    'GET',
+    []
+  );
+
+  useEffect(() => {
+    if(sysAuth?.isCorp === false) navigate('/');
+  }, [sysAuth]);
+
   const { Search } = Input;
   const [ query, setQuery ] = useState('');
   const [ page, setPage ] = useState(1);

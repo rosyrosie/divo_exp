@@ -1,5 +1,5 @@
 import { HomeOutlined } from "@ant-design/icons";
-import { HT_URL } from "@api";
+import { CHECK_USER_URL, HT_URL } from "@api";
 import LegalAreaRadio from "@components/LegalAreaRadio";
 import useAxios from "@useAxios";
 import { hotTrendColumns, saveasCSV, scrollProps } from "@utils/tableUtil";
@@ -10,6 +10,17 @@ import { useNavigate } from "react-router-dom";
 
 const HotTrend = () => {
   const navigate = useNavigate();
+
+  const [ sysAuth, _, __] = useAxios(
+    CHECK_USER_URL,
+    null,
+    'GET',
+    []
+  );
+
+  useEffect(() => {
+    if(sysAuth?.isCorp === false) navigate('/');
+  }, [sysAuth]);
 
   const [ scale, setScale ] = useState('day');
   const [ type, setType ] = useState<'keyword' | 'area' | 'category' | 'omrank'>('keyword');

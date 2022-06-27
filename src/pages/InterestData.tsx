@@ -1,11 +1,11 @@
 import { HomeOutlined } from "@ant-design/icons";
-import { ID_URL } from "@api";
+import { CHECK_USER_URL, ID_URL } from "@api";
 import LegalAreaCheck from "@components/LegalAreaCheck";
 import useAxios from "@useAxios";
 import { Button, DatePicker, Segmented, Table } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
 import moment, { Moment } from "moment";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RangeValue } from "rc-picker/lib/interface";
 import { dateToStringFormat, disabledDate } from "@utils/dateUtil";
@@ -14,6 +14,18 @@ import { interestDataColumns, saveasCSV, scrollProps } from "@utils/tableUtil";
 
 const InterestData = () => {
   const navigate = useNavigate();
+
+  const [ sysAuth, _, __] = useAxios(
+    CHECK_USER_URL,
+    null,
+    'GET',
+    []
+  );
+
+  useEffect(() => {
+    if(sysAuth?.isCorp === false) navigate('/');
+  }, [sysAuth]);
+  
   const { RangePicker } = DatePicker;
 
   const [ type, setType ] = useState<'keyword' | 'area'>('keyword');
