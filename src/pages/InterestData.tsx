@@ -5,11 +5,12 @@ import useAxios from "@useAxios";
 import { Button, DatePicker, Segmented, Table } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
 import moment, { Moment } from "moment";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RangeValue } from "rc-picker/lib/interface";
 import { dateToStringFormat, disabledDate } from "@utils/dateUtil";
 import KeywordTags from "@components/interestdata/KeywordTags";
+import { interestDataColumns, scrollProps } from "@utils/tableUtil";
 
 const InterestData = () => {
   const navigate = useNavigate();
@@ -58,196 +59,6 @@ const InterestData = () => {
     !!filterInput.length
   );
 
-  const columns = [
-    {
-      title: '순위',
-      dataIndex: 'rank',
-      key: 'rank',
-      width: 50
-    },
-    {
-      title: '구분',
-      dataIndex: 'region',
-      key: 'region',
-      width: 70
-    },
-    {
-      title: '외식소비의도',
-      dataIndex: 'searchQty',
-      key: 'searchQty',
-      width: 90
-    },
-    {
-      title: '성별 현황',
-      children: [
-        {
-          title: '여성',
-          dataIndex: 'female',
-          key: 'female'
-        },
-        {
-          title: '남성',
-          dataIndex: 'male',
-          key: 'male'
-        }
-      ]
-    },
-    {
-      title: '기기별 현황',
-      children: [
-        {
-          title: '모바일',
-          dataIndex: 'mobile',
-          key: 'mobile'
-        },
-        {
-          title: 'PC',
-          dataIndex: 'pc',
-          key: 'pc'
-        }
-      ]
-    },
-    {
-      title: '연령별 현황',
-      children: [
-        {
-          title: '10대',
-          dataIndex: 'ten',
-          key: 'ten'
-        },
-        {
-          title: '20대',
-          dataIndex: 'twenty',
-          key: 'twenty'
-        },
-        {
-          title: '30대',
-          dataIndex: 'thirty',
-          key: 'thirty'
-        },
-        {
-          title: '40대',
-          dataIndex: 'forty',
-          key: 'forty'
-        },
-        {
-          title: '50대',
-          dataIndex: 'fifty',
-          key: 'fifty'
-        }
-      ]
-    },
-    {
-      title: '요일별 현황',
-      children: [
-        {
-          title: '월',
-          dataIndex: 'mon',
-          key: 'mon'
-        },
-        {
-          title: '화',
-          dataIndex: 'tue',
-          key: 'tue'
-        },
-        {
-          title: '수',
-          dataIndex: 'wed',
-          key: 'wed'
-        },
-        {
-          title: '목',
-          dataIndex: 'thur',
-          key: 'thur'
-        },
-        {
-          title: '금',
-          dataIndex: 'fri',
-          key: 'fri'
-        },
-        {
-          title: '토',
-          dataIndex: 'sat',
-          key: 'sat'
-        },
-        {
-          title: '일',
-          dataIndex: 'sun',
-          key: 'sun'
-        }
-      ]
-    },
-    {
-      title: '월별 현황',
-      children: [
-        {
-          title: '1월',
-          dataIndex: 'jan',
-          key: 'jan'
-        },
-        {
-          title: '2월',
-          dataIndex: 'feb',
-          key: 'feb'
-        },
-        {
-          title: '3월',
-          dataIndex: 'mar',
-          key: 'mar'
-        },
-        {
-          title: '4월',
-          dataIndex: 'apr',
-          key: 'apr'
-        },
-        {
-          title: '5월',
-          dataIndex: 'may',
-          key: 'may'
-        },
-        {
-          title: '6월',
-          dataIndex: 'jun',
-          key: 'jun'
-        },
-        {
-          title: '7월',
-          dataIndex: 'jul',
-          key: 'jul'
-        },
-        {
-          title: '8월',
-          dataIndex: 'aug',
-          key: 'aug'
-        },
-        {
-          title: '9월',
-          dataIndex: 'sep',
-          key: 'sep'
-        },
-        {
-          title: '10월',
-          dataIndex: 'oct',
-          key: 'oct'
-        },
-        {
-          title: '11월',
-          dataIndex: 'nov',
-          key: 'nov'
-        },
-        {
-          title: '12월',
-          dataIndex: 'dec',
-          key: 'dec'
-        },
-      ]
-    }
-  ];
-
-  const scrollProps = {
-    y: document.body.clientHeight - 600
-  };
-
   return (
     <div className="interest_data">
       <div className="header">
@@ -276,7 +87,7 @@ const InterestData = () => {
           </Button>
         </div>
         <div className="table">
-          <Table columns={columns} dataSource={tableData?.data} bordered size="small" pagination={false} loading={tLoading} scroll={scrollProps} />
+          <Table columns={interestDataColumns} dataSource={tableData?.data} bordered size="small" pagination={false} loading={tLoading} scroll={scrollProps} />
         </div>
       </div>
     </div>

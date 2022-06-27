@@ -2,6 +2,7 @@ import { HomeOutlined } from "@ant-design/icons";
 import { HT_URL } from "@api";
 import LegalAreaRadio from "@components/LegalAreaRadio";
 import useAxios from "@useAxios";
+import { hotTrendColumns, scrollProps } from "@utils/tableUtil";
 import { Pagination, Segmented, Table } from "antd";
 import { SegmentedValue } from "antd/lib/segmented";
 import { useEffect, useMemo, useState } from "react";
@@ -76,75 +77,6 @@ const HotTrend = () => {
     [trigger, start, display]
   );
 
-  const columnTitle = {
-    area: '행정구역',
-    category: '업종',
-    omrank: '점포',
-    keyword: '키워드'
-  }
-
-  const columns = [
-    {
-      title: '순위',
-      dataIndex: 'rank',
-      key: 'rank'
-    },
-    {
-      title: '급상승',
-      children: [
-        {
-          title: columnTitle[type],
-          dataIndex: 'uname',
-          key: 'uname'
-        },
-        {
-          title: '과거',
-          dataIndex: 'uPrv',
-          key: 'uPrv'
-        },
-        {
-          title: '현재',
-          dataIndex: 'uNow',
-          key: 'uNow'
-        },
-        {
-          title: '상승률',
-          dataIndex: 'ugrowth',
-          key: 'ugrowth'
-        }
-      ]
-    },
-    {
-      title: '급하락',
-      children: [
-        {
-          title: columnTitle[type],
-          dataIndex: 'dname',
-          key: 'dname'
-        },
-        {
-          title: '과거',
-          dataIndex: 'dPrv',
-          key: 'dPrv'
-        },
-        {
-          title: '현재',
-          dataIndex: 'dNow',
-          key: 'dNow'
-        },
-        {
-          title: '하락률',
-          dataIndex: 'dgrowth',
-          key: 'dgrowth'
-        }
-      ]
-    },
-  ];
-
-  const scrollProps = {
-    y: document.body.clientHeight - 600
-  };
-
   useEffect(() => {
     start>0 ? setStart(0) : setTrigger(t => !t);
   }, [type, scale, regionCode]);
@@ -169,7 +101,7 @@ const HotTrend = () => {
           <Pagination disabled={tLoading} showSizeChanger onShowSizeChange={(current, pageSize) => setDisplay(pageSize)} total={(tableData?.data?.maxPage+1)*display} current={start+1} pageSize={display} onChange={page => setStart(page-1)} />
         </div>
         <div className="table">
-          <Table columns={columns} dataSource={tableData?.data?.data} bordered size="small" pagination={false} loading={tLoading} scroll={scrollProps} />
+          <Table columns={hotTrendColumns(type)} dataSource={tableData?.data?.data} bordered size="small" pagination={false} loading={tLoading} scroll={scrollProps} />
         </div>
       </div>
     </div>
