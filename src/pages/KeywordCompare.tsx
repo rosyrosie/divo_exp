@@ -98,12 +98,12 @@ const KeywordCompare = () => {
         </div>
         <div className="check_box">
           <Tree 
-              checkable
-              treeData={checkList?.data}
-              checkStrictly={true}
-              checkedKeys={checkedKeys}
-              onCheck={(checked) => setCheckedKeys(checked)}
-            />
+            checkable
+            treeData={checkList?.data}
+            checkStrictly={true}
+            checkedKeys={checkedKeys}
+            onCheck={(checked) => setCheckedKeys(checked)}
+          />
         </div>
       </div>
     </div>

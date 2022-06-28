@@ -109,7 +109,7 @@ const InterestData = () => {
           </div>
         </div>
       </div>
-    <DetailModal modalId={modalId} setModalId={setModalId} />
+      <DetailModal modalId={modalId} setModalId={setModalId} />
     </>
   );
 };

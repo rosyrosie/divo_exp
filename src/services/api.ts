@@ -44,3 +44,7 @@ export const ID_URL = BASE_URL + 'map/bound/region?area=0';
 export const ID_QUERY_URL = (query: string) => BASE_URL + `map/bound/search?query=${query}&rf=0`;
 export const ID_MODAL_URL = BASE_URL + 'map/bound/system/section/rank/region?area=';
 export const ID_MODAL_QTY_URL = BASE_URL + 'map/bound/system/amount?area=';
+
+export const AD_TREE_URL = BASE_URL + 'corpkeywordcomp/keyToKeys/list';
+export const AD_CHART_URL = BASE_URL + 'corpkeywordcomp/keyToKeys/graph';
+export const AD_DB_URL = BASE_URL + 'keyword/radar?keyword=';

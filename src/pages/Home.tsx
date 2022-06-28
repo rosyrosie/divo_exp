@@ -62,6 +62,13 @@ const Home = () => {
           <Card 
             hoverable 
             style={{ width: 240, textAlign: 'center', marginBottom: 12 }}
+            onClick={() => navigate('/area-corr')}
+          >
+            상권 연관성 분석
+          </Card>
+          <Card 
+            hoverable 
+            style={{ width: 240, textAlign: 'center', marginBottom: 12 }}
             onClick={() => window.open("https://map.divo.kr", "_blank", "noopener, noreferrer")}
           >
             전국 상권 분석

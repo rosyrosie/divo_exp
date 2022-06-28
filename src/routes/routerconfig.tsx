@@ -6,6 +6,7 @@ import Home from "@pages/Home";
 import HotTrend from "@pages/HotTrend";
 import InterestData from "@pages/InterestData";
 import FranchiseRank from "@pages/FranchiseRank";
+import AreaDatalab from "@pages/AreaDatalab";
 
 export const routes: RouteObject[] = [
   {
@@ -27,6 +28,10 @@ export const routes: RouteObject[] = [
   {
     path: '/frch-rank',
     element: <FranchiseRank />
+  },
+  {
+    path: '/area-corr',
+    element: <AreaDatalab />
   },
   {
     path: '/bid=:corpId',
