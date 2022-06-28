@@ -29,7 +29,7 @@ const InterestData = () => {
   
   const { RangePicker } = DatePicker;
 
-  const [ type, setType ] = useState<'keyword' | 'area'>('keyword');
+  const [ type, setType ] = useState<'keyword' | 'area'>('area');
   const [ trigger, setTrigger ] = useState(false);
   const [ dateRange, setDateRange ] = useState<RangeValue<Moment>>([moment().subtract(1, 'months').subtract(2, 'days'), moment().subtract(2, 'days')]);
 
@@ -43,13 +43,13 @@ const InterestData = () => {
 
   const typeOptions = [
     {
+      label: '행정구역',
+      value: 'area'
+    },
+    {
       label: '키워드',
       value: 'keyword'
     },
-    {
-      label: '행정구역',
-      value: 'area'
-    }
   ];
 
   const filterKey = type === 'keyword' ? 'keywords' : 'regionCodes';
