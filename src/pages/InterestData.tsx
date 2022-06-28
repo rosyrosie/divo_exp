@@ -11,6 +11,7 @@ import { RangeValue } from "rc-picker/lib/interface";
 import { dateToStringFormat, disabledDate } from "@utils/dateUtil";
 import KeywordTags from "@components/interestdata/KeywordTags";
 import { interestDataColumns, saveasCSV, scrollProps } from "@utils/tableUtil";
+import DetailModal from "@components/interestdata/DetailModal";
 
 const InterestData = () => {
   const navigate = useNavigate();
@@ -70,41 +71,46 @@ const InterestData = () => {
     [trigger, type],
   );
 
+  const [ modalId, setModalId ] = useState<string | null>(null);
+
   return (
-    <div className="interest_data">
-      <div className="header">
-        <span className="header_title">
-          <HomeOutlined onClick={() => navigate('/')} />
-          <span className="menu_title">외식소비의도 분석</span>
-        </span>
-        <span className="spread">
-          <Segmented value={type} onChange={setType as (arg: SegmentedValue) => void} options={typeOptions} />
-          <RangePicker 
-            disabledDate={disabledDate}
-            placeholder={['시작 날짜', '끝 날짜']}
-            value={dateRange}
-            onChange={setDateRange}
-            allowClear={false}
-          />
-        </span>
-      </div>
-      <div className="body">
-        <div className="region_box">
-          {type === 'area' ? <LegalAreaCheck codeList={codeList} setCodeList={setCodeList} /> : <KeywordTags tagList={tagList} setTagList={setTagList} />}
+    <>
+      <div className="interest_data">
+        <div className="header">
+          <span className="header_title">
+            <HomeOutlined onClick={() => navigate('/')} />
+            <span className="menu_title">외식소비의도 분석</span>
+          </span>
+          <span className="spread">
+            <Segmented value={type} onChange={setType as (arg: SegmentedValue) => void} options={typeOptions} />
+            <RangePicker 
+              disabledDate={disabledDate}
+              placeholder={['시작 날짜', '끝 날짜']}
+              value={dateRange}
+              onChange={setDateRange}
+              allowClear={false}
+            />
+          </span>
         </div>
-        <div className="trigger">
-          <Button type="primary" onClick={() => setTrigger(t => !t)}>
-            상권 분석
-          </Button>
-        </div>
-        <div className="table">
-          <Table columns={interestDataColumns} dataSource={tableData?.data} bordered size="small" pagination={false} loading={filterInput.length && tLoading} scroll={scrollProps} />
-          <div className="save_csv_box">
-            <Button className="save_csv" onClick={() => saveasCSV(interestDataColumns, tableData?.data, `외식소비의도 분석.xlsx`)}>CSV 다운로드</Button>
+        <div className="body">
+          <div className="region_box">
+            {type === 'area' ? <LegalAreaCheck codeList={codeList} setCodeList={setCodeList} /> : <KeywordTags tagList={tagList} setTagList={setTagList} />}
+          </div>
+          <div className="trigger">
+            <Button type="primary" onClick={() => setTrigger(t => !t)}>
+              상권 분석
+            </Button>
+          </div>
+          <div className="table">
+            <Table columns={interestDataColumns(setModalId)} dataSource={tableData?.data} bordered size="small" pagination={false} loading={filterInput.length && tLoading} scroll={scrollProps} />
+            <div className="save_csv_box">
+              <Button className="save_csv" onClick={() => saveasCSV(interestDataColumns(setModalId), tableData?.data, `외식소비의도 분석.xlsx`)}>CSV 다운로드</Button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    <DetailModal modalId={modalId} setModalId={setModalId} />
+    </>
   );
 };
 

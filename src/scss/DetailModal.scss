@@ -1,0 +1,29 @@
+.modal_flex{
+  width: 100%;
+  height: 640px;
+  display: flex;
+}
+
+.modal_rank_box{
+  flex: 2;
+  display: flex;
+  flex-flow: column;
+  padding-right: 6px;
+}
+
+.modal_qty_box{
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+  padding-left: 6px;
+}
+
+.table_title{
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.table_box{
+  overflow-y: auto;
+}

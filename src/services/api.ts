@@ -42,3 +42,5 @@ export const HT_URL = (scale: string, type: string, start: number, display: numb
 
 export const ID_URL = BASE_URL + 'map/bound/region?area=0';
 export const ID_QUERY_URL = (query: string) => BASE_URL + `map/bound/search?query=${query}&rf=0`;
+export const ID_MODAL_URL = BASE_URL + 'map/bound/system/section/rank/region?area=';
+export const ID_MODAL_QTY_URL = BASE_URL + 'map/bound/system/amount?area=';

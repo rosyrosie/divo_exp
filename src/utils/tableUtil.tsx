@@ -1,4 +1,6 @@
 import { Excel } from "antd-table-saveas-excel";
+import { ColumnsType } from "antd/lib/table";
+import { Dispatch, SetStateAction } from "react";
 
   export const scrollProps = {
     y: document.body.clientHeight - 700
@@ -73,7 +75,7 @@ import { Excel } from "antd-table-saveas-excel";
     },
   ];
 
-  export const interestDataColumns = [
+  export const interestDataColumns: (arg: Dispatch<SetStateAction<string | null>>) => ColumnsType<any> = (setModalId) => [
     {
       title: '순위',
       dataIndex: 'rank',
@@ -84,7 +86,14 @@ import { Excel } from "antd-table-saveas-excel";
       title: '구분',
       dataIndex: 'region',
       key: 'region',
-      width: 70
+      width: 70,
+      render: (text, record) => {
+        return (
+          <div className="modal_trigger" onClick={() => setModalId(record.regionCode || record.region)}>
+            {text}
+          </div>
+        );
+      }
     },
     {
       title: '외식소비의도',
@@ -296,6 +305,46 @@ import { Excel } from "antd-table-saveas-excel";
       dataIndex: 'address',
       key: 'address'
     },
+  ];
+
+  export const modalRankColumns: ColumnsType<any> = [
+    {
+      title: '순위',
+      dataIndex: 'rank',
+      key: 'rank'
+    },
+    {
+      title: '상권',
+      dataIndex: 'area',
+      key: 'area'
+    },
+    {
+      title: '업종',
+      dataIndex: 'type',
+      key: 'type'
+    },
+    {
+      title: '점포',
+      dataIndex: 'restaurant',
+      key: 'restaurant',
+      render: (text, record) => {
+        return <a href={record.url} target="_blank" rel="noopener noreferrer">{text}</a>
+      },
+    }
+  ];
+
+  export const modalQtyColumns: ColumnsType<any> = [
+    {
+      title: '기간',
+      dataIndex: 'date',
+      key: 'date'
+    },
+    {
+      title: '외식소비의도',
+      dataIndex: 'searchQty',
+      key: 'searchQty',
+      render: (text) => text.toLocaleString()
+    }
   ];
 
   export const saveasCSV = (columns: any[], data: any[], title: string) => {
