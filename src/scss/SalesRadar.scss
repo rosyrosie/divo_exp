@@ -2,3 +2,37 @@
   width: 40%;
   margin: 0 auto;
 }
+
+.sales_radar{
+  .header{
+    height: 64px;
+    min-height: 64px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px #f0f1f2;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    width: 100%;
+    padding: 0 24px;
+    clip-path: inset(-5px -5px -5px 0px);
+    background: white;
+    z-index: 2;
+    position: sticky;
+    top: 0;
+
+    .picker_label{
+      margin: 0 12px 0 24px;
+      font-weight: bold;
+    }
+  }
+  position: absolute;
+  flex: 1;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  left: 256px;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding-bottom: 24px;
+}

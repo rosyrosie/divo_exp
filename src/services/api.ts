@@ -34,6 +34,7 @@ export const VP_CHART_URL = BASE_URL + 'rank/graph';
 export const KW_SCORE_URL = (corpId: string) => BASE_URL + 'placekeyword/list?id=' + corpId + '&amount=true';
 
 export const SA_RADAR_URL = (corpId: string) => BASE_URL + `corporation/sales/${corpId}/summary`;
+export const SA_DRADAR_URL = (corpId: string, nowStartDate: string | undefined, nowEndDate: string | undefined, prevStartDate: string | undefined, prevEndDate: string | undefined) => BASE_URL + `corporation/sales/${corpId}/summary/detail?nowStartDate=${nowStartDate}&nowEndDate=${nowEndDate}&prevStartDate=${prevStartDate}&prevEndDate=${prevEndDate}`;
 export const SA_COMPARE_URL = (corpId: string, scale: string) => BASE_URL + `corporation/sales/${corpId}/analysis?scale=${scale}`;
 
 export const GET_REG_URL = BASE_URL + 'map/bound/region/subset/rename?id=';
