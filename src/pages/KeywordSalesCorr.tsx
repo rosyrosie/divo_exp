@@ -51,7 +51,7 @@ const KeywordSalesCorr = () => {
       style: {
         fontSize: 16
       }
-    }, 5);
+    }, 1.5);
   }, [dateRange]);
 
   useEffect(() => {
@@ -67,7 +67,10 @@ const KeywordSalesCorr = () => {
   return (
     <div className="content">
       <div className="header">
-        <PresetRange disableDay={false} setDateRange={setDateRange} />
+        <PresetRange 
+          disableDay={dataId?.includes('kw-w') || false} 
+          setDateRange={setDateRange} 
+        />
         <RangePicker 
           disabledDate={disabledDate}
           placeholder={['시작 날짜', '끝 날짜']}

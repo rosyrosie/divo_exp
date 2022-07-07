@@ -23,7 +23,7 @@ const Keyword = () => {
     null,
     'GET',
     [corpId],
-    corpId !== undefined && (dataId !== 'kw-qty-w' || !isDateRangeShort(dateRange))
+    corpId !== undefined
   );
 
   const [ tableData, _, __ ] = useAxios(
@@ -49,7 +49,7 @@ const Keyword = () => {
       style: {
         fontSize: 16
       }
-    }, 5);
+    }, 1.5);
   }, [dateRange]);
 
   useEffect(() => {

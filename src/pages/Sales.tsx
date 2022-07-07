@@ -40,7 +40,7 @@ const Sales = () => {
       style: {
         fontSize: 16
       }
-    }, 5);
+    }, 1.5);
   }, [dateRange]);
 
   return (
