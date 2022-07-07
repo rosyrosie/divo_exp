@@ -5,6 +5,7 @@ import { Button, message, Table, Tag } from "antd";
 import { SortOrder } from "antd/lib/table/interface";
 import { Key, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { saveasCSV } from "@utils/tableUtil";
 
 type kwRankType = {
   keyword: string,
@@ -114,6 +115,29 @@ const ViewPlaceRank = () => {
     }
   ];
 
+  const csvColumns = [
+    {
+      title: '키워드',
+      dataIndex: 'keyword',
+      key: 'keyword',
+    },
+    {
+      title: '최근 1개월 검색량',
+      dataIndex: 'searchAmount',
+      key: 'searchAmount',
+    },
+    {
+      title: 'View 순위',
+      dataIndex: 'view',
+      key: 'view',
+    },
+    {
+      title: 'Place 순위',
+      dataIndex: 'place',
+      key: 'place',
+    }
+  ];
+
   useEffect(() => {
     if(error) message.warning('error', 1.5);
   }, [error]);
@@ -124,9 +148,19 @@ const ViewPlaceRank = () => {
         <div className="header">
         </div>
         <div className="cards">
-          <Button type="primary" disabled={checkedKeys.length === 0} onClick={() => setIsModalVisible(true)}>
-            최근 순위 보기({checkedKeys.length})
-          </Button>
+          <span>
+            <Button type="primary" disabled={checkedKeys.length === 0} onClick={() => setIsModalVisible(true)}>
+              최근 순위 보기({checkedKeys.length})
+            </Button>
+            <Button 
+              style={{
+                marginLeft: 10
+              }}
+              onClick={() => saveasCSV(csvColumns, tableData, `검색 노출도.xlsx`)}
+            >
+              CSV 다운로드
+            </Button>
+          </span>
           <Table 
             columns={columns} 
             dataSource={tableData} 
