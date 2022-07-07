@@ -2,17 +2,29 @@ import { HomeOutlined } from "@ant-design/icons";
 import { dateToStringFormat, disabledDate } from "@utils/dateUtil";
 import { Button, DatePicker, Input, message, Table, Tag, Tree } from "antd";
 import moment, { Moment } from "moment";
-import { KeyboardEventHandler, useState } from "react";
+import { KeyboardEventHandler, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RangeValue } from "rc-picker/lib/interface";
 import PresetRange from "@components/PresetRange";
 import axios from "axios";
-import { AD_CHART_URL, AD_DB_URL, AD_TREE_URL, CK_URL } from "@api";
+import { AD_CHART_URL, AD_DB_URL, AD_TREE_URL, CHECK_USER_URL, CK_URL } from "@api";
 import useAxios from "@useAxios";
 import { compareKeywordColumns, saveasCSV, scrollProps } from "@utils/tableUtil";
 
 const CompareKeyword = () => {
   const navigate = useNavigate();
+
+  const [ sysAuth, _, __] = useAxios(
+    CHECK_USER_URL,
+    null,
+    'GET',
+    []
+  );
+
+  useEffect(() => {
+    if(sysAuth?.isCorp === false) navigate('/');
+  }, [sysAuth]);
+
   const { RangePicker } = DatePicker;
   const [ dateRange, setDateRange ] = useState<RangeValue<Moment>>([moment().subtract(1, 'months').subtract(2, 'days'), moment().subtract(2, 'days')]);
 
