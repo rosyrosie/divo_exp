@@ -1,53 +1,37 @@
 import { HomeOutlined } from "@ant-design/icons";
 import { dateToStringFormat, disabledDate } from "@utils/dateUtil";
-import { Button, DatePicker, Input, message, Tag, Tree } from "antd";
+import { Button, DatePicker, Input, message, Table, Tag, Tree } from "antd";
 import moment, { Moment } from "moment";
 import { KeyboardEventHandler, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RangeValue } from "rc-picker/lib/interface";
 import PresetRange from "@components/PresetRange";
 import axios from "axios";
-import { AD_CHART_URL, AD_DB_URL, AD_TREE_URL } from "@api";
+import { AD_CHART_URL, AD_DB_URL, AD_TREE_URL, CK_URL } from "@api";
 import useAxios from "@useAxios";
-import { applyColors, lineOptions } from "@utils/chartUtil";
-import { Chart } from "react-chartjs-2";
+import { compareKeywordColumns, saveasCSV, scrollProps } from "@utils/tableUtil";
 
-const AreaDatalab = () => {
+const CompareKeyword = () => {
   const navigate = useNavigate();
   const { RangePicker } = DatePicker;
   const [ dateRange, setDateRange ] = useState<RangeValue<Moment>>([moment().subtract(1, 'months').subtract(2, 'days'), moment().subtract(2, 'days')]);
 
-  const [ pivot, setPivot ] = useState('');
   const [ keywordList, setKeywordList ] = useState<string[]>([]);
   const [ newKeyword, setNewKeyword ] = useState('');
   const [ dbLoading, setDBLoading ] = useState(false);
 
   const [ trigger, setTrigger ] = useState(false);
 
-  const [ checkList, cLoading, cError ] = useAxios(
-    AD_TREE_URL,
+  const [ tableData, loading, error ] = useAxios(
+    CK_URL,
     {
-      pivot,
-      keywords: keywordList,
       startDate: dateRange?.[0]?.format(dateToStringFormat),
-      endDate: dateRange?.[1]?.format(dateToStringFormat)
+      endDate: dateRange?.[1]?.format(dateToStringFormat),
+      keywords: keywordList
     },
     'POST',
     [trigger, dateRange],
-    !!pivot && keywordList.length > 0
-  );
-
-  const [ chartData, chLoading, chError ] = useAxios(
-    AD_CHART_URL,
-    {
-      pivot,
-      keywords: keywordList,
-      startDate: dateRange?.[0]?.format(dateToStringFormat),
-      endDate: dateRange?.[1]?.format(dateToStringFormat)
-    },
-    'POST',
-    [trigger, dateRange],
-    !!pivot && keywordList.length > 0
+    keywordList.length > 0
   );
 
   const onKeyPress: KeyboardEventHandler = e => {
@@ -65,7 +49,6 @@ const AreaDatalab = () => {
     setDBLoading(true);
     axios.get(AD_DB_URL+newKeyword, {headers: {"Authorization": `Token ${token}`}}).then(res => setDBLoading(false));
     setNewKeyword('');
-
   }
 
   const onTagClose = (keyword: string) => {
@@ -78,11 +61,13 @@ const AreaDatalab = () => {
   }
 
   return (
-    <div className="area_datalab">
+    <div className="compare_keyword">
       <div className="header">
         <span className="header_title">
           <HomeOutlined onClick={() => navigate('/')} />
-          <span className="menu_title">상권연관성 분석</span>
+          <span className="menu_title">
+            키워드 데이터 비교
+          </span>
         </span>
         <span className="spread">
           <PresetRange 
@@ -100,7 +85,6 @@ const AreaDatalab = () => {
       </div>
       <div className="body">
         <div className="keyword_input">
-          <Input value={pivot} onChange={e => setPivot(e.target.value)} placeholder="기준 키워드 입력" style={{ marginBottom: 12 }} status="error" />
           {keywordList.map(keyword => 
             <Tag
               key={keyword}
@@ -111,25 +95,20 @@ const AreaDatalab = () => {
               {keyword}
             </Tag>
           )}
-          <Input value={newKeyword} onChange={e => setNewKeyword(e.target.value)} placeholder="비교 키워드 추가" onKeyPress={onKeyPress} style={{ marginBottom: 12 }} />
-          <Button type="primary" onClick={onSubmit} disabled={dbLoading || !pivot || keywordList.length === 0}>데이터 조회</Button>
+          <Input value={newKeyword} onChange={e => setNewKeyword(e.target.value)} placeholder="키워드 입력" onKeyPress={onKeyPress} style={{ marginBottom: 12 }} />
+          <Button type="primary" onClick={onSubmit} disabled={dbLoading || keywordList.length === 0}>데이터 조회</Button>
         </div>
         <div className="data">
-          <div className="chart_box">
-            <div className="chart">
-              {chartData && <Chart type="line" options={lineOptions(false, false)} data={applyColors(chartData?.data, false)} />}
+          <div className="table">
+            <Table columns={compareKeywordColumns} dataSource={tableData?.data} bordered size="small" pagination={false} loading={loading} scroll={scrollProps} />
+            <div className="save_csv_box">
+              <Button className="save_csv" onClick={() => saveasCSV(compareKeywordColumns, tableData?.data, `키워드 데이터 비교.xlsx`)}>CSV 다운로드</Button>
             </div>
           </div>
-          <div className="check_box">
-            <Tree
-              treeData={checkList?.data}
-              checkStrictly={true}
-            />
-          </div>
-      </div>
+        </div>
       </div>
     </div>
   );
 }
 
-export default AreaDatalab;
+export default CompareKeyword;

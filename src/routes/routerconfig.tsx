@@ -7,6 +7,7 @@ import HotTrend from "@pages/HotTrend";
 import InterestData from "@pages/InterestData";
 import FranchiseRank from "@pages/FranchiseRank";
 import AreaDatalab from "@pages/AreaDatalab";
+import CompareKeyword from "@pages/CompareKeyword";
 
 export const routes: RouteObject[] = [
   {
@@ -32,6 +33,10 @@ export const routes: RouteObject[] = [
   {
     path: '/area-corr',
     element: <AreaDatalab />
+  },
+  {
+    path: '/compare-kw',
+    element: <CompareKeyword />
   },
   {
     path: '/bid=:corpId',

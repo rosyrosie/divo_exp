@@ -48,6 +48,13 @@ const Home = () => {
           <Card 
             hoverable 
             style={{ width: 240, textAlign: 'center', marginBottom: 12 }}
+            onClick={() => navigate('/compare-kw')}
+          >
+            키워드 데이터 비교
+          </Card>
+          <Card 
+            hoverable 
+            style={{ width: 240, textAlign: 'center', marginBottom: 12 }}
             onClick={() => navigate('/interest-data')}
           >
             외식소비의도 분석

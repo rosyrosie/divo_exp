@@ -49,3 +49,5 @@ export const ID_MODAL_QTY_URL = BASE_URL + 'map/bound/system/amount?area=';
 export const AD_TREE_URL = BASE_URL + 'corpkeywordcomp/keyToKeys/list';
 export const AD_CHART_URL = BASE_URL + 'corpkeywordcomp/keyToKeys/graph';
 export const AD_DB_URL = BASE_URL + 'keyword/radar?keyword=';
+
+export const CK_URL = BASE_URL + 'corpkeywordcomp/every/keyword';
