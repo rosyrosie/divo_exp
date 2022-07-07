@@ -45,6 +45,16 @@ const KeywordSalesCorr = () => {
   );
 
   useEffect(() => {
+    if(!dataId?.includes('kw-w') || !isDateRangeShort(dateRange)) return;
+    message.error({
+      content: '선택 기간이 너무 짧습니다. 요일별 데이터의 기간은 최소 2개월 이상으로 설정해주세요.',
+      style: {
+        fontSize: 16
+      }
+    }, 5);
+  }, [dateRange]);
+
+  useEffect(() => {
     if(dataId?.includes('kw-w')) return;
     if(chartError) message.warning('데이터 부족', 1.5);
   }, [chartError]);

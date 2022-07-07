@@ -43,6 +43,16 @@ const Keyword = () => {
   const options = keywordList ? [...keywordList?.data[0], ...keywordList?.data[1], ...keywordList.data[2], ...keywordList.data[3]] : [];
 
   useEffect(() => {
+    if(!dataId?.includes('-w') || !isDateRangeShort(dateRange)) return;
+    message.error({
+      content: '선택 기간이 너무 짧습니다. 요일별 데이터의 기간은 최소 2개월 이상으로 설정해주세요.',
+      style: {
+        fontSize: 16
+      }
+    }, 5);
+  }, [dateRange]);
+
+  useEffect(() => {
     if(keyword === '') message.info('키워드를 선택해주세요', 2);
   }, [keyword]);
 
