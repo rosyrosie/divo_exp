@@ -1,15 +1,15 @@
 import { HomeOutlined } from "@ant-design/icons";
 import { dateToStringFormat, disabledDate } from "@utils/dateUtil";
-import { Button, DatePicker, Input, message, Table, Tag, Tree } from "antd";
+import { Button, DatePicker, Input, message, Table, Tag } from "antd";
 import moment, { Moment } from "moment";
 import { KeyboardEventHandler, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RangeValue } from "rc-picker/lib/interface";
 import PresetRange from "@components/PresetRange";
 import axios from "axios";
-import { AD_CHART_URL, AD_DB_URL, AD_TREE_URL, CHECK_USER_URL, CK_URL } from "@api";
+import { AD_DB_URL,CHECK_USER_URL, CK_URL } from "@api";
 import useAxios from "@useAxios";
-import { compareKeywordColumns, saveasCSV, scrollProps } from "@utils/tableUtil";
+import { compareKeywordColumns, saveasCSV } from "@utils/tableUtil";
 
 const CompareKeyword = () => {
   const navigate = useNavigate();
@@ -42,8 +42,7 @@ const CompareKeyword = () => {
       keywords: keywordList
     },
     'POST',
-    [trigger, dateRange],
-    keywordList.length > 0
+    [trigger, dateRange]
   );
 
   const onKeyPress: KeyboardEventHandler = e => {
@@ -112,7 +111,7 @@ const CompareKeyword = () => {
         </div>
         <div className="data">
           <div className="table">
-            <Table columns={compareKeywordColumns} dataSource={tableData?.data} bordered size="small" pagination={false} loading={loading} scroll={scrollProps} />
+            <Table columns={compareKeywordColumns} dataSource={tableData?.data} bordered size="small" pagination={false} loading={keywordList.length && loading} />
             <div className="save_csv_box">
               <Button className="save_csv" onClick={() => saveasCSV(compareKeywordColumns, tableData?.data, `키워드 데이터 비교.xlsx`)}>CSV 다운로드</Button>
             </div>
